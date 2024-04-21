@@ -436,7 +436,7 @@ function main() {
   GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(gun.faces), GL.STATIC_DRAW);
   /*========================= WEAPON ========================= */
 
-  //matrix
+  /*========================= MATRIX ========================= */
   var PROJECTION_MATRIX = LIBS.get_projection(40, CANVAS.width / CANVAS.height, 1, 100);
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
@@ -449,11 +449,11 @@ function main() {
   GL.enable(GL.DEPTH_TEST);
   GL.depthFunc(GL.LEQUAL);
 
-  var time_prev = 0;
   var animate = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
-    time_prev = time;
+
+    time *= 0.009;
 
     if (!drag) {
       dx *= friction;
@@ -462,6 +462,8 @@ function main() {
       theta += (dx * 2 * Math.PI) / CANVAS.width;
       alpha += (dy * 2 * Math.PI) / CANVAS.height;
     }
+
+    /*========================= TIME ========================= */
 
     MODEL_MATRIX = LIBS.get_I4();
     LIBS.rotateY(MODEL_MATRIX, theta);
@@ -626,7 +628,7 @@ function main() {
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData2.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, cubeData3.faces.length, GL.UNSIGNED_SHORT, 0);
 
     GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX11);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -673,7 +675,13 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, cubeData6.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // Legs
+    // Right leg
+    var MODEL_MATRIX_RIGHT_LEG = LIBS.get_I4();
+    var rightLegMovement = Math.abs(Math.sin((time * 2 * Math.PI) / 15)); // Vertical movement for 15 seconds
+    var rightLegOffset = rightLegMovement * 0.5; // Adjust this value to control the range of motion
+    LIBS.translateY(MODEL_MATRIX_RIGHT_LEG, rightLegOffset); // Apply vertical translation to right leg
+    MODEL_MATRIX_RIGHT_LEG = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_RIGHT_LEG);
+
     GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX7);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -682,11 +690,16 @@ function main() {
 
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES7);
 
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_RIGHT_LEG);
 
     GL.drawElements(GL.TRIANGLES, cubeData7.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Left leg
+    var MODEL_MATRIX_LEFT_LEG = LIBS.get_I4();
+    var leftLegMovement = Math.abs(Math.sin((time * 2 * Math.PI) / 15)); // Vertical movement for 15 seconds
+    var leftLegOffset = leftLegMovement * 0.5; // Adjust this value to control the range of motion
+    LIBS.translateY(MODEL_MATRIX_LEFT_LEG, leftLegOffset); // Apply vertical translation to left leg
+    MODEL_MATRIX_LEFT_LEG = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_LEFT_LEG);
 
     GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX8);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -696,11 +709,14 @@ function main() {
 
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES8);
 
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_LEFT_LEG);
 
     GL.drawElements(GL.TRIANGLES, cubeData8.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Apply the same transformation to the foot cubes
+    var MODEL_MATRIX_FOOT = LIBS.get_I4();
+    LIBS.translateY(MODEL_MATRIX_FOOT, leftLegOffset); // Assuming left leg movement is used for the foot as well
+    MODEL_MATRIX_FOOT = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_FOOT);
 
     // Foot
     GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX9);
@@ -711,9 +727,7 @@ function main() {
 
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES9);
 
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_FOOT); // Use the transformed matrix for the foot
 
     GL.drawElements(GL.TRIANGLES, cubeData9.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -725,9 +739,7 @@ function main() {
 
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES10);
 
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_FOOT); // Use the transformed matrix for the foot
 
     GL.drawElements(GL.TRIANGLES, cubeData10.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= Legs ========================= */
