@@ -67,8 +67,8 @@ function main() {
     x_prev = e.pageX;
     y_prev = e.pageY;
 
-    theta += (dx * 2 * Math.PI) / CANVAS.width;
-    alpha += (dy * 2 * Math.PI) / CANVAS.height;
+    theta += (-dy * 2 * Math.PI) / CANVAS.height; // Update theta based on vertical movement (dy)
+    alpha += (dx * 2 * Math.PI) / CANVAS.width; // Update alpha based on horizontal movement (dx)
   };
 
   CANVAS.addEventListener("mousedown", mouseDown, false);
@@ -149,48 +149,90 @@ function main() {
   GL.enableVertexAttribArray(_position);
   GL.useProgram(SHADER_PROGRAM);
 
-  // 
-  // Kepala
-  //
-  var halfSphereData = generateHalfSphere(0, 0, 2.5, 1.5, 30, [0, 1, 1]);
+  // ========================== Kepala ==================================
+  //bagian dalam
+  var kepala1 = generateHalfSphere(0, 0, 2.5, 1.5, 30, [0, 0.45, 0.64]);
 
   // Create buffers
-  var halfSphere_vertex = createVertexBuffer(GL, halfSphereData.vertices);
-  var halfSphere_colors = createColorBuffer(GL, halfSphereData.colors);
-  var halfSphere_faces = createFacesBuffer(GL, halfSphereData.faces);
+  var kepala1_vertex = createVertexBuffer(GL, kepala1.vertices);
+  var kepala1_colors = createColorBuffer(GL, kepala1.colors);
+  var kepala1_faces = createFacesBuffer(GL, kepala1.faces);
+
+  //bagian pola
+  var kepala2 = generateHalfSphere(0, 0, 2.9, 1.53, 25, [0.11, 0.88, 0.94]);
+
+  // Create buffers
+  var kepala2_vertex = createVertexBuffer(GL, kepala2.vertices);
+  var kepala2_colors = createColorBuffer(GL, kepala2.colors);
+  var kepala2_faces = createFacesBuffer(GL, kepala2.faces);
+  
   
 
-  //
-  // Badan
-  //
-  var tubeData = generateSolidTube(0, 0, 1, 1.5, 1, 3, 30, [0, 1, 1]);
+  // ========================== Badan ==================================
+  // bagian luar
+  var badan1 = generateSolidTube(0, 0, 1, 1.5, 1, 3, 30, [0, 0.45, 0.64]);
 
   // Create buffers for the first octagon
-  var SOLID_TUBES_VERTEX = createVertexBuffer(GL, tubeData.vertices);
-  var SOLID_TUBES_COLORS = createColorBuffer(GL, tubeData.colors);
-  var SOLID_TUBES_FACES = createFacesBuffer(GL, tubeData.faces);
+  var badan1_VERTEX = createVertexBuffer(GL, badan1.vertices);
+  var badan1_COLORS = createColorBuffer(GL, badan1.colors);
+  var badan1_FACES = createFacesBuffer(GL, badan1.faces);
+
+  // bagian dalam
+  var badan2 = generateSolidTube(0, 0, 1, 1, 1.6, 3.2, 7, [0.11, 0.88, 0.94]);
+
+  // Create buffers for the first octagon
+  var badan2_VERTEX = createVertexBuffer(GL, badan2.vertices);
+  var badan2_COLORS = createColorBuffer(GL, badan2.colors);
+  var badan2_FACES = createFacesBuffer(GL, badan2.faces);
 
 
-  //
-  //Tube backpack 
-  //
-  var tubeData2 = generateSolidTube(2.2, 0, 1, 0.65, 0.4, 3, 30, [0.4, 0.4, 0.4]);
+  // ========================== Tube Backpack ==================================
 
+  // top backpack
+  var topBackpack = generateHalfSphere(2.4, 0, 2.75, 0.65, 30, [0.44, 0.44, 0.52]);
   // Create buffers
-  var SOLID_TUBES2_VERTEX = createVertexBuffer(GL, tubeData2.vertices);
-  var SOLID_TUBES2_COLORS = createColorBuffer(GL, tubeData2.colors);
-  var SOLID_TUBES2_FACES = createFacesBuffer(GL, tubeData2.faces);
+  var topBackpack_vertex = createVertexBuffer(GL, topBackpack.vertices);
+  var topBackpack_colors = createColorBuffer(GL, topBackpack.colors);
+  var topBackpack_faces = createFacesBuffer(GL, topBackpack.faces);
+
+  // body backpack
+  var backpack = generateSolidTube(2.4, 0, 1, 0.65, 0.43, 3.5, 30, [0.24, 0.25, 0.29]);
+  // Create buffers
+  var backpack_vertex = createVertexBuffer(GL, backpack.vertices);
+  var backpack_colors = createColorBuffer(GL, backpack.colors);
+  var backpack_faces = createFacesBuffer(GL, backpack.faces);
 
 
+  // backpack aksesoris 2
+  var backpack2 = generateSolidTube(2.4, 0, 2.2, 0.67, 0.43, 0.35, 30, [0.09, 1, 0.99]);
+  // Create buffers
+  var backpack2_vertex = createVertexBuffer(GL, backpack2.vertices);
+  var backpack2_colors = createColorBuffer(GL, backpack2.colors);
+  var backpack2_faces = createFacesBuffer(GL, backpack2.faces);
 
-  //
-  // Mata
-  //
+  // backpack aksesoris 3
+  var backpack3 = generateSolidTube(2.4, 0, 1.85, 0.67, 0.43, 0.35, 30, [0.17, 0.84, 0.83]);
+  // Create buffers
+  var backpack3_vertex = createVertexBuffer(GL, backpack3.vertices);
+  var backpack3_colors = createColorBuffer(GL, backpack3.colors);
+  var backpack3_faces = createFacesBuffer(GL, backpack3.faces);
 
-  //
-  // UFO
-  //
+  // backpack aksesoris 4
+  var backpack4 = generateSolidTube(2.4, 0, 1, 0.67, 0.43, 0.35, 30, [0.17, 0.84, 0.83]);
+  // Create buffers
+  var backpack4_vertex = createVertexBuffer(GL, backpack4.vertices);
+  var backpack4_colors = createColorBuffer(GL, backpack4.colors);
+  var backpack4_faces = createFacesBuffer(GL, backpack4.faces);
 
+  // bottom backpack
+  var bottomBackpack = generateHalfSphere(2.4, 0, -0.65, -0.65, 30, [0.44, 0.44, 0.52]);
+  // Create buffers
+  var bottomBackpack_vertex = createVertexBuffer(GL, bottomBackpack.vertices);
+  var bottomBackpack_colors = createColorBuffer(GL, bottomBackpack.colors);
+  var bottomBackpack_faces = createFacesBuffer(GL, bottomBackpack.faces);
+  
+
+  // ========================== UFO ==================================
   // UFO1
   var ufo1 = generateUfoOutline(2.5, 2.5, 1.2, 40);
 
@@ -207,6 +249,14 @@ function main() {
   var ufo2_colors = createColorBuffer(GL, ufo2.colors);
   var ufo2_faces = createFacesBuffer(GL, ufo2.faces);
 
+  // UFO3
+  // bottom UFO
+  var botUFO = generateHalfSphere(0, 0, 0.4, -2.4, 30, [0.24, 0.25, 0.29]);
+
+  // Create buffers
+  var botUFO_vertex = createVertexBuffer(GL, botUFO.vertices);
+  var botUFO_colors = createColorBuffer(GL, botUFO.colors);
+  var botUFO_faces = createFacesBuffer(GL, botUFO.faces);
 
   //matrix
   var PROJECTION_MATRIX = LIBS.get_projection(
@@ -220,7 +270,7 @@ function main() {
 
   LIBS.rotateY(VIEW_MATRIX, Math.PI / 2);
   LIBS.rotateX(VIEW_MATRIX, Math.PI / 2);
-  LIBS.translateZ(VIEW_MATRIX, -20);
+  LIBS.translateZ(VIEW_MATRIX, -30);
 
   /*========================= DRAWING ========================= */
   GL.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -248,14 +298,14 @@ function main() {
     LIBS.rotateY(MODEL_MATRIX, theta);
     LIBS.rotateX(MODEL_MATRIX, alpha);
 
-    //gambar ellip kepala
-    GL.bindBuffer(GL.ARRAY_BUFFER, halfSphere_vertex);
+    // kepala1
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, halfSphere_colors);
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_colors);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, halfSphere_faces);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala1_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
@@ -263,19 +313,39 @@ function main() {
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
-      halfSphereData.faces.length,
+      kepala1.faces.length,
       GL.UNSIGNED_SHORT,
       0
     );
 
-    // Draw tuba untuk badan
-    GL.bindBuffer(GL.ARRAY_BUFFER, SOLID_TUBES_VERTEX);
+    // kepala2
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, SOLID_TUBES_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_colors);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SOLID_TUBES_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLES,
+      kepala2.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // badan 1
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan1_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
@@ -283,7 +353,27 @@ function main() {
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
-      tubeData.faces.length,
+      badan1.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // badan 2
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan2_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      badan2.faces.length,
       GL.UNSIGNED_SHORT,
       0
     );
@@ -323,14 +413,37 @@ function main() {
       0
     );
 
-    // Draw tuba untuk backpack
-    GL.bindBuffer(GL.ARRAY_BUFFER, SOLID_TUBES2_VERTEX);
+    //Bot UFO
+
+     GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
+     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+ 
+     GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
+     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+ 
+     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
+ 
+     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+     GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+ 
+     GL.drawElements(
+       GL.TRIANGLE_STRIP,
+       botUFO.faces.length,
+       GL.UNSIGNED_SHORT,
+       0
+     );
+
+     
+
+    // Draw bagian top backpack
+    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, SOLID_TUBES2_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_colors);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SOLID_TUBES2_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, topBackpack_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
@@ -338,7 +451,108 @@ function main() {
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
-      tubeData2.faces.length,
+      topBackpack.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+
+    // Draw backpack (main)
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      backpack.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Draw aksesoris backpack 2
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      backpack2.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Draw aksesoris backpack 3
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack3_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      backpack3.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Draw aksesoris backpack 4
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack4_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      backpack4.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Draw bagian bottom backpack
+    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, bottomBackpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      bottomBackpack.faces.length,
       GL.UNSIGNED_SHORT,
       0
     );

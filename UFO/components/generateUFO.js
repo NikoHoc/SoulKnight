@@ -14,7 +14,7 @@ export function generateUfoOutline(a, b, c, segments) {
   
         vertices.push(xCoord, yCoord, zCoord);
   
-        colors.push(0.6, 0.6, 0.6);
+        colors.push(0.44, 0.44, 0.52);
       }
     }
   
@@ -48,7 +48,7 @@ export function generateUfo(a, b, c, segments) {
   
         vertices.push(xCoord, yCoord, zCoord);
   
-        colors.push(0.3, 0.3, 0.3);
+        colors.push(1, 0.85, 0.21);
       }
     }
   
