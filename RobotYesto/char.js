@@ -45,10 +45,10 @@ function main() {
     alpha += (dy * 2 * Math.PI) / CANVAS.height;
   };
 
-  CANVAS.addEventListener("mousedown", mouseDown, false);
-  CANVAS.addEventListener("mouseup", mouseUP, false);
-  CANVAS.addEventListener("mouseout", mouseOut, false);
-  CANVAS.addEventListener("mousemove", mouseMove, false);
+  // CANVAS.addEventListener("mousedown", mouseDown, false);
+  // CANVAS.addEventListener("mouseup", mouseUP, false);
+  // CANVAS.addEventListener("mouseout", mouseOut, false);
+  // CANVAS.addEventListener("mousemove", mouseMove, false);
 
   var GL;
   try {
@@ -759,8 +759,13 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // eye of gun
-    // Draw sphere
+    // Eye of gun
+    var MODEL_MATRIX_GUN_EYE = LIBS.get_I4();
+    var gunEyeMovement = Math.abs(Math.sin(((time - 0.008) * 2 * Math.PI) / 5)); // Sinusoidal motion for 5 seconds
+    var gunEyeOffset = gunEyeMovement * 5; // Adjust this value to control the range of motion
+    LIBS.translateZ(MODEL_MATRIX_GUN_EYE, gunEyeOffset); // Apply sinusoidal translation to gun eye along Z-axis
+    MODEL_MATRIX_GUN_EYE = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_GUN_EYE);
+
     GL.bindBuffer(GL.ARRAY_BUFFER, gunVertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -771,7 +776,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_GUN_EYE);
 
     GL.drawElements(GL.TRIANGLES, gun.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= WEAPONS ========================= */
