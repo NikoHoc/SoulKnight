@@ -32,7 +32,7 @@ export function generateUfoOutline(a, b, c, segments) {
     return { vertices: vertices, colors: colors, faces: faces };
   }
 
-export function generateUfo(a, b, c, segments) {
+export function generateUfoYellow(a, b, c, segments) {
     var vertices = [];
     var colors = [];
   
