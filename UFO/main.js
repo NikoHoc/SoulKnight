@@ -39,7 +39,7 @@ function main() {
   var dy = 0;
 
   var alpha = 0;
-  var theta = Math.PI / 2;
+  var theta = 0;
 
   var friction = 0.98;
 
@@ -68,8 +68,8 @@ function main() {
     x_prev = e.pageX;
     y_prev = e.pageY;
 
-    theta += (-dy * 2 * Math.PI) / CANVAS.height; // Update theta based on vertical movement (dy)
-    alpha += (dx * 2 * Math.PI) / CANVAS.width; // Update alpha based on horizontal movement (dx)
+    theta += (dx * 2 * Math.PI) / CANVAS.height; // Update theta based on vertical movement (dy)
+    alpha += (dy * 2 * Math.PI) / CANVAS.width; // Update alpha based on horizontal movement (dx)
   };
 
   CANVAS.addEventListener("mousedown", mouseDown, false);
@@ -152,34 +152,35 @@ function main() {
 
   // ========================== Kepala ==================================
   //bagian dalam
-  var kepala1 = generateHalfSphere(0, 0, 2.5, 1.5, 30, [0, 0.45, 0.64]);
+  //0, 2, 0, 1.5, 30, [0, 0.45, 0.64]
+  var kepala1 = generateHalfSphere(0, 2, 0, 1.5, 30, [0, 0.45, 0.64]);
 
   // Create buffers
   var kepala1_vertex = createVertexBuffer(GL, kepala1.vertices);
   var kepala1_colors = createColorBuffer(GL, kepala1.colors);
   var kepala1_faces = createFacesBuffer(GL, kepala1.faces);
 
+  //0, 2.2, 0, 1.53, 30, [0.11, 0.88, 0.94]
   //bagian pola
-  var kepala2 = generateHalfSphere(0, 0, 2.9, 1.53, 25, [0.11, 0.88, 0.94]);
+  var kepala2 = generateHalfSphere(0, 2.1, 0, 1.53, 30, [0.11, 0.88, 0.94]);
 
   // Create buffers
   var kepala2_vertex = createVertexBuffer(GL, kepala2.vertices);
   var kepala2_colors = createColorBuffer(GL, kepala2.colors);
   var kepala2_faces = createFacesBuffer(GL, kepala2.faces);
   
-  
 
   // ========================== Badan ==================================
-  // bagian luar
-  var badan1 = generateSolidTube(0, 0, 1, 1.5, 1, 3, 30, [0, 0.45, 0.64]);
+  // bagian dalam
+  var badan1 = generateSolidTube(0, 0, 0, 1.5, 1.5, 4, 30, [0, 0.45, 0.64]);
 
   // Create buffers for the first octagon
   var badan1_VERTEX = createVertexBuffer(GL, badan1.vertices);
   var badan1_COLORS = createColorBuffer(GL, badan1.colors);
   var badan1_FACES = createFacesBuffer(GL, badan1.faces);
 
-  // bagian dalam
-  var badan2 = generateSolidTube(0, 0, 1, 1, 1.6, 3.2, 7, [0.11, 0.88, 0.94]);
+  // bagian luar
+  var badan2 = generateSolidTube(0, 0, 0,  1.505, 1.505, 4, 10, [0.11, 0.88, 0.94]);
 
   // Create buffers for the first octagon
   var badan2_VERTEX = createVertexBuffer(GL, badan2.vertices);
@@ -190,42 +191,42 @@ function main() {
   // ========================== Tube Backpack ==================================
 
   // top backpack
-  var topBackpack = generateHalfSphere(2.4, 0, 2.75, 0.65, 30, [0.44, 0.44, 0.52]);
+  var topBackpack = generateHalfSphere(0, 1.9, -2.8, 0.65, 30, [0.44, 0.44, 0.52]);
   // Create buffers
   var topBackpack_vertex = createVertexBuffer(GL, topBackpack.vertices);
   var topBackpack_colors = createColorBuffer(GL, topBackpack.colors);
   var topBackpack_faces = createFacesBuffer(GL, topBackpack.faces);
 
   // body backpack
-  var backpack = generateSolidTube(2.4, 0, 1, 0.65, 0.43, 3.5, 30, [0.24, 0.25, 0.29]);
+  var backpack = generateSolidTube(0, 0.16, -2.8, 0.65, 0.65, 3.5, 30, [0.24, 0.25, 0.29]);
   // Create buffers
   var backpack_vertex = createVertexBuffer(GL, backpack.vertices);
   var backpack_colors = createColorBuffer(GL, backpack.colors);
   var backpack_faces = createFacesBuffer(GL, backpack.faces);
 
   // backpack aksesoris 2
-  var backpack2 = generateSolidTube(2.4, 0, 2.2, 0.67, 0.43, 0.35, 30, [0.09, 1, 0.99]);
+  var backpack2 = generateSolidTube(0, 1.46, -2.8, 0.67, 0.67, 0.35, 30, [0.09, 1, 0.99]);
   // Create buffers
   var backpack2_vertex = createVertexBuffer(GL, backpack2.vertices);
   var backpack2_colors = createColorBuffer(GL, backpack2.colors);
   var backpack2_faces = createFacesBuffer(GL, backpack2.faces);
 
   // backpack aksesoris 3
-  var backpack3 = generateSolidTube(2.4, 0, 1.85, 0.67, 0.43, 0.35, 30, [0.17, 0.84, 0.83]);
+  var backpack3 = generateSolidTube(0, 1.1, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
   // Create buffers
   var backpack3_vertex = createVertexBuffer(GL, backpack3.vertices);
   var backpack3_colors = createColorBuffer(GL, backpack3.colors);
   var backpack3_faces = createFacesBuffer(GL, backpack3.faces);
 
   // backpack aksesoris 4
-  var backpack4 = generateSolidTube(2.4, 0, 1, 0.67, 0.43, 0.35, 30, [0.17, 0.84, 0.83]);
+  var backpack4 = generateSolidTube(0, 0.16, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
   // Create buffers
   var backpack4_vertex = createVertexBuffer(GL, backpack4.vertices);
   var backpack4_colors = createColorBuffer(GL, backpack4.colors);
   var backpack4_faces = createFacesBuffer(GL, backpack4.faces);
 
   // bottom backpack
-  var bottomBackpack = generateHalfSphere(2.4, 0, -0.65, -0.65, 30, [0.44, 0.44, 0.52]);
+  var bottomBackpack = generateHalfSphere(0, -1.58, -2.8, -0.65, 30, [0.44, 0.44, 0.52]);
   // Create buffers
   var bottomBackpack_vertex = createVertexBuffer(GL, bottomBackpack.vertices);
   var bottomBackpack_colors = createColorBuffer(GL, bottomBackpack.colors);
@@ -234,7 +235,7 @@ function main() {
 
   // ========================== UFO ==================================
   // UFO dark grey
-  var ufo1 = generateUfoOutline(2.5, 2.5, 1.2, 40);
+  var ufo1 = generateUfoOutline(2.5, 2.5, 1.2, 30, 0, -1.4, 0);
 
   // Create buffers
   var ufo1_vertex = createVertexBuffer(GL, ufo1.vertices);
@@ -242,7 +243,7 @@ function main() {
   var ufo1_faces = createFacesBuffer(GL, ufo1.faces);
 
   // UFO Yellow
-  var ufo2 = generateUfoYellow(2.2, 2.2, 1.5, 40);
+  var ufo2 = generateUfoYellow(2.2, 2.2, 1.5, 40,  0, -1.4, 0);
 
   // Create buffers
   var ufo2_vertex = createVertexBuffer(GL, ufo2.vertices);
@@ -251,7 +252,7 @@ function main() {
 
   // UFO3
   // bottom UFO
-  var botUFO = generateHalfSphere(0, 0, 0.4, -2.4, 30, [0.24, 0.25, 0.29]);
+  var botUFO = generateHalfSphere(0, -1, 0, -2.4, 30, [0.24, 0.25, 0.29]);
 
   // Create buffers
   var botUFO_vertex = createVertexBuffer(GL, botUFO.vertices);
@@ -260,7 +261,7 @@ function main() {
 
 
   // ========================== Weapon ==================================
-  var leftWeapon = generateWeapon(-2.8, -4.3, 1.3, 0.2, 0, 4, 5, [0, 0, 0]);
+  var leftWeapon = generateWeapon(-2.8, -2, 1.3, 0.2, 0, 4, 5, [0, 0, 0]);
   // Create buffers
   var leftWeapon_vertex = createVertexBuffer(GL, leftWeapon.vertices);
   var leftWeapon_colors = createColorBuffer(GL, leftWeapon.colors);
@@ -283,8 +284,8 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  LIBS.rotateY(VIEW_MATRIX, Math.PI / 2);
-  LIBS.rotateX(VIEW_MATRIX, Math.PI / 2);
+  // LIBS.rotateY(VIEW_MATRIX, Math.PI / 2);
+  // LIBS.rotateX(VIEW_MATRIX, Math.PI / 2);
   LIBS.translateZ(VIEW_MATRIX, -30);
 
   /*========================= DRAWING ========================= */
@@ -429,7 +430,6 @@ function main() {
     );
 
     //Bot UFO
-
      GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
  

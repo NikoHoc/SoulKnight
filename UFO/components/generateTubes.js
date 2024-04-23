@@ -3,24 +3,25 @@ export function generateSolidTube(x, y, z, outerRadius, innerRadius, height, seg
     var colors = [];
 
     var angleIncrement = (2 * Math.PI) / segments;
+    var rotateAngle = Math.PI / 2;
 
     for (var i = 0; i <= segments; i++) {
         var angle = i * angleIncrement;
-        var cosAngle = Math.cos(angle);
-        var sinAngle = Math.sin(angle);
+        var cosAngle = Math.cos(angle + rotateAngle);
+        var sinAngle = Math.sin(angle + rotateAngle);
 
         var outerX = x + outerRadius * cosAngle;
-        var outerY = y + outerRadius * sinAngle;
+        var outerZ = z + outerRadius * sinAngle;
         var innerX = x + innerRadius * cosAngle;
-        var innerY = y + innerRadius * sinAngle;
+        var innerZ = z + innerRadius * sinAngle;
 
         // Top face vertices
-        vertices.push(outerX, outerY, z + height / 2);
-        vertices.push(innerX, innerY, z + height / 2);
+        vertices.push(outerX, y - height / 2, outerZ);
+        vertices.push(innerX, y - height / 2, innerZ);
 
         // Bottom face vertices
-        vertices.push(innerX, innerY, z - height / 2);
-        vertices.push(outerX, outerY, z - height / 2);
+        vertices.push(innerX, y + height / 2, outerZ);
+        vertices.push(outerX, y + height / 2, innerZ);
 
         // Colors for each vertex
         colors = colors.concat(color, color, color, color);
@@ -74,10 +75,10 @@ export function generateWeapon(x, y, z, outerRadius, innerRadius, height, segmen
 
     var angleIncrement = (2 * Math.PI) / segments;
 
-    // Rotate angle by 90 degrees around the x-axis
-    var rotateAngle = Math.PI / 2;
+    // Rotate angle by -90 degrees around the x-axis to make the drawing face the opposite direction
+    var rotateAngle = -Math.PI / 2;
 
-    for (var i = 0; i <= segments; i++) {
+    for (var i = segments; i >= 0; i--) {
         var angle = i * angleIncrement;
         var cosAngle = Math.cos(angle);
         var sinAngle = Math.sin(angle);
@@ -87,7 +88,7 @@ export function generateWeapon(x, y, z, outerRadius, innerRadius, height, segmen
         var innerX = x + innerRadius * cosAngle;
         var innerY = y + innerRadius * sinAngle; // Adjust y-coordinate to apply rotation
 
-        // Rotate coordinates by 90 degrees around the x-axis
+        // Rotate coordinates by -90 degrees around the x-axis
         var rotatedOuterZ = z + height / 2;
         var rotatedInnerZ = z - height / 2;
 
