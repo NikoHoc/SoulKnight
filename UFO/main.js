@@ -260,13 +260,13 @@ function main() {
 
 
   // ========================== Weapon ==================================
-  var leftWeapon = generateWeapon(-2.8, -2, 1.3, 0.2, 0, 4, 5, [0, 0, 0]);
+  var leftWeapon = generateWeapon(-2.65, -1.5, 1, 0.2, 0, 4, 5, [0, 0, 0]);
   // Create buffers
   var leftWeapon_vertex = createVertexBuffer(GL, leftWeapon.vertices);
   var leftWeapon_colors = createColorBuffer(GL, leftWeapon.colors);
   var leftWeapon_faces = createFacesBuffer(GL, leftWeapon.faces);
 
-  var rightWeapon = generateWeapon(-2.8, -4.3, 1.3, 0.2, 0, 4, 5, [0, 0, 0]);
+  var rightWeapon = generateWeapon(2.65, -1.5, 1, 0.2, 0, 4, 5, [0, 0, 0]);
   // Create buffers
   var rightWeapon_vertex = createVertexBuffer(GL, rightWeapon.vertices);
   var rightWeapon_colors = createColorBuffer(GL, rightWeapon.colors);
@@ -586,6 +586,26 @@ function main() {
     GL.drawElements(
       GL.TRIANGLE_STRIP,
       leftWeapon.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Gambar RightWeapon
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightWeapon_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      rightWeapon.faces.length,
       GL.UNSIGNED_SHORT,
       0
     );
