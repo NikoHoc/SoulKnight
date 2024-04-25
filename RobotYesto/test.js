@@ -248,6 +248,40 @@ function main() {
   GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(TELAPAK_LEFT.faces), GL.STATIC_DRAW);
   /*========================= Legs ========================= */
 
+  /*========================= WEAPON ========================= */
+  // x, y, z, outerRadius, innerRadius, height, segments, color
+  var tabung = generateTabung(-2.8, -4.3, 1.3, 0.5, 1, 5, 8, [90 / 256, 130 / 256, 143 / 256]);
+
+  var tabungVertex = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, tabungVertex);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(tabung.vertices), GL.STATIC_DRAW);
+
+  var tabungColors = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, tabungColors);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(tabung.colors), GL.STATIC_DRAW);
+
+  var tabungFaces = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, tabungFaces);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabung.faces), GL.STATIC_DRAW);
+
+  // eyes of gun
+  // x, y, z, radius, segments
+  var gun = generateSphere(-2.8, -4.3, 3.7, 0.7, 16);
+
+  // Create buffers for the sphere
+  var gunVertex = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, gunVertex);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(gun.vertices), GL.STATIC_DRAW);
+
+  var gunColors = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, gunColors);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(gun.colors), GL.STATIC_DRAW);
+
+  var gunFaces = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, gunFaces);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(gun.faces), GL.STATIC_DRAW);
+  /*========================= WEAPON ========================= */
+
   /*========================= MATRIX ========================= */
   var PROJECTION_MATRIX = LIBS.get_projection(40, CANVAS.width / CANVAS.height, 1, 100);
   var VIEW_MATRIX = LIBS.get_I4();
@@ -262,6 +296,8 @@ function main() {
   // Kaki kanan
   var KAKI_KIRI_MATRIX = LIBS.get_I4();
 
+  // gun eye
+  var GUN_BULLET_MATRIX = LIBS.get_I4();
 
   LIBS.translateZ(VIEW_MATRIX, -15);
 
@@ -341,12 +377,31 @@ function main() {
       KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
     }
 
+    var bulletTime = 0; 
+    var bulletReverse = false; 
+
+    if (time < 10) {
+      if (bulletTime <= -10) {
+        bulletReverse = true;
+      } else if (bulletTime >= 10) {
+        bulletReverse = false;
+      }
+
+      if (bulletReverse) {
+        bulletTime += deltaTime;
+      } else {
+        bulletTime -= deltaTime;
+      }
+    }
+    
+    var bulletDistance = Math.sin(bulletTime * 0.05) * -10;
+    
+    GUN_BULLET_MATRIX = LIBS.get_I4();
+    LIBS.translateZ(GUN_BULLET_MATRIX, bulletDistance);
+
     MODEL_MATRIX = LIBS.get_I4();
 
     /*========================= ANIMASI ========================= */
-    // LIBS.rotateY(MODEL_MATRIX, theta);
-    // LIBS.rotateX(MODEL_MATRIX, alpha);
-
     // BADAN
     LIBS.rotateY(BADAN_MATRIX, theta);
     LIBS.rotateX(BADAN_MATRIX, alpha);
@@ -360,6 +415,10 @@ function main() {
     LIBS.rotateX(KAKI_KIRI_MATRIX, KF_KakiKiri);
     LIBS.rotateY(KAKI_KIRI_MATRIX, theta);
     LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
+
+    // GUN BULLET
+    LIBS.rotateY(GUN_BULLET_MATRIX, theta);
+    LIBS.rotateX(GUN_BULLET_MATRIX, alpha);
 
     /*========================= BODY ========================= */
     // Draw cube
@@ -480,6 +539,37 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, TELAPAK_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= Legs ========================= */
+
+    /*========================= WEAPONS ========================= */
+    GL.bindBuffer(GL.ARRAY_BUFFER, tabungVertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, tabungColors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, tabungFaces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Eye of gun
+    GL.bindBuffer(GL.ARRAY_BUFFER, gunVertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, gunColors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, gunFaces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, GUN_BULLET_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, gun.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= WEAPONS ========================= */
 
     GL.flush();
 
