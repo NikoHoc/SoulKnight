@@ -61,26 +61,26 @@ function main() {
 
   //shaders
   var shader_vertex_source = `
-                  attribute vec3 position;
-                  attribute vec3 color;
-              
-                  uniform mat4 PMatrix;
-                  uniform mat4 VMatrix;
-                  uniform mat4 MMatrix;
-                  
-                  varying vec3 vColor;
-                  void main(void) {
-                  gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
-                  vColor = color;
-                  }`;
+          attribute vec3 position;
+          attribute vec3 color;
+      
+          uniform mat4 PMatrix;
+          uniform mat4 VMatrix;
+          uniform mat4 MMatrix;
+        
+          varying vec3 vColor;
+          void main(void) {
+          gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
+          vColor = color;
+          }`;
   var shader_fragment_source = `
-                  precision mediump float;
-                  varying vec3 vColor;
-                  // uniform vec3 color;
-                  void main(void) {
-                  gl_FragColor = vec4(vColor, 1.);
-                  
-                  }`;
+          precision mediump float;
+          varying vec3 vColor;
+          // uniform vec3 color;
+          void main(void) {
+          gl_FragColor = vec4(vColor, 1.);
+        
+          }`;
   var compile_shader = function (source, type, typeString) {
     var shader = GL.createShader(type);
     GL.shaderSource(shader, source);
@@ -115,121 +115,137 @@ function main() {
 
   /*========================= BODY ========================= */
   // x, y, z, width, height, depth, color
-  var cubeData = generateCube(0, -3.27, 0, 3.95, 3.5, 2, [100 / 256, 140 / 256, 139 / 256]);
+  var MAIN_BODY = generateCube(0, -3.27, 0, 3.95, 3.5, 2, [100 / 256, 140 / 256, 139 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData.vertices), GL.STATIC_DRAW);
+  var MAIN_BODY_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(MAIN_BODY.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData.colors), GL.STATIC_DRAW);
+  var MAIN_BODY_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(MAIN_BODY.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData.faces), GL.STATIC_DRAW);
+  var MAIN_BODY_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, MAIN_BODY_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(MAIN_BODY.faces), GL.STATIC_DRAW);
 
+  // x, y, z, width, height, depth, color
+  var BOTTOM_BODY = generateCube(0, -5.2, 0, 1.7, 0.5, 2, [100 / 256, 140 / 256, 139 / 256]);
+
+  // Create buffers for the cube
+  var BOTTOM_BODY_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(BOTTOM_BODY.vertices), GL.STATIC_DRAW);
+
+  var BOTTOM_BODY_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(BOTTOM_BODY.colors), GL.STATIC_DRAW);
+
+  var BOTTOM_BODY_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_BODY_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(BOTTOM_BODY.faces), GL.STATIC_DRAW);
   /*========================= BODY ========================= */
+
   /*========================= Legs ========================= */
   // thigh
   // x, y, z, width, height, depth, color
-  var cubeData5 = generateCube(1.37, -5.71, 0.15, 1, 1.35, 1.2, [172 / 256, 189 / 256, 190 / 256]);
+  var PAHA_RIGHT = generateCube(1.37, -5.71, 0.15, 1, 1.35, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX5 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX5);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData5.vertices), GL.STATIC_DRAW);
+  var PAHA_RIGHT_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS5 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS5);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData5.colors), GL.STATIC_DRAW);
+  var PAHA_RIGHT_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES5 = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES5);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData5.faces), GL.STATIC_DRAW);
+  var PAHA_RIGHT_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_RIGHT.faces), GL.STATIC_DRAW);
 
   // x, y, z, width, height, depth, color
-  var cubeData6 = generateCube(-1.37, -5.71, 0.15, 1, 1.35, 1.2, [172 / 256, 189 / 256, 190 / 256]);
+  var PAHA_LEFT = generateCube(-1.37, -5.71, 0.15, 1, 1.35, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX6 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX6);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData6.vertices), GL.STATIC_DRAW);
+  var PAHA_LEFT_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS6 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS6);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData6.colors), GL.STATIC_DRAW);
+  var PAHA_LEFT_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES6 = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES6);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData6.faces), GL.STATIC_DRAW);
+  var PAHA_LEFT_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_LEFT.faces), GL.STATIC_DRAW);
 
   // Legs
   // x, y, z, width, height, depth, color
-  var cubeData7 = generateCube(1.37, -7, 0.15, 0.8, 1.35, 0.8, [100 / 256, 140 / 256, 139 / 256]);
+  var KAKI_RIGHT = generateCube(1.37, -7, 0.15, 0.8, 1.35, 0.8, [100 / 256, 140 / 256, 139 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX7 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX7);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData7.vertices), GL.STATIC_DRAW);
+  var KAKI_RIGHT_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_RIGHT.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS7 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS7);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData7.colors), GL.STATIC_DRAW);
+  var KAKI_RIGHT_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_RIGHT.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES7 = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES7);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData7.faces), GL.STATIC_DRAW);
+  var KAKI_RIGHT_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_RIGHT_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(KAKI_RIGHT.faces), GL.STATIC_DRAW);
 
   // x, y, z, width, height, depth, color
-  var cubeData8 = generateCube(-1.37, -7, 0.15, 0.8, 1.35, 0.8, [100 / 256, 140 / 256, 139 / 256]);
+  var KAKI_LEFT = generateCube(-1.37, -7, 0.15, 0.8, 1.35, 0.8, [100 / 256, 140 / 256, 139 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX8 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX8);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData8.vertices), GL.STATIC_DRAW);
+  var KAKI_LEFT_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_LEFT.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS8 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS8);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData8.colors), GL.STATIC_DRAW);
+  var KAKI_LEFT_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_LEFT.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES8 = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES8);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData8.faces), GL.STATIC_DRAW);
+  var KAKI_LEFT_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_LEFT_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(KAKI_LEFT.faces), GL.STATIC_DRAW);
 
   // Foot
   // x, y, z, width, height, depth, color
-  var cubeData9 = generateCube(1.37, -7.9, 0.3, 1, 0.5, 1.2, [172 / 256, 189 / 256, 190 / 256]);
+  var TELAPAK_RIGHT = generateCube(1.37, -7.9, 0.3, 1, 0.5, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX9 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX9);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData9.vertices), GL.STATIC_DRAW);
+  var TELAPAK_RIGHT_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_RIGHT.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS9 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS9);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData9.colors), GL.STATIC_DRAW);
+  var TELAPAK_RIGHT_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_RIGHT.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES9 = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES9);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData9.faces), GL.STATIC_DRAW);
+  var TELAPAK_RIGHT_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_RIGHT_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(TELAPAK_RIGHT.faces), GL.STATIC_DRAW);
 
   // x, y, z, width, height, depth, color
-  var cubeData10 = generateCube(-1.37, -7.9, 0.3, 1, 0.5, 1.2, [172 / 256, 189 / 256, 190 / 256]);
+  var TELAPAK_LEFT = generateCube(-1.37, -7.9, 0.3, 1, 0.5, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
   // Create buffers for the cube
-  var CUBE_VERTEX10 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX10);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData10.vertices), GL.STATIC_DRAW);
+  var TELAPAK_LEFT_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_LEFT.vertices), GL.STATIC_DRAW);
 
-  var CUBE_COLORS10 = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS10);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubeData10.colors), GL.STATIC_DRAW);
+  var TELAPAK_LEFT_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_LEFT.colors), GL.STATIC_DRAW);
 
-  var CUBE_FACES10 = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES10);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeData10.faces), GL.STATIC_DRAW);
+  var TELAPAK_LEFT_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_LEFT_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(TELAPAK_LEFT.faces), GL.STATIC_DRAW);
   /*========================= Legs ========================= */
 
   /*========================= WEAPON ========================= */
@@ -271,6 +287,18 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
+  // badan
+  var BADAN_MATRIX = LIBS.get_I4();
+
+  // Kaki kanan
+  var KAKI_KANAN_MATRIX = LIBS.get_I4();
+
+  // Kaki kanan
+  var KAKI_KIRI_MATRIX = LIBS.get_I4();
+
+  // gun eye
+  var GUN_BULLET_MATRIX = LIBS.get_I4();
+
   LIBS.translateZ(VIEW_MATRIX, -15);
 
   /*========================= DRAWING ========================= */
@@ -279,11 +307,22 @@ function main() {
   GL.enable(GL.DEPTH_TEST);
   GL.depthFunc(GL.LEQUAL);
 
-  var animate = function (time) {
+  var then = 0;
+
+  var KakiKananTime = 0;
+  var KakiKananReverse = false;
+
+  var KakiKiriTime = 0;
+  var KakiKiriReverse = false;
+
+  var animateRobot = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
-    time *= 0.003;
+    time *= 0.001;
+
+    var deltaTime = (time - then) * 100;
+    then = time;
 
     if (!drag) {
       dx *= friction;
@@ -295,125 +334,210 @@ function main() {
 
     /*========================= TIME ========================= */
 
+    // Badan
+    BADAN_MATRIX = LIBS.get_I4();
+
+    // Kaki Kanan
+    KAKI_KANAN_MATRIX = LIBS.get_I4();
+    var KF_KakiKanan = 0;
+
+    if (time < 10) {
+      if (KakiKananTime <= -10) {
+        KakiKananReverse = true;
+      } else if (KakiKananTime >= 10) {
+        KakiKananReverse = false;
+      }
+
+      if (KakiKananReverse) {
+        KakiKananTime += deltaTime;
+      } else {
+        KakiKananTime -= deltaTime;
+      }
+
+      KF_KakiKanan = LIBS.degToRad(KakiKananTime);
+    }
+
+    // Kaki Kiri
+    KAKI_KIRI_MATRIX = LIBS.get_I4();
+    var KF_KakiKiri = 0;
+
+    if (time < 10) {
+      if (KakiKiriTime <= -10) {
+        KakiKiriReverse = false;
+      } else if (KakiKiriTime >= 10) {
+        KakiKiriReverse = true;
+      }
+
+      if (KakiKiriReverse) {
+        KakiKiriTime -= deltaTime;
+      } else {
+        KakiKiriTime += deltaTime;
+      }
+
+      KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
+    }
+
+    var bulletTime = 0; 
+    var bulletReverse = false; 
+
+    if (time < 10) {
+      if (bulletTime <= -10) {
+        bulletReverse = true;
+      } else if (bulletTime >= 10) {
+        bulletReverse = false;
+      }
+
+      if (bulletReverse) {
+        bulletTime += deltaTime;
+      } else {
+        bulletTime -= deltaTime;
+      }
+    }
+    
+    var bulletDistance = Math.sin(bulletTime * 0.05) * -10;
+    
+    GUN_BULLET_MATRIX = LIBS.get_I4();
+    LIBS.translateZ(GUN_BULLET_MATRIX, bulletDistance);
+
     MODEL_MATRIX = LIBS.get_I4();
-    LIBS.rotateY(MODEL_MATRIX, theta);
-    LIBS.rotateX(MODEL_MATRIX, alpha);
+
+    /*========================= ANIMASI ========================= */
+    // BADAN
+    LIBS.rotateY(BADAN_MATRIX, theta);
+    LIBS.rotateX(BADAN_MATRIX, alpha);
+
+    // KAKI KANAN
+    LIBS.rotateX(KAKI_KANAN_MATRIX, KF_KakiKanan);
+    LIBS.rotateY(KAKI_KANAN_MATRIX, theta);
+    LIBS.rotateX(KAKI_KANAN_MATRIX, alpha);
+
+    // KAKI KIRI
+    LIBS.rotateX(KAKI_KIRI_MATRIX, KF_KakiKiri);
+    LIBS.rotateY(KAKI_KIRI_MATRIX, theta);
+    LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
+
+    // GUN BULLET
+    LIBS.rotateY(GUN_BULLET_MATRIX, theta);
+    LIBS.rotateX(GUN_BULLET_MATRIX, alpha);
 
     /*========================= BODY ========================= */
     // Draw cube
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX);
+    GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, MAIN_BODY_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, MAIN_BODY.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Bottom
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_BODY_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, BOTTOM_BODY.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= BODY ========================= */
 
     /*========================= Legs ========================= */
     // thigh
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX5);
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS5);
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES5);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KANAN_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData5.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, PAHA_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX6);
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS6);
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES6);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KIRI_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData6.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, PAHA_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // Right leg
-    var MODEL_MATRIX_RIGHT_LEG = LIBS.get_I4();
-    var rightLegMovement = Math.abs(Math.sin((time * 2 * Math.PI) / 15)); // Vertical movement for 15 seconds
-    var rightLegOffset = rightLegMovement * 0.5; // Adjust this value to control the range of motion
-    LIBS.translateY(MODEL_MATRIX_RIGHT_LEG, rightLegOffset); // Apply vertical translation to right leg
-    MODEL_MATRIX_RIGHT_LEG = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_RIGHT_LEG);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX7);
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS7);
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES7);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_RIGHT_FACES);
 
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_RIGHT_LEG);
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KANAN_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData7.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, KAKI_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // Left leg
-    var MODEL_MATRIX_LEFT_LEG = LIBS.get_I4();
-    var leftLegMovement = Math.abs(Math.sin((time * 2 * Math.PI) / 15)); // Vertical movement for 15 seconds
-    var leftLegOffset = leftLegMovement * 0.5; // Adjust this value to control the range of motion
-    LIBS.translateY(MODEL_MATRIX_LEFT_LEG, leftLegOffset); // Apply vertical translation to left leg
-    MODEL_MATRIX_LEFT_LEG = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_LEFT_LEG);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX8);
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS8);
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES8);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_LEFT_FACES);
 
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_LEFT_LEG);
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KIRI_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData8.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Apply the same transformation to the foot cubes
-    var MODEL_MATRIX_FOOT = LIBS.get_I4();
-    LIBS.translateY(MODEL_MATRIX_FOOT, leftLegOffset); // Assuming left leg movement is used for the foot as well
-    MODEL_MATRIX_FOOT = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_FOOT);
+    GL.drawElements(GL.TRIANGLES, KAKI_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
 
     // Foot
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX9);
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS9);
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES9);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_RIGHT_FACES);
 
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_FOOT); // Use the transformed matrix for the foot
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KANAN_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData9.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, TELAPAK_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_VERTEX10);
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, CUBE_COLORS10);
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBE_FACES10);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_LEFT_FACES);
 
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_FOOT); // Use the transformed matrix for the foot
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KIRI_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, cubeData10.faces.length, GL.UNSIGNED_SHORT, 0);
-
+    GL.drawElements(GL.TRIANGLES, TELAPAK_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= Legs ========================= */
 
     /*========================= WEAPONS ========================= */
@@ -427,17 +551,11 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
 
     // Eye of gun
-    var MODEL_MATRIX_GUN_EYE = LIBS.get_I4();
-    var gunEyeMovement = Math.abs(Math.sin((time * 2 * Math.PI) / 5)); // Sinusoidal motion for 5 seconds
-    var gunEyeOffset = gunEyeMovement * 5; // Adjust this value to control the range of motion
-    LIBS.translateZ(MODEL_MATRIX_GUN_EYE, gunEyeOffset); // Apply sinusoidal translation to gun eye along Z-axis
-    MODEL_MATRIX_GUN_EYE = LIBS.multiply(MODEL_MATRIX, MODEL_MATRIX_GUN_EYE);
-
     GL.bindBuffer(GL.ARRAY_BUFFER, gunVertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -448,17 +566,17 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX_GUN_EYE);
+    GL.uniformMatrix4fv(_MMatrix, false, GUN_BULLET_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, gun.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= WEAPONS ========================= */
 
     GL.flush();
 
-    window.requestAnimationFrame(animate);
+    window.requestAnimationFrame(animateRobot);
   };
 
-  animate(0);
+  animateRobot(0);
 }
 
 window.addEventListener("load", main);
