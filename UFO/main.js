@@ -1,8 +1,7 @@
 import { generateHalfSphere } from "./components/generateHalfSphere.js";
 import { generateSolidTube } from "./components/generateTubes.js";
-import { generateUfoOutline } from "./components/generateUFO.js";
-import { generateUfoYellow } from "./components/generateUFO.js";
-import { generateWeapon } from "./components/generateTubes.js"
+import { generateUFO } from "./components/generateUFO.js";
+import { generateWeapon } from "./components/generateWeapon.js"
 
 function createVertexBuffer(GL, data) {
   var buffer = GL.createBuffer();
@@ -235,7 +234,7 @@ function main() {
 
   // ========================== UFO ==================================
   // UFO dark grey
-  var ufo1 = generateUfoOutline(2.5, 2.5, 1.2, 30, 0, -1.4, 0);
+  var ufo1 = generateUFO(2.5, 2.5, 1.2, 30, 0, -1.4, 0, [0.44, 0.44, 0.52]);
 
   // Create buffers
   var ufo1_vertex = createVertexBuffer(GL, ufo1.vertices);
@@ -243,7 +242,7 @@ function main() {
   var ufo1_faces = createFacesBuffer(GL, ufo1.faces);
 
   // UFO Yellow
-  var ufo2 = generateUfoYellow(2.2, 2.2, 1.5, 40,  0, -1.4, 0);
+  var ufo2 = generateUFO(2.2, 2.2, 1.5, 40,  0, -1.4, 0, [1, 0.85, 0.21]);
 
   // Create buffers
   var ufo2_vertex = createVertexBuffer(GL, ufo2.vertices);
