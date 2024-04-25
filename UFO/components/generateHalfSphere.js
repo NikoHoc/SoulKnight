@@ -4,11 +4,14 @@ export function generateHalfSphere(x, y, z, radius, segments, color) {
 
     var angleIncrement = Math.PI / segments;
 
+    // Adjust the rotation angle by another 90 degrees
+    var rotateAngle = Math.PI / 2;
+
     // Generate vertices for the half sphere
     for (var i = 0; i <= segments / 2; i++) {
         var theta = i * angleIncrement;
-        var cosTheta = Math.cos(theta);
-        var sinTheta = Math.sin(theta);
+        var cosTheta = Math.cos(theta + rotateAngle);
+        var sinTheta = Math.sin(theta + rotateAngle);
 
         for (var j = 0; j <= segments; j++) {
             var phi = j * 2 * Math.PI / segments;
@@ -16,8 +19,8 @@ export function generateHalfSphere(x, y, z, radius, segments, color) {
             var sinPhi = Math.sin(phi);
 
             var xCoord = x + radius * cosTheta * cosPhi;
-            var yCoord = y + radius * cosTheta * sinPhi;
-            var zCoord = z + radius * sinTheta;
+            var yCoord = y + radius * sinTheta;
+            var zCoord = z + radius * cosTheta * sinPhi;
 
             vertices.push(xCoord, yCoord, zCoord);
             colors = colors.concat(color);
