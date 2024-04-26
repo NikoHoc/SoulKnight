@@ -296,14 +296,12 @@ function generateShoulder(x, y, z, radius, width, length, segments, right, rgbCo
   return { vertices: vertices, colors: colors, faces: faces };
 }
 
+
 function generateTabung(x, y, z, outerRadius, innerRadius, height, segments, color) {
   var vertices = [];
   var colors = [];
 
   var angleIncrement = (2 * Math.PI) / segments;
-
-  // Rotate angle by 90 degrees around the x-axis
-  var rotateAngle = Math.PI / 2;
 
   for (var i = 0; i <= segments; i++) {
     var angle = i * angleIncrement;
@@ -311,18 +309,18 @@ function generateTabung(x, y, z, outerRadius, innerRadius, height, segments, col
     var sinAngle = Math.sin(angle);
 
     var outerX = x + outerRadius * cosAngle;
-    var outerY = y + outerRadius * sinAngle; // Adjust y-coordinate to apply rotation
+    var outerZ = z + outerRadius * sinAngle;
     var innerX = x + innerRadius * cosAngle;
-    var innerY = y + innerRadius * sinAngle; // Adjust y-coordinate to apply rotation
+    var innerZ = z + innerRadius * sinAngle;
 
     // Rotate coordinates by 90 degrees around the x-axis
-    var rotatedOuterZ = z + height / 2;
-    var rotatedInnerZ = z - height / 2;
+    var rotatedOuterY = y + height / 2;
+    var rotatedInnerY = y - height / 2;
 
-    vertices.push(outerX, outerY, rotatedOuterZ);
-    vertices.push(innerX, innerY, rotatedOuterZ);
-    vertices.push(innerX, innerY, rotatedInnerZ);
-    vertices.push(outerX, outerY, rotatedInnerZ);
+    vertices.push(outerX, rotatedOuterY, outerZ);
+    vertices.push(innerX, rotatedOuterY, innerZ);
+    vertices.push(innerX, rotatedInnerY, innerZ);
+    vertices.push(outerX, rotatedInnerY, outerZ);
 
     colors = colors.concat(color, color, color, color);
   }
@@ -350,6 +348,7 @@ function generateTabung(x, y, z, outerRadius, innerRadius, height, segments, col
 
   return { vertices: vertices, colors: colors, faces: faces };
 }
+
 
 function generateWorld(width, length, height) {
   var vertices = [];

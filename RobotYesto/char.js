@@ -299,6 +299,21 @@ function main() {
   var HANDS_LEFT_FACES = GL.createBuffer();
   GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_LEFT_FACES);
   GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(HANDS_LEFT.faces), GL.STATIC_DRAW);
+
+  var HANDS_LEFT2 = generateCube(-2.6, -3.5, 1.2, 0.8, 0.5, 1.7, [66 / 256, 94 / 256, 96 / 256]);
+
+  // Create buffers for the cube
+  var HANDS_LEFT_VERTEX2 = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_VERTEX2);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(HANDS_LEFT2.vertices), GL.STATIC_DRAW);
+
+  var HANDS_LEFT_COLORS2 = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_COLORS2);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(HANDS_LEFT.colors), GL.STATIC_DRAW);
+
+  var HANDS_LEFT_FACES2 = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_LEFT_FACES2);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(HANDS_LEFT2.faces), GL.STATIC_DRAW);
   /*========================= Hands ========================= */
 
   /*========================= Legs ========================= */
@@ -404,7 +419,7 @@ function main() {
 
   /*========================= WEAPON ========================= */
   // x, y, z, outerRadius, innerRadius, height, segments, color
-  var tabung = generateTabung(-2.8, -4.3, 1.3, 0.5, 1, 5, 8, [90 / 256, 130 / 256, 143 / 256]);
+  var tabung = generateTabung(-2.59, -3.5, 1.8, 0.1, 0.4, 1.3, 100, [90 / 256, 130 / 256, 143 / 256]);
 
   var tabungVertex = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, tabungVertex);
@@ -418,9 +433,23 @@ function main() {
   GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, tabungFaces);
   GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabung.faces), GL.STATIC_DRAW);
 
+  var SABER = generateTabung(-2.59, -0.5, 1.8, 0.1, 0.3, 5, 100, [1.0, 0.0, 0]);
+
+  var SABER_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, SABER_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(SABER.vertices), GL.STATIC_DRAW);
+
+  var SABER_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, SABER_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(SABER.colors), GL.STATIC_DRAW);
+
+  var SABER_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SABER_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(SABER.faces), GL.STATIC_DRAW);
+
   // eyes of gun
   // x, y, z, radius, segments
-  var gun = generateSphere(-2.8, -4.3, 3.7, 0.7, 16);
+  var gun = generateSphere(-2.59, 2, 1.8, 0.3, 16);
 
   // Create buffers for the sphere
   var gunVertex = GL.createBuffer();
@@ -451,7 +480,7 @@ function main() {
   var KAKI_KIRI_MATRIX = LIBS.get_I4();
 
   // gun eye
-  var GUN_BULLET_MATRIX = LIBS.get_I4();
+  var SABER_MATRIX = LIBS.get_I4();
 
   LIBS.translateZ(VIEW_MATRIX, -15);
 
@@ -530,7 +559,7 @@ function main() {
       KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
     }
 
-    GUN_BULLET_MATRIX = LIBS.get_I4();
+    SABER_MATRIX = LIBS.get_I4();
 
     MODEL_MATRIX = LIBS.get_I4();
 
@@ -552,10 +581,9 @@ function main() {
     LIBS.rotateY(KAKI_KIRI_MATRIX, theta);
     LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
 
-    // GUN BULLET
-    LIBS.rotateY(GUN_BULLET_MATRIX, theta);
-    LIBS.rotateX(GUN_BULLET_MATRIX, alpha);
-
+    // SABER
+    LIBS.rotateY(SABER_MATRIX, theta);
+    LIBS.rotateX(SABER_MATRIX, alpha);
 
     /*========================= HEAD ========================= */
     // Draw first octagon
@@ -731,6 +759,20 @@ function main() {
     GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, HANDS_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_VERTEX2);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_COLORS2);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_LEFT_FACES2);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, HANDS_LEFT2.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= Hands ========================= */
 
     /*========================= Legs ========================= */
@@ -832,7 +874,21 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, SABER_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, SABER_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, SABER_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SABER_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, SABER_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -847,7 +903,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, GUN_BULLET_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, SABER_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, gun.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= WEAPONS ========================= */
