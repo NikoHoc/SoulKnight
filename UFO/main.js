@@ -354,7 +354,7 @@ function main() {
       }
 
       KF_Body = LIBS.degToRad(BodyTime-2);
-      KF_Body *= 3
+      KF_Body *= 4
     }
 
     
