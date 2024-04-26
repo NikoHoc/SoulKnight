@@ -441,17 +441,8 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  // kepala
-  var KEPALA_MATRIX = LIBS.get_I4();
-
   // badan
   var BADAN_MATRIX = LIBS.get_I4();
-
-  // tangan kanan
-  var TANGAN_KANAN_MATRIX = LIBS.get_I4();
-
-  // tangan kiri
-  var TANGAN_KIRI_MATRIX = LIBS.get_I4();
 
   // Kaki kanan
   var KAKI_KANAN_MATRIX = LIBS.get_I4();
@@ -496,15 +487,8 @@ function main() {
     }
 
     /*========================= TIME ========================= */
-
-    // Kepala
-    KEPALA_MATRIX = LIBS.get_I4();
     // Badan
     BADAN_MATRIX = LIBS.get_I4();
-    // Tangan Kanan
-    TANGAN_KANAN_MATRIX = LIBS.get_I4();
-    // Tangan Kiri
-    TANGAN_KIRI_MATRIX = LIBS.get_I4();
 
     // Kaki Kanan
     KAKI_KANAN_MATRIX = LIBS.get_I4();
@@ -558,18 +542,6 @@ function main() {
     LIBS.rotateY(BADAN_MATRIX, theta);
     LIBS.rotateX(BADAN_MATRIX, alpha);
 
-    // KEPALA
-    LIBS.rotateY(KEPALA_MATRIX, theta);
-    LIBS.rotateX(KEPALA_MATRIX, alpha);
-
-    // TANGAN KANAN
-    LIBS.rotateY(TANGAN_KANAN_MATRIX, theta);
-    LIBS.rotateX(TANGAN_KANAN_MATRIX, alpha);
-
-    // TANGAN KIRI
-    LIBS.rotateY(TANGAN_KIRI_MATRIX, theta);
-    LIBS.rotateX(TANGAN_KIRI_MATRIX, alpha);
-
     // KAKI KANAN
     LIBS.rotateX(KAKI_KANAN_MATRIX, KF_KakiKanan);
     LIBS.rotateY(KAKI_KANAN_MATRIX, theta);
@@ -597,7 +569,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, KEPALA_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLE_FAN, kepalaATAS.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -612,7 +584,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, KEPALA_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLE_FAN, kepalaTENGAH.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -627,7 +599,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, KEPALA_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLE_FAN, kepalaBAWAH.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= HEAD ========================= */
@@ -644,7 +616,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, KEPALA_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, MATA.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= MATA ========================= */
@@ -742,7 +714,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, TANGAN_KANAN_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, HANDS_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -756,7 +728,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, TANGAN_KIRI_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, HANDS_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
     /*========================= Hands ========================= */
@@ -860,7 +832,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, TANGAN_KIRI_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
 

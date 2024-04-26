@@ -350,3 +350,75 @@ function generateTabung(x, y, z, outerRadius, innerRadius, height, segments, col
 
   return { vertices: vertices, colors: colors, faces: faces };
 }
+
+function generateWorld(width, length, height) {
+  var vertices = [];
+  var colors = [];
+  var faces = [];
+  var worldColors = [153/255, 76/255, 0/255];
+
+  var halfWidth = width / 2;
+  var halfLength = length / 2;
+  var halfHeight = height / 2;
+
+  vertices = [
+    // Front face
+    -halfWidth,
+    halfHeight,
+    halfLength,
+    -halfWidth,
+    -halfHeight,
+    halfLength,
+    halfWidth,
+    -halfHeight,
+    halfLength,
+    halfWidth,
+    halfHeight,
+    halfLength,
+
+    // Back face
+    -halfWidth,
+    halfHeight,
+    -halfLength,
+    -halfWidth,
+    -halfHeight,
+    -halfLength,
+    halfWidth,
+    -halfHeight,
+    -halfLength,
+    halfWidth,
+    halfHeight,
+    -halfLength,
+  ];
+
+  colors = [
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+    worldColors[0],
+    worldColors[1],
+    worldColors[2],
+  ];
+
+  faces = [0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 0, 4, 7, 0, 7, 3, 1, 5, 6, 1, 6, 2, 0, 1, 5, 0, 5, 4, 3, 2, 6, 3, 6, 7];
+
+  return { vertices: vertices, colors: colors, faces: faces };
+}
