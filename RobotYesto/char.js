@@ -462,7 +462,7 @@ function main() {
   // gun eye
   var GUN_BULLET_MATRIX = LIBS.get_I4();
 
-  LIBS.translateZ(VIEW_MATRIX, -15);
+  LIBS.translateZ(VIEW_MATRIX, -40);
 
   /*========================= DRAWING ========================= */
   GL.clearColor(0.0, 0.0, 0.0, 0.0);

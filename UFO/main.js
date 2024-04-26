@@ -283,8 +283,19 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  // LIBS.rotateY(VIEW_MATRIX, Math.PI / 2);
-  // LIBS.rotateX(VIEW_MATRIX, Math.PI / 2);
+  
+  // badan
+  var BODY_MATRIX = LIBS.get_I4();
+
+  // tangan kanan
+  var BACKPACK_MATRIX = LIBS.get_I4();
+
+  // tangan kiri
+  var LEFT_WEAPON_MATRIX = LIBS.get_I4();
+
+  // Kaki kanan
+  var RIGHT_WEAPON_MATRIX = LIBS.get_I4();
+
   LIBS.translateZ(VIEW_MATRIX, -30);
 
   /*========================= DRAWING ========================= */
@@ -293,12 +304,27 @@ function main() {
   GL.enable(GL.DEPTH_TEST);
   GL.depthFunc(GL.LEQUAL);
 
+  var BodyTime = 0;
+  var BodyReverse = false;
+
+  var BackpackTime = 0;
+  var BackpackReverse = false;
+
+  var RightWeaponTime = 0;
+  var RightWeaponReverse = false;
+
+  var LeftWeaponTime = 0;
+  var LeftWeaponReverse = false;
+
   var time_prev = 0;
+
   var animate = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
-    var dt = time - time_prev;
+    time *= 0.001;
+
+    var deltaTime = (time - time_prev) * 100;
     time_prev = time;
 
     if (!drag) {
@@ -308,6 +334,110 @@ function main() {
       theta += (dx * 2 * Math.PI) / CANVAS.width;
       alpha += (dy * 2 * Math.PI) / CANVAS.height;
     }
+
+    // Body
+    BODY_MATRIX = LIBS.get_I4();
+
+    var KF_Body = 0;
+
+    if (time < 10) {
+      if (BodyTime <= -10) {
+        BodyReverse = true;
+      } else if (BodyTime >= 10) {
+        BodyReverse = false;
+      }
+
+      if (BodyReverse) {
+        BodyTime += deltaTime;
+      } else {
+        BodyTime -= deltaTime;
+      }
+
+      KF_Body = LIBS.degToRad(BodyTime-2);
+      KF_Body *= 3
+    }
+
+    
+    LIBS.translateY(BODY_MATRIX, KF_Body)
+    LIBS.rotateY(BODY_MATRIX, theta);
+    LIBS.rotateX(BODY_MATRIX, alpha);
+
+
+    // Backpack
+    BACKPACK_MATRIX = LIBS.get_I4();
+
+    var KF_Backpack = 0;
+
+    if (time < 10) {
+      if (BackpackTime <= -10) {
+        BackpackReverse = true;
+      } else if (BackpackTime >= 10) {
+        BackpackReverse = false;
+      }
+
+      if (BackpackReverse) {
+        BackpackTime += deltaTime;
+      } else {
+        BackpackTime -= deltaTime;
+      }
+      KF_Backpack = LIBS.degToRad(BackpackTime);  
+    }
+
+    LIBS.translateY(BACKPACK_MATRIX, KF_Backpack)
+    LIBS.rotateY(BACKPACK_MATRIX, theta);
+    LIBS.rotateX(BACKPACK_MATRIX, alpha);
+
+
+    // Left Weapon
+    LEFT_WEAPON_MATRIX = LIBS.get_I4();
+    
+    var KF_LeftWeapon = 0;
+
+    if (time < 10) {
+      if (LeftWeaponTime <= -10) {
+        LeftWeaponReverse = false;
+      } else if (LeftWeaponTime >= 10) {
+        LeftWeaponReverse = true;
+      }
+
+      if (LeftWeaponReverse) {
+        LeftWeaponTime -= deltaTime;
+      } else {
+        LeftWeaponTime += deltaTime;
+      }
+
+      KF_LeftWeapon = LIBS.degToRad(LeftWeaponTime);
+    }
+    
+    LIBS.rotateX(LEFT_WEAPON_MATRIX, KF_LeftWeapon)
+    LIBS.rotateY(LEFT_WEAPON_MATRIX, theta);
+    LIBS.rotateX(LEFT_WEAPON_MATRIX, alpha);
+
+
+    // Right Weapon
+    RIGHT_WEAPON_MATRIX = LIBS.get_I4();
+    
+    var KF_RightWeapon = 0;
+
+    if (time < 10) {
+      if (RightWeaponTime <= -10) {
+        RightWeaponReverse = true;
+      } else if (RightWeaponTime >= 10) {
+        RightWeaponReverse = false;
+      }
+
+      if (RightWeaponReverse) {
+        RightWeaponTime += deltaTime;
+      } else {
+        RightWeaponTime -= deltaTime;
+      }
+
+      KF_RightWeapon = LIBS.degToRad(RightWeaponTime);
+    }
+
+    LIBS.rotateX(RIGHT_WEAPON_MATRIX, KF_RightWeapon)
+    LIBS.rotateY(RIGHT_WEAPON_MATRIX, theta);
+    LIBS.rotateX(RIGHT_WEAPON_MATRIX, alpha);
 
     MODEL_MATRIX = LIBS.get_I4();
     LIBS.rotateY(MODEL_MATRIX, theta);
@@ -324,7 +454,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -344,7 +474,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLES,
@@ -364,7 +494,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -384,7 +514,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -404,7 +534,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(GL.TRIANGLE_STRIP, ufo1.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -419,7 +549,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -439,7 +569,7 @@ function main() {
  
      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
  
      GL.drawElements(
        GL.TRIANGLE_STRIP,
@@ -460,7 +590,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BACKPACK_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -480,7 +610,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BACKPACK_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -500,7 +630,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BACKPACK_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -520,7 +650,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BACKPACK_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -540,7 +670,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BACKPACK_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -560,7 +690,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BACKPACK_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -581,7 +711,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LEFT_WEAPON_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
@@ -601,7 +731,7 @@ function main() {
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, MODEL_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, RIGHT_WEAPON_MATRIX);
 
     GL.drawElements(
       GL.TRIANGLE_STRIP,
