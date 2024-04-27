@@ -1,4 +1,4 @@
-export function generateHalfSphere(x, y, z, radius, segments, color) {
+function generateHalfSphere(x, y, z, radius, segments, color) {
     var vertices = [];
     var colors = [];
 

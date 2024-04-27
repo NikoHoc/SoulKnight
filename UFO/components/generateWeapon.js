@@ -1,4 +1,4 @@
-export function generateWeapon(x, y, z, outerRadius, innerRadius, height, segments, color) {
+function generateWeapon(x, y, z, outerRadius, innerRadius, height, segments, color) {
     var vertices = [];
     var colors = [];
 

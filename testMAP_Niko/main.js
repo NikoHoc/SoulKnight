@@ -1,5 +1,3 @@
-
-
 function createVertexBuffer(GL, data) {
   var buffer = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, buffer);
@@ -37,21 +35,15 @@ function main() {
   var alpha = 0;
   var theta = 0;
 
-  var friction = 0.98;
-
   var mouseDown = function (e) {
     drag = true;
     x_prev = e.pageX;
     y_prev = e.pageY;
-    console.log("DOWN");
   };
   var mouseUP = function (e) {
     drag = false;
-    console.log("UP");
   };
-  var mouseOut = function (e) {
-    console.log("OUTTT");
-  };
+  var mouseOut = function (e) {};
   var mouseMove = function (e) {
     if (!drag) {
       return false;
@@ -60,12 +52,11 @@ function main() {
     dx = e.pageX - x_prev;
     dy = e.pageY - y_prev;
 
-    console.log(dx + " " + dy);
     x_prev = e.pageX;
     y_prev = e.pageY;
 
-    theta += (dx * 2 * Math.PI) / CANVAS.height; // Update theta based on vertical movement (dy)
-    alpha += (dy * 2 * Math.PI) / CANVAS.width; // Update alpha based on horizontal movement (dx)
+    theta += (dx * 2 * Math.PI) / CANVAS.width;
+    alpha += (dy * 2 * Math.PI) / CANVAS.height;
   };
 
   CANVAS.addEventListener("mousedown", mouseDown, false);
@@ -84,49 +75,39 @@ function main() {
 
   //shaders
   var shader_vertex_source = `
-          attribute vec3 position;
-          attribute vec3 color;
-      
-          uniform mat4 PMatrix;
-          uniform mat4 VMatrix;
-          uniform mat4 MMatrix;
-         
-          varying vec3 vColor;
-          void main(void) {
-          gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
-          vColor = color;
-          }`;
+            attribute vec3 position;
+            attribute vec3 color;
+        
+            uniform mat4 PMatrix;
+            uniform mat4 VMatrix;
+            uniform mat4 MMatrix;
+          
+            varying vec3 vColor;
+            void main(void) {
+            gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
+            vColor = color;
+            }`;
   var shader_fragment_source = `
-          precision mediump float;
-          varying vec3 vColor;
-          // uniform vec3 color;
-          void main(void) {
-          gl_FragColor = vec4(vColor, 1.);
-         
-          }`;
+            precision mediump float;
+            varying vec3 vColor;
+            // uniform vec3 color;
+            void main(void) {
+            gl_FragColor = vec4(vColor, 1.);
+          
+            }`;
   var compile_shader = function (source, type, typeString) {
     var shader = GL.createShader(type);
     GL.shaderSource(shader, source);
     GL.compileShader(shader);
     if (!GL.getShaderParameter(shader, GL.COMPILE_STATUS)) {
-      alert(
-        "ERROR IN " + typeString + " SHADER: " + GL.getShaderInfoLog(shader)
-      );
+      alert("ERROR IN " + typeString + " SHADER: " + GL.getShaderInfoLog(shader));
       return false;
     }
     return shader;
   };
 
-  var shader_vertex = compile_shader(
-    shader_vertex_source,
-    GL.VERTEX_SHADER,
-    "VERTEX"
-  );
-  var shader_fragment = compile_shader(
-    shader_fragment_source,
-    GL.FRAGMENT_SHADER,
-    "FRAGMENT"
-  );
+  var shader_vertex = compile_shader(shader_vertex_source, GL.VERTEX_SHADER, "VERTEX");
+  var shader_fragment = compile_shader(shader_fragment_source, GL.FRAGMENT_SHADER, "FRAGMENT");
 
   var SHADER_PROGRAM = GL.createProgram();
   GL.attachShader(SHADER_PROGRAM, shader_vertex);
@@ -145,6 +126,10 @@ function main() {
   GL.enableVertexAttribArray(_color);
   GL.enableVertexAttribArray(_position);
   GL.useProgram(SHADER_PROGRAM);
+
+  /*========================================================= */
+  /*========================= UFO ========================= */
+  /*========================================================= */
 
   // ========================== Kepala ==================================
   //bagian dalam
@@ -280,28 +265,156 @@ function main() {
   var rightLaser_colors = createColorBuffer(GL, rightLaser.colors);
   var rightLaser_faces = createFacesBuffer(GL, rightLaser.faces);
 
+  // /*========================= KECILIN ROBOT ========================= */
+  // var scaleFactor = 0.1;
+  // var childRobot = [
+  //   kepalaATAS,
+  //   kepalaTENGAH,
+  //   kepalaBAWAH,
+  //   MATA,
+  //   MAIN_BODY,
+  //   BOTTOM_BODY,
+  //   ARMOR,
+  //   shoulderDataRight,
+  //   shoulderDataLeft,
+  //   HANDS_RIGHT,
+  //   HANDS_LEFT,
+  //   PAHA_RIGHT,
+  //   PAHA_LEFT,
+  //   KAKI_RIGHT,
+  //   KAKI_LEFT,
+  //   TELAPAK_RIGHT,
+  //   TELAPAK_LEFT,
+  //   tabung,
+  //   gun
+  // ];
 
-  //matrix
-  var PROJECTION_MATRIX = LIBS.get_projection(
-    40,
-    CANVAS.width / CANVAS.height,
-    1,
-    100
-  );
+  // for (var i = 0; i < childRobot.length; i++) {
+  //   childRobot[i].vertices = childRobot[i].vertices.map((coord) => coord * scaleFactor);
+  // }
+
+  // // GESER(?)
+  // var geserX = 0;
+  // var geserY = 0.5;
+  // var geserZ = 5;
+
+  // for (var i = 0; i < childRobot.length; i++) {
+  //   for (var j = 0; j < childRobot[i].vertices.length; j += 3) {
+  //     childRobot[i].vertices[j] += geserX;
+  //   }
+  //   for (var j = 1; j < childRobot[i].vertices.length; j += 3) {
+  //     childRobot[i].vertices[j] += geserY;
+  //   }
+  //   for (var j = 2; j < childRobot[i].vertices.length; j += 3) {
+  //     childRobot[i].vertices[j] += geserZ;
+  //   }
+  // }
+
+  /*========================================================= */
+  /*======================== END UFO ====================== */
+  /*========================================================= */
+
+  /*========================================================= */
+  /*====================== ENVIROMENT ======================= */
+  /*========================================================= */
+
+  //Floor
+  var floor = generateWorld(50, 50, 0.3, 0, 0, 0, [0.42, 0.2, 0]);
+
+  var FLOOR_VERTEX = createVertexBuffer(GL, floor.vertices);
+  var FLOOR_COLORS = createColorBuffer(GL, floor.colors);
+  var FLOOR_FACES = createFacesBuffer(GL, floor.faces);
+
+  //Back
+  var backWall = generateWorld(50, 0.3, 5, 0, 2.25, -16, [0.8, 0.39, 0]);
+
+  var BACK_WALL_VERTEX = createVertexBuffer(GL, backWall.vertices);
+  var BACK_WALL_COLORS = createColorBuffer(GL, backWall.colors);
+  var BACK_WALL_FACES = createFacesBuffer(GL, backWall.faces);
+
+  //Left
+  var leftWall = generateWorld(50, 0.3, 5, -5, 2, -1, [0.8, 0.39, 0]);
+
+  var LEFT_WALL_VERTEX = createVertexBuffer(GL, leftWall.vertices);
+  var LEFT_WALL_COLORS = createColorBuffer(GL, leftWall.colors);
+  var LEFT_WALL_FACES = createFacesBuffer(GL, leftWall.faces);
+
+  //Right
+  var rightWall = generateWorld(50, 0.3, 5, 5, 2, -1, [0.8, 0.39, 0]);
+
+  var RIGHT_WALL_VERTEX = createVertexBuffer(GL, rightWall.vertices);
+  var RIGHT_WALL_COLORS = createColorBuffer(GL, rightWall.colors);
+  var RIGHT_WALL_FACES = createFacesBuffer(GL, rightWall.faces);
+
+
+  //Obstacle
+  var wall1 = generateCube(0, 2, 0, 3, 3, 3, [0, 0, 0]);
+
+  var WALL1_VERTEX = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(wall1.vertices), GL.STATIC_DRAW);
+
+  var WALL1_COLORS = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_COLORS);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(wall1.colors), GL.STATIC_DRAW);
+
+  var WALL1_FACES = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL1_FACES);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(wall1.faces), GL.STATIC_DRAW);
+
+  /*========================================================= */
+  /*========================= MATRIX ======================== */
+  /*========================================================= */
+  var PROJECTION_MATRIX = LIBS.get_projection(40, CANVAS.width / CANVAS.height, 1, 100);
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  
-  // badan
+  /*========================= MATRIX UFO ======================== */
   var BODY_MATRIX = LIBS.get_I4();
 
   var LEFT_LASER_MATRIX = LIBS.get_I4();
 
   var RIGHT_LASER_MATRIX = LIBS.get_I4();
 
-  LIBS.translateZ(VIEW_MATRIX, -30);
+  var UFO_VIEW_MATRIX = LIBS.get_I4();
 
+  LIBS.translateY(UFO_VIEW_MATRIX, -5)
+  LIBS.translateZ(UFO_VIEW_MATRIX, -70);
+  LIBS.translateX(UFO_VIEW_MATRIX, -10);
+
+
+  /*========================= MATRIX ENV ========================= */
+  // Floor
+  var WORLD_MATRIX = LIBS.get_I4();
+  var WALL1_MATRIX = LIBS.get_I4();
+
+  LIBS.translateZ(VIEW_MATRIX, -80);
+  LIBS.translateY(VIEW_MATRIX, -10);
+
+  //Left Wall
+  var LEFT_WALL_VIEW_MATRIX = LIBS.get_I4();
+  LIBS.translateZ(LEFT_WALL_VIEW_MATRIX, -77);
+  LIBS.translateY(LEFT_WALL_VIEW_MATRIX, -10);
+  LIBS.translateX(LEFT_WALL_VIEW_MATRIX, -27);
+  
+  LIBS.rotateX(LEFT_WALL_VIEW_MATRIX, 6.3);
+  LIBS.rotateY(LEFT_WALL_VIEW_MATRIX, -7.85);
+  //LIBS.rotateZ(LEFT_WALL_VIEW_MATRIX, 0);
+
+  //Right Wall
+  var RIGHT_WALL_VIEW_MATRIX = LIBS.get_I4();
+  LIBS.translateZ(RIGHT_WALL_VIEW_MATRIX, -77);
+  LIBS.translateY(RIGHT_WALL_VIEW_MATRIX, -10);
+  LIBS.translateX(RIGHT_WALL_VIEW_MATRIX, 27);
+  
+  LIBS.rotateX(RIGHT_WALL_VIEW_MATRIX, -6.3);
+  LIBS.rotateY(RIGHT_WALL_VIEW_MATRIX, 7.85);
+  // LIBS.rotateZ(RIGHT_WALL_VIEW_MATRIX, 10);
+
+
+  /*=========================================================== */
   /*========================= DRAWING ========================= */
+  /*=========================================================== */
   GL.clearColor(0.0, 0.0, 0.0, 0.0);
 
   GL.enable(GL.DEPTH_TEST);
@@ -321,7 +434,10 @@ function main() {
   var time_prev = 0;
   var laser_time_prev = 0;
 
-  var animate = function (time, laserTime) {
+  /*=========================================================== */
+  /*========================= ANIMATE ========================= */
+  /*=========================================================== */
+  var animateRobot = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
@@ -330,20 +446,16 @@ function main() {
     var deltaTime = (time - time_prev) * 100;
     time_prev = time;
 
-    if (!drag) {
-      dx *= friction;
-      dy *= friction;
+    /*========================= TIME ========================= */
 
-      theta += (dx * 2 * Math.PI) / CANVAS.width;
-      alpha += (dy * 2 * Math.PI) / CANVAS.height;
-    }
+    /*========================= UFO TIME AND ANIMATION ========================= */
 
     // Body
     BODY_MATRIX = LIBS.get_I4();
 
     var KF_Body = 0;
 
-    if (time < 10) {
+    if (time < 100) {
       if (BodyTime <= -10) {
         BodyReverse = true;
       } else if (BodyTime >= 10) {
@@ -361,9 +473,12 @@ function main() {
     }
     
     LIBS.translateY(BODY_MATRIX, KF_Body)
-    LIBS.rotateY(BODY_MATRIX, theta);
-    LIBS.rotateX(BODY_MATRIX, alpha);
+    //LIBS.translateX(BODY_MATRIX, KF_Body * 10)
+    //LIBS.translateZ(BODY_MATRIX, KF_Body)
 
+
+    LIBS.rotateY(BODY_MATRIX, theta);
+    //LIBS.rotateX(BODY_MATRIX, alpha);
 
     //===================== LASER ============= 
     // Left Laser
@@ -371,7 +486,7 @@ function main() {
 
     var KF_Left_Laser = 0;
     // Following body movement
-    if (time < 10) {
+    if (time < 100) {
       if (LeftLaserTime <= -10) {
         LeftLaserReverse = true;
       } else if (LeftLaserTime >= 10) {
@@ -388,30 +503,16 @@ function main() {
       KF_Left_Laser *= 2.5
 
     }
-
-    // laserTime *= 0.0004;
-
-    // var deltaLaserTime = (laserTime - laser_time_prev) * 100;
-    // laser_time_prev = laserTime;
-
-    // var KF_Left_Laser_Shooting = 0;
-    // if (laserTime < 5) {
-    //   LeftLaserShootingTime += deltaLaserTime;
-    //   KF_Left_Laser_Shooting = LIBS.degToRad(LeftLaserShootingTime);
-    //   LIBS.translateZ(LEFT_LASER_MATRIX, KF_Left_Laser_Shooting);
-
-    //   if (laserTime >= 5) {
-
-    //   }
-    // }
-
-
     
     //LIBS.translateX(LEFT_LASER_MATRIX, (KF_Left_Laser))
     //LIBS.translateZ(LEFT_LASER_MATRIX, (KF_Left_Laser * 10))
+
     LIBS.translateY(LEFT_LASER_MATRIX, KF_Left_Laser)
+    //LIBS.translateX(LEFT_LASER_MATRIX, KF_Left_Laser * 10)
+    //LIBS.translateZ(LEFT_LASER_MATRIX, KF_Left_Laser)
+
     LIBS.rotateY(LEFT_LASER_MATRIX, theta);
-    LIBS.rotateX(LEFT_LASER_MATRIX, alpha);
+    //LIBS.rotateX(LEFT_LASER_MATRIX, alpha);
 
 
     // Right Laser
@@ -419,7 +520,7 @@ function main() {
    
     var KF_Right_Laser = 0;
 
-    if (time < 10) {
+    if (time < 100) {
       if (RightLaserTime <= -10) {
         RightLaserReverse = true;
       } else if (RightLaserTime >= 10) {
@@ -438,13 +539,29 @@ function main() {
     
     
     LIBS.translateY(RIGHT_LASER_MATRIX, KF_Right_Laser)
+    //LIBS.translateX(RIGHT_LASER_MATRIX, KF_Right_Laser * 10)
+    //LIBS.translateZ(RIGHT_LASER_MATRIX, KF_Right_Laser)
+
     LIBS.rotateY(RIGHT_LASER_MATRIX, theta);
-    LIBS.rotateX(RIGHT_LASER_MATRIX, alpha);
+    //LIBS.rotateX(RIGHT_LASER_MATRIX, alpha);
+
+    /*========================= ROBOT TIME ========================= */
+
+    /*========================= WORLD ANIMASI ========================= */
+    WORLD_MATRIX = LIBS.get_I4();
+    //LIBS.rotateY(WORLD_MATRIX, theta);
+
+    WALL1_MATRIX = LIBS.get_I4();
+    //LIBS.rotateY(WALL1_MATRIX, theta);
+    /*========================= WORLD ANIMASI ========================= */
+
+    // MODEL_MATRIX = LIBS.get_I4();
+
     
 
-    MODEL_MATRIX = LIBS.get_I4();
-    LIBS.rotateY(MODEL_MATRIX, theta);
-    LIBS.rotateX(MODEL_MATRIX, alpha);
+    /*================================================================= */
+    /*=========================== ufo DRAW ========================== */
+    /*================================================================= */
 
     // kepala1
     GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
@@ -456,7 +573,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala1_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -476,7 +593,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala2_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -496,7 +613,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan1_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -516,7 +633,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan2_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -536,7 +653,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo1_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(GL.TRIANGLE_STRIP, ufo1.faces.length, GL.UNSIGNED_SHORT, 0);
@@ -551,7 +668,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo2_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -571,7 +688,7 @@ function main() {
      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
  
      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
  
      GL.drawElements(
@@ -592,7 +709,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, topBackpack_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -612,7 +729,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -632,7 +749,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack2_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -652,7 +769,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack3_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -672,7 +789,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack4_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -692,7 +809,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, bottomBackpack_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -713,7 +830,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftWeapon_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -733,7 +850,7 @@ function main() {
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightWeapon_faces);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
     GL.drawElements(
@@ -756,7 +873,7 @@ function main() {
      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
  
      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
      GL.uniformMatrix4fv(_MMatrix, false, LEFT_LASER_MATRIX);
  
      GL.drawElements(
@@ -776,7 +893,7 @@ function main() {
      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
  
      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
      GL.uniformMatrix4fv(_MMatrix, false, RIGHT_LASER_MATRIX);
  
      GL.drawElements(
@@ -786,12 +903,92 @@ function main() {
        0
      );
 
+    /*================================================================= */
+    /*=========================== WORLD DRAW ========================== */
+    /*================================================================= */
+    // Floor
+    GL.bindBuffer(GL.ARRAY_BUFFER, FLOOR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, FLOOR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FLOOR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, floor.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // BACK Wall
+    GL.bindBuffer(GL.ARRAY_BUFFER, BACK_WALL_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BACK_WALL_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BACK_WALL_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, backWall.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // LEFT Wall
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_WALL_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_WALL_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEFT_WALL_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, LEFT_WALL_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, leftWall.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // RIGHT Wall
+    GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_WALL_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_WALL_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, RIGHT_WALL_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, RIGHT_WALL_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, rightWall.faces.length, GL.UNSIGNED_SHORT, 0);
+
+
+
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL1_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WALL1_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, wall1.faces.length, GL.UNSIGNED_SHORT, 0);
+
     GL.flush();
 
-    window.requestAnimationFrame(animate);
+    window.requestAnimationFrame(animateRobot);
   };
 
-  animate(0);
+  animateRobot(0);
 }
 
 window.addEventListener("load", main);

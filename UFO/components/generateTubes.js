@@ -1,4 +1,4 @@
-export function generateSolidTube(x, y, z, outerRadius, innerRadius, height, segments, color) {
+function generateSolidTube(x, y, z, outerRadius, innerRadius, height, segments, color) {
     var vertices = [];
     var colors = [];
 

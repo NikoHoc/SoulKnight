@@ -350,74 +350,64 @@ function generateTabung(x, y, z, outerRadius, innerRadius, height, segments, col
 }
 
 
-function generateWorld(width, length, height) {
+function generateWorld(width, length, height, x, y, z, customColor) {
   var vertices = [];
   var colors = [];
   var faces = [];
-  var worldColors = [153/255, 76/255, 0/255];
 
   var halfWidth = width / 2;
   var halfLength = length / 2;
   var halfHeight = height / 2;
 
+  // Adjust vertices based on x, y, z position
   vertices = [
     // Front face
-    -halfWidth,
-    halfHeight,
-    halfLength,
-    -halfWidth,
-    -halfHeight,
-    halfLength,
-    halfWidth,
-    -halfHeight,
-    halfLength,
-    halfWidth,
-    halfHeight,
-    halfLength,
+    -halfWidth + x,
+    halfHeight + y,
+    halfLength + z,
+    -halfWidth + x,
+    -halfHeight + y,
+    halfLength + z,
+    halfWidth + x,
+    -halfHeight + y,
+    halfLength + z,
+    halfWidth + x,
+    halfHeight + y,
+    halfLength + z,
 
     // Back face
-    -halfWidth,
-    halfHeight,
-    -halfLength,
-    -halfWidth,
-    -halfHeight,
-    -halfLength,
-    halfWidth,
-    -halfHeight,
-    -halfLength,
-    halfWidth,
-    halfHeight,
-    -halfLength,
+    -halfWidth + x,
+    halfHeight + y,
+    -halfLength + z,
+    -halfWidth + x,
+    -halfHeight + y,
+    -halfLength + z,
+    halfWidth + x,
+    -halfHeight + y,
+    -halfLength + z,
+    halfWidth + x,
+    halfHeight + y,
+    -halfLength + z,
   ];
 
-  colors = [
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-    worldColors[0],
-    worldColors[1],
-    worldColors[2],
-  ];
+  // Assign custom colors to vertices
+  for (var i = 0; i < vertices.length / 3; i++) {
+    colors.push(
+      customColor[0],   // Red component
+      customColor[1],   // Green component
+      customColor[2]    // Blue component
+    );
+  }
 
-  faces = [0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 0, 4, 7, 0, 7, 3, 1, 5, 6, 1, 6, 2, 0, 1, 5, 0, 5, 4, 3, 2, 6, 3, 6, 7];
+  // Define faces
+  faces = [
+    0, 1, 2, 0, 2, 3,    // Front face
+    4, 5, 6, 4, 6, 7,    // Back face
+    0, 4, 7, 0, 7, 3,    // Top face
+    1, 5, 6, 1, 6, 2,    // Bottom face
+    0, 1, 5, 0, 5, 4,    // Left face
+    3, 2, 6, 3, 6, 7     // Right face
+  ];
 
   return { vertices: vertices, colors: colors, faces: faces };
 }

@@ -1,4 +1,4 @@
-export function generateUFO(a, b, c, segments, translateX, translateY, translateZ, color) {
+function generateUFO(a, b, c, segments, translateX, translateY, translateZ, color) {
   var vertices = [];
   var colors = [];
 
