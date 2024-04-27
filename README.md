@@ -13,6 +13,9 @@ Characters References
    
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128332966/356389d5-b50d-4704-85f8-def18ff9724c)
 
+
+Laporan Pengerjaan:
+
 C14220331 - Yestoya L. Minggus
   1. Membuat Character ...
   2. Membuat base Map Enviroment (lantai)
