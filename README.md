@@ -4,10 +4,12 @@ Characters References
 1. Engineer
    
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128313978/6b45dc62-d51a-486f-8404-99705a6b4980)
-3. Knight
+
+2. Knight
    
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128313978/38f6c967-8241-49b6-90fa-61d92c220933)
-5. Kngiht - X
+
+3. Kngiht - X
    
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128332966/356389d5-b50d-4704-85f8-def18ff9724c)
 
