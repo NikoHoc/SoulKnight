@@ -319,28 +319,28 @@ function main() {
   /*========================================================= */
 
   //Floor
-  var floor = generateWorld(50, 50, 0.3, 0, 0, 0, [0.42, 0.2, 0]);
+  var floor = generateWorld(50, 50, 0.3, 0, 0, 0, [0.33, 0.44, 0.48]);
 
   var FLOOR_VERTEX = createVertexBuffer(GL, floor.vertices);
   var FLOOR_COLORS = createColorBuffer(GL, floor.colors);
   var FLOOR_FACES = createFacesBuffer(GL, floor.faces);
 
   //Back
-  var backWall = generateWorld(50, 0.3, 5, 0, 2.25, -16, [0.8, 0.39, 0]);
+  var backWall = generateWorld(50, 0.3, 7, 0, 3.2, -22, [0.52, 0.77, 0.86]);
 
   var BACK_WALL_VERTEX = createVertexBuffer(GL, backWall.vertices);
   var BACK_WALL_COLORS = createColorBuffer(GL, backWall.colors);
   var BACK_WALL_FACES = createFacesBuffer(GL, backWall.faces);
 
   //Left
-  var leftWall = generateWorld(50, 0.3, 5, -5, 2, -1, [0.8, 0.39, 0]);
+  var leftWall = generateWorld(50, 0.3, 7, -5, 3, -1, [0.52, 0.77, 0.86]);
 
   var LEFT_WALL_VERTEX = createVertexBuffer(GL, leftWall.vertices);
   var LEFT_WALL_COLORS = createColorBuffer(GL, leftWall.colors);
   var LEFT_WALL_FACES = createFacesBuffer(GL, leftWall.faces);
 
   //Right
-  var rightWall = generateWorld(50, 0.3, 5, 5, 2, -1, [0.8, 0.39, 0]);
+  var rightWall = generateWorld(50, 0.3, 7, 5, 3.05, -1, [0.52, 0.77, 0.86]);
 
   var RIGHT_WALL_VERTEX = createVertexBuffer(GL, rightWall.vertices);
   var RIGHT_WALL_COLORS = createColorBuffer(GL, rightWall.colors);
@@ -348,7 +348,7 @@ function main() {
 
 
   //Obstacle
-  var wall1 = generateCube(0, 2, 0, 3, 3, 3, [0, 0, 0]);
+  var wall1 = generateCube(5, 2, 10, 6, 3, 4, [0.14, 0.16, 0.17]);
 
   var WALL1_VERTEX = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
@@ -388,12 +388,12 @@ function main() {
   var WORLD_MATRIX = LIBS.get_I4();
   var WALL1_MATRIX = LIBS.get_I4();
 
-  LIBS.translateZ(VIEW_MATRIX, -80);
+  LIBS.translateZ(VIEW_MATRIX, -60);
   LIBS.translateY(VIEW_MATRIX, -10);
 
   //Left Wall
   var LEFT_WALL_VIEW_MATRIX = LIBS.get_I4();
-  LIBS.translateZ(LEFT_WALL_VIEW_MATRIX, -77);
+  LIBS.translateZ(LEFT_WALL_VIEW_MATRIX, -56.1);
   LIBS.translateY(LEFT_WALL_VIEW_MATRIX, -10);
   LIBS.translateX(LEFT_WALL_VIEW_MATRIX, -27);
   
@@ -403,7 +403,7 @@ function main() {
 
   //Right Wall
   var RIGHT_WALL_VIEW_MATRIX = LIBS.get_I4();
-  LIBS.translateZ(RIGHT_WALL_VIEW_MATRIX, -77);
+  LIBS.translateZ(RIGHT_WALL_VIEW_MATRIX, -56.1);
   LIBS.translateY(RIGHT_WALL_VIEW_MATRIX, -10);
   LIBS.translateX(RIGHT_WALL_VIEW_MATRIX, 27);
   
@@ -556,7 +556,6 @@ function main() {
     /*========================= WORLD ANIMASI ========================= */
 
     // MODEL_MATRIX = LIBS.get_I4();
-
     
 
     /*================================================================= */
