@@ -498,6 +498,9 @@ function main() {
   var KakiKiriTime = 0;
   var KakiKiriReverse = false;
 
+  var SaberTime = 0;
+  var SaberReverse = false;
+
   var animateRobot = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
@@ -560,6 +563,22 @@ function main() {
     }
 
     SABER_MATRIX = LIBS.get_I4();
+    var KF_Saber = 0;
+    if (time < 10) {
+      if (SaberTime <= -9) {
+        SaberReverse = true;
+      } else if (SaberTime >= 9) {
+        SaberReverse = false;
+      }
+
+      if (SaberReverse == true) {
+        SaberTime += deltaTime;
+      } else {
+        SaberTime -= deltaTime;
+      }
+
+      KF_Saber = LIBS.degToRad(SaberTime / (Math.PI * 1));
+    }
 
     MODEL_MATRIX = LIBS.get_I4();
 
@@ -582,6 +601,7 @@ function main() {
     LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
 
     // SABER
+    LIBS.rotateX(SABER_MATRIX, KF_Saber);
     LIBS.rotateY(SABER_MATRIX, theta);
     LIBS.rotateX(SABER_MATRIX, alpha);
 

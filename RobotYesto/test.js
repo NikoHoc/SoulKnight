@@ -243,9 +243,9 @@ function main() {
     var KF_Saber = 0;
 
     if (time < 10) {
-      if (SaberTime <= -10) {
+      if (SaberTime <= -9) {
         SaberReverse = true;
-      } else if (SaberTime >= 10) {
+      } else if (SaberTime >= 9) {
         SaberReverse = false;
       }
 
@@ -255,7 +255,7 @@ function main() {
         SaberTime -= deltaTime;
       }
 
-      KF_Saber = LIBS.degToRad(SaberTime);
+      KF_Saber = LIBS.degToRad(SaberTime / (Math.PI * 1));
     }
 
     MODEL_MATRIX = LIBS.get_I4();
