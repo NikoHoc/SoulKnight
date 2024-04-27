@@ -1,5 +1,3 @@
-
-
 function createVertexBuffer(GL, data) {
   var buffer = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, buffer);
@@ -104,6 +102,7 @@ function main() {
           gl_FragColor = vec4(vColor, 1.);
          
           }`;
+
   var compile_shader = function (source, type, typeString) {
     var shader = GL.createShader(type);
     GL.shaderSource(shader, source);
@@ -162,7 +161,6 @@ function main() {
   var kepala2_vertex = createVertexBuffer(GL, kepala2.vertices);
   var kepala2_colors = createColorBuffer(GL, kepala2.colors);
   var kepala2_faces = createFacesBuffer(GL, kepala2.faces);
-  
 
   // ========================== Badan ==================================
   // bagian dalam
@@ -174,58 +172,115 @@ function main() {
   var badan1_FACES = createFacesBuffer(GL, badan1.faces);
 
   // bagian luar
-  var badan2 = generateSolidTube(0, 0, 0,  1.505, 1.505, 4, 10, [0.11, 0.88, 0.94]);
+  var badan2 = generateSolidTube(
+    0,
+    0,
+    0,
+    1.505,
+    1.505,
+    4,
+    10,
+    [0.11, 0.88, 0.94]
+  );
 
   // Create buffers for the first octagon
   var badan2_VERTEX = createVertexBuffer(GL, badan2.vertices);
   var badan2_COLORS = createColorBuffer(GL, badan2.colors);
   var badan2_FACES = createFacesBuffer(GL, badan2.faces);
 
-
   // ========================== Tube Backpack ==================================
 
   // top backpack
-  var topBackpack = generateHalfSphere(0, 1.9, -2.8, 0.65, 30, [0.44, 0.44, 0.52]);
+  var topBackpack = generateHalfSphere(
+    0,
+    1.9,
+    -2.8,
+    0.65,
+    30,
+    [0.44, 0.44, 0.52]
+  );
   // Create buffers
   var topBackpack_vertex = createVertexBuffer(GL, topBackpack.vertices);
   var topBackpack_colors = createColorBuffer(GL, topBackpack.colors);
   var topBackpack_faces = createFacesBuffer(GL, topBackpack.faces);
 
   // body backpack
-  var backpack = generateSolidTube(0, 0.16, -2.8, 0.65, 0.65, 3.5, 30, [0.24, 0.25, 0.29]);
+  var backpack = generateSolidTube(
+    0,
+    0.16,
+    -2.8,
+    0.65,
+    0.65,
+    3.5,
+    30,
+    [0.24, 0.25, 0.29]
+  );
   // Create buffers
   var backpack_vertex = createVertexBuffer(GL, backpack.vertices);
   var backpack_colors = createColorBuffer(GL, backpack.colors);
   var backpack_faces = createFacesBuffer(GL, backpack.faces);
 
   // backpack aksesoris 2
-  var backpack2 = generateSolidTube(0, 1.46, -2.8, 0.67, 0.67, 0.35, 30, [0.09, 1, 0.99]);
+  var backpack2 = generateSolidTube(
+    0,
+    1.46,
+    -2.8,
+    0.67,
+    0.67,
+    0.35,
+    30,
+    [0.09, 1, 0.99]
+  );
   // Create buffers
   var backpack2_vertex = createVertexBuffer(GL, backpack2.vertices);
   var backpack2_colors = createColorBuffer(GL, backpack2.colors);
   var backpack2_faces = createFacesBuffer(GL, backpack2.faces);
 
   // backpack aksesoris 3
-  var backpack3 = generateSolidTube(0, 1.1, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
+  var backpack3 = generateSolidTube(
+    0,
+    1.1,
+    -2.8,
+    0.67,
+    0.67,
+    0.35,
+    30,
+    [0.17, 0.84, 0.83]
+  );
   // Create buffers
   var backpack3_vertex = createVertexBuffer(GL, backpack3.vertices);
   var backpack3_colors = createColorBuffer(GL, backpack3.colors);
   var backpack3_faces = createFacesBuffer(GL, backpack3.faces);
 
   // backpack aksesoris 4
-  var backpack4 = generateSolidTube(0, 0.16, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
+  var backpack4 = generateSolidTube(
+    0,
+    0.16,
+    -2.8,
+    0.67,
+    0.67,
+    0.35,
+    30,
+    [0.17, 0.84, 0.83]
+  );
   // Create buffers
   var backpack4_vertex = createVertexBuffer(GL, backpack4.vertices);
   var backpack4_colors = createColorBuffer(GL, backpack4.colors);
   var backpack4_faces = createFacesBuffer(GL, backpack4.faces);
 
   // bottom backpack
-  var bottomBackpack = generateHalfSphere(0, -1.58, -2.8, -0.65, 30, [0.44, 0.44, 0.52]);
+  var bottomBackpack = generateHalfSphere(
+    0,
+    -1.58,
+    -2.8,
+    -0.65,
+    30,
+    [0.44, 0.44, 0.52]
+  );
   // Create buffers
   var bottomBackpack_vertex = createVertexBuffer(GL, bottomBackpack.vertices);
   var bottomBackpack_colors = createColorBuffer(GL, bottomBackpack.colors);
   var bottomBackpack_faces = createFacesBuffer(GL, bottomBackpack.faces);
-  
 
   // ========================== UFO ==================================
   // UFO dark grey
@@ -237,7 +292,7 @@ function main() {
   var ufo1_faces = createFacesBuffer(GL, ufo1.faces);
 
   // UFO Yellow
-  var ufo2 = generateUFO(2.2, 2.2, 1.5, 40,  0, -1.4, 0, [1, 0.85, 0.21]);
+  var ufo2 = generateUFO(2.2, 2.2, 1.5, 40, 0, -1.4, 0, [1, 0.85, 0.21]);
 
   // Create buffers
   var ufo2_vertex = createVertexBuffer(GL, ufo2.vertices);
@@ -253,7 +308,6 @@ function main() {
   var botUFO_colors = createColorBuffer(GL, botUFO.colors);
   var botUFO_faces = createFacesBuffer(GL, botUFO.faces);
 
-
   // ========================== Weapon ==================================
   var leftWeapon = generateWeapon(-2.65, -1.5, 1, 0.2, 0, 4, 5, [0, 0, 0]);
   // Create buffers
@@ -267,7 +321,7 @@ function main() {
   var rightWeapon_colors = createColorBuffer(GL, rightWeapon.colors);
   var rightWeapon_faces = createFacesBuffer(GL, rightWeapon.faces);
 
-  // ======================== Laser =========================================
+  // ======================== Laser For The Body =========================================
   var leftLaser = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
   // Create buffers
   var leftLaser_vertex = createVertexBuffer(GL, leftLaser.vertices);
@@ -280,6 +334,18 @@ function main() {
   var rightLaser_colors = createColorBuffer(GL, rightLaser.colors);
   var rightLaser_faces = createFacesBuffer(GL, rightLaser.faces);
 
+  // Laser for shooting
+  var leftLaserShoot = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var leftLaserShoot_vertex = createVertexBuffer(GL, leftLaserShoot.vertices);
+  var leftLaserShoot_colors = createColorBuffer(GL, leftLaserShoot.colors);
+  var leftLaserShoot_faces = createFacesBuffer(GL, leftLaserShoot.faces);
+
+  var rightLaserShoot = generateWeapon(2.61, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var rightLaserShoot_vertex = createVertexBuffer(GL, rightLaserShoot.vertices);
+  var rightLaserShoot_colors = createColorBuffer(GL, rightLaserShoot.colors);
+  var rightLaserShoot_faces = createFacesBuffer(GL, rightLaserShoot.faces);
 
   //matrix
   var PROJECTION_MATRIX = LIBS.get_projection(
@@ -291,15 +357,14 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  
-  // badan
+  //Body
   var BODY_MATRIX = LIBS.get_I4();
 
-  var LEFT_LASER_MATRIX = LIBS.get_I4();
-
-  var RIGHT_LASER_MATRIX = LIBS.get_I4();
+  var LASER_MATRIX = LIBS.get_I4();
 
   LIBS.translateZ(VIEW_MATRIX, -30);
+  LIBS.rotateY(VIEW_MATRIX, 20)
+
 
   /*========================= DRAWING ========================= */
   GL.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -310,18 +375,19 @@ function main() {
   var BodyTime = 0;
   var BodyReverse = false;
 
-  var LeftLaserTime = 0;
-  var LeftLaserReverse = false;
+  var LaserTime = 0;
+  var isMovingForward = true;
+  var animationDuration = 27; //Cepat lambatnya laser
+  var startLaserTime = 0;
+  var endLaserTime = animationDuration;
+  var startProgress = 0;
+  var finishProgress = 1;
+  var targetProgress = finishProgress;
 
-  var LeftLaserShootingTime = 0;
-
-  var RightLaserTime = 0;
-  var RightLaserReverse = false;
 
   var time_prev = 0;
-  var laser_time_prev = 0;
 
-  var animate = function (time, laserTime) {
+  var animate = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
@@ -357,94 +423,58 @@ function main() {
       }
 
       KF_Body = LIBS.degToRad(BodyTime);
-      KF_Body *= 2.5
+      KF_Body *= 2.5;
     }
-    
-    LIBS.translateY(BODY_MATRIX, KF_Body)
+
+    LIBS.translateY(BODY_MATRIX, KF_Body);
     LIBS.rotateY(BODY_MATRIX, theta);
-    LIBS.rotateX(BODY_MATRIX, alpha);
+    //LIBS.rotateX(BODY_MATRIX, alpha);
 
 
-    //===================== LASER ============= 
-    // Left Laser
-    LEFT_LASER_MATRIX = LIBS.get_I4();
+    //===================== LASER =============
+    LASER_MATRIX = LIBS.get_I4();
 
-    var KF_Left_Laser = 0;
-    // Following body movement
-    if (time < 10) {
-      if (LeftLaserTime <= -10) {
-        LeftLaserReverse = true;
-      } else if (LeftLaserTime >= 10) {
-        LeftLaserReverse = false;
+    var KF_Laser = 0;
+  
+    if (time < 60) {
+      if (isMovingForward && LaserTime >= endLaserTime) {
+        // If moving forward and reached the finish point, reset to start point
+        startLaserTime = 0;
+        LaserTime = startLaserTime;
+        targetProgress = finishProgress; // Set target progress for next movement
+      } else if (!isMovingForward && LaserTime <= startLaserTime) {
+        // If moving backward and reached the start point, reset to start point
+        LaserTime = startLaserTime;
+        targetProgress = finishProgress; // Set target progress for next movement
       }
-
-      if (LeftLaserReverse) {
-        LeftLaserTime += deltaTime;
+    
+      // Calculate movement based on direction
+      if (isMovingForward) {
+        LaserTime += deltaTime;
       } else {
-        LeftLaserTime -= deltaTime;
+        LaserTime -= deltaTime;
       }
-
-      KF_Left_Laser = LIBS.degToRad(LeftLaserTime);
-      KF_Left_Laser *= 2.5
-
+    
+      // Calculate current progress based on LaserTime
+      var progress = (LaserTime - startLaserTime) / (endLaserTime - startLaserTime);
+      
+      // Smoothly interpolate between start and finish progress
+      var currentProgress = startProgress + (targetProgress - startProgress) * progress;
+    
+      KF_Laser = currentProgress * 10; //dikali berapa untuk jarak laser
     }
 
-    // laserTime *= 0.0004;
-
-    // var deltaLaserTime = (laserTime - laser_time_prev) * 100;
-    // laser_time_prev = laserTime;
-
-    // var KF_Left_Laser_Shooting = 0;
-    // if (laserTime < 5) {
-    //   LeftLaserShootingTime += deltaLaserTime;
-    //   KF_Left_Laser_Shooting = LIBS.degToRad(LeftLaserShootingTime);
-    //   LIBS.translateZ(LEFT_LASER_MATRIX, KF_Left_Laser_Shooting);
-
-    //   if (laserTime >= 5) {
-
-    //   }
-    // }
-
-
+    //LIBS.translateX(LASER_MATRIX, KF_Laser)
+    //LIBS.translateY(LASER_MATRIX, KF_Laser);
+    LIBS.translateZ(LASER_MATRIX, KF_Laser);
     
-    //LIBS.translateX(LEFT_LASER_MATRIX, (KF_Left_Laser))
-    //LIBS.translateZ(LEFT_LASER_MATRIX, (KF_Left_Laser * 10))
-    LIBS.translateY(LEFT_LASER_MATRIX, KF_Left_Laser)
-    LIBS.rotateY(LEFT_LASER_MATRIX, theta);
-    LIBS.rotateX(LEFT_LASER_MATRIX, alpha);
+    //LIBS.rotateY(LASER_MATRIX, theta);
+    //LIBS.rotateX(LASER_MATRIX, alpha);
 
-
-    // Right Laser
-    RIGHT_LASER_MATRIX = LIBS.get_I4();
-   
-    var KF_Right_Laser = 0;
-
-    if (time < 10) {
-      if (RightLaserTime <= -10) {
-        RightLaserReverse = true;
-      } else if (RightLaserTime >= 10) {
-        RightLaserReverse = false;
-      }
-
-      if (RightLaserReverse) {
-        RightLaserTime += deltaTime;
-      } else {
-        RightLaserTime -= deltaTime;
-      }
-
-      KF_Right_Laser = LIBS.degToRad(RightLaserTime);
-      KF_Right_Laser *= 2.5
-    }
-    
-    
-    LIBS.translateY(RIGHT_LASER_MATRIX, KF_Right_Laser)
-    LIBS.rotateY(RIGHT_LASER_MATRIX, theta);
-    LIBS.rotateX(RIGHT_LASER_MATRIX, alpha);
-    
 
     MODEL_MATRIX = LIBS.get_I4();
     LIBS.rotateY(MODEL_MATRIX, theta);
-    LIBS.rotateX(MODEL_MATRIX, alpha);
+    //LIBS.rotateX(MODEL_MATRIX, alpha);
 
     // kepala1
     GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
@@ -479,12 +509,7 @@ function main() {
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
-    GL.drawElements(
-      GL.TRIANGLES,
-      kepala2.faces.length,
-      GL.UNSIGNED_SHORT,
-      0
-    );
+    GL.drawElements(GL.TRIANGLES, kepala2.faces.length, GL.UNSIGNED_SHORT, 0);
 
     // badan 1
     GL.bindBuffer(GL.ARRAY_BUFFER, badan1_VERTEX);
@@ -554,34 +579,28 @@ function main() {
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
+    GL.drawElements(GL.TRIANGLE_STRIP, ufo2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Bot UFO
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
     GL.drawElements(
       GL.TRIANGLE_STRIP,
-      ufo2.faces.length,
+      botUFO.faces.length,
       GL.UNSIGNED_SHORT,
       0
     );
 
-    //Bot UFO
-     GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
-     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
-     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
- 
-     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
- 
-     GL.drawElements(
-       GL.TRIANGLE_STRIP,
-       botUFO.faces.length,
-       GL.UNSIGNED_SHORT,
-       0
-     );
-
-  
     // Draw bagian top backpack
     GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -702,7 +721,6 @@ function main() {
       0
     );
 
-
     // Gambar LeftWeapon
     GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -744,47 +762,87 @@ function main() {
     );
 
     //
-    // LASER
+    // LASER untuk badan
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-     // Gambar left laser
-     GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
-     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
-     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
- 
-     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, LEFT_LASER_MATRIX);
- 
-     GL.drawElements(
-       GL.TRIANGLE_STRIP,
-       leftLaser.faces.length,
-       GL.UNSIGNED_SHORT,
-       0
-     );
- 
-     // Gambar right laser
-     GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
-     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
-     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
- 
-     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, RIGHT_LASER_MATRIX);
- 
-     GL.drawElements(
-       GL.TRIANGLE_STRIP,
-       rightLaser.faces.length,
-       GL.UNSIGNED_SHORT,
-       0
-     );
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      leftLaser.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      rightLaser.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    //Laser untuk menembak
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      leftLaserShoot.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      rightLaserShoot.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
 
     GL.flush();
 

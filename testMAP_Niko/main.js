@@ -252,7 +252,7 @@ function main() {
   var rightWeapon_colors = createColorBuffer(GL, rightWeapon.colors);
   var rightWeapon_faces = createFacesBuffer(GL, rightWeapon.faces);
 
-  // ======================== Laser =========================================
+  // ======================== Laser For The Body =========================================
   var leftLaser = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
   // Create buffers
   var leftLaser_vertex = createVertexBuffer(GL, leftLaser.vertices);
@@ -264,6 +264,20 @@ function main() {
   var rightLaser_vertex = createVertexBuffer(GL, rightLaser.vertices);
   var rightLaser_colors = createColorBuffer(GL, rightLaser.colors);
   var rightLaser_faces = createFacesBuffer(GL, rightLaser.faces);
+
+  // Laser for shooting
+  var leftLaserShoot = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var leftLaserShoot_vertex = createVertexBuffer(GL, leftLaserShoot.vertices);
+  var leftLaserShoot_colors = createColorBuffer(GL, leftLaserShoot.colors);
+  var leftLaserShoot_faces = createFacesBuffer(GL, leftLaserShoot.faces);
+
+  var rightLaserShoot = generateWeapon(2.61, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var rightLaserShoot_vertex = createVertexBuffer(GL, rightLaserShoot.vertices);
+  var rightLaserShoot_colors = createColorBuffer(GL, rightLaserShoot.colors);
+  var rightLaserShoot_faces = createFacesBuffer(GL, rightLaserShoot.faces);
+
 
   // /*========================= KECILIN ROBOT ========================= */
   // var scaleFactor = 0.1;
@@ -372,16 +386,17 @@ function main() {
   /*========================= MATRIX UFO ======================== */
   var BODY_MATRIX = LIBS.get_I4();
 
-  var LEFT_LASER_MATRIX = LIBS.get_I4();
-
-  var RIGHT_LASER_MATRIX = LIBS.get_I4();
+  var LASER_MATRIX = LIBS.get_I4();
 
   var UFO_VIEW_MATRIX = LIBS.get_I4();
 
-  LIBS.translateY(UFO_VIEW_MATRIX, -5)
-  LIBS.translateZ(UFO_VIEW_MATRIX, -70);
-  LIBS.translateX(UFO_VIEW_MATRIX, -10);
+  //First Render of the UFO
+  LIBS.translateX(UFO_VIEW_MATRIX, -21);
+  LIBS.translateY(UFO_VIEW_MATRIX, -4.5)
+  LIBS.translateZ(UFO_VIEW_MATRIX, -80);
 
+  LIBS.rotateY(UFO_VIEW_MATRIX, 20);
+  
 
   /*========================= MATRIX ENV ========================= */
   // Floor
@@ -420,19 +435,21 @@ function main() {
   GL.enable(GL.DEPTH_TEST);
   GL.depthFunc(GL.LEQUAL);
 
-  var BodyTime = 0;
-  var BodyReverse = false;
+  // FOR  UFO
+  var UFOBodyTime = 0;
+  var UFOBodyReverse = false;
 
-  var LeftLaserTime = 0;
-  var LeftLaserReverse = false;
-
-  var LeftLaserShootingTime = 0;
-
-  var RightLaserTime = 0;
-  var RightLaserReverse = false;
+  var LaserTime = 0;
+  var isMovingForward = true;
+  var animationDuration = 27; //Cepat lambatnya laser
+  var startLaserTime = 0;
+  var endLaserTime = animationDuration;
+  var startProgress = 0;
+  var finishProgress = 1;
+  var targetProgress = finishProgress;
 
   var time_prev = 0;
-  var laser_time_prev = 0;
+
 
   /*=========================================================== */
   /*========================= ANIMATE ========================= */
@@ -446,106 +463,74 @@ function main() {
     var deltaTime = (time - time_prev) * 100;
     time_prev = time;
 
-    /*========================= TIME ========================= */
-
     /*========================= UFO TIME AND ANIMATION ========================= */
-
     // Body
     BODY_MATRIX = LIBS.get_I4();
 
-    var KF_Body = 0;
+    var KF_UFO_Body = 0;
 
-    if (time < 100) {
-      if (BodyTime <= -10) {
-        BodyReverse = true;
-      } else if (BodyTime >= 10) {
-        BodyReverse = false;
+    if (time < 40) {
+      if (UFOBodyTime <= -10) {
+        UFOBodyReverse = true;
+      } else if (UFOBodyTime >= 10) {
+        UFOBodyReverse = false;
       }
 
-      if (BodyReverse) {
-        BodyTime += deltaTime;
+      if (UFOBodyReverse) {
+        UFOBodyTime += deltaTime;
       } else {
-        BodyTime -= deltaTime;
+        UFOBodyTime -= deltaTime;
       }
 
-      KF_Body = LIBS.degToRad(BodyTime);
-      KF_Body *= 2.5
+      KF_UFO_Body = LIBS.degToRad(UFOBodyTime);
+      KF_UFO_Body *= 2.5;
     }
-    
-    LIBS.translateY(BODY_MATRIX, KF_Body)
-    //LIBS.translateX(BODY_MATRIX, KF_Body * 10)
-    //LIBS.translateZ(BODY_MATRIX, KF_Body)
 
-
+    LIBS.translateY(BODY_MATRIX, KF_UFO_Body);
     LIBS.rotateY(BODY_MATRIX, theta);
     //LIBS.rotateX(BODY_MATRIX, alpha);
 
-    //===================== LASER ============= 
-    // Left Laser
-    LEFT_LASER_MATRIX = LIBS.get_I4();
+    //===================== LASER ANIMATION =============
+    LASER_MATRIX = LIBS.get_I4();
 
-    var KF_Left_Laser = 0;
-    // Following body movement
-    if (time < 100) {
-      if (LeftLaserTime <= -10) {
-        LeftLaserReverse = true;
-      } else if (LeftLaserTime >= 10) {
-        LeftLaserReverse = false;
+    var KF_Laser = 0;
+  
+    if (time < 60) {
+      if (isMovingForward && LaserTime >= endLaserTime) {
+        // If moving forward and reached the finish point, reset to start point
+        startLaserTime = 0;
+        LaserTime = startLaserTime;
+        targetProgress = finishProgress; // Set target progress for next movement
+      } else if (!isMovingForward && LaserTime <= startLaserTime) {
+        // If moving backward and reached the start point, reset to start point
+        LaserTime = startLaserTime;
+        targetProgress = finishProgress; // Set target progress for next movement
       }
-
-      if (LeftLaserReverse) {
-        LeftLaserTime += deltaTime;
+    
+      // Calculate movement based on direction
+      if (isMovingForward) {
+        LaserTime += deltaTime;
       } else {
-        LeftLaserTime -= deltaTime;
+        LaserTime -= deltaTime;
       }
-
-      KF_Left_Laser = LIBS.degToRad(LeftLaserTime);
-      KF_Left_Laser *= 2.5
-
+    
+      // Calculate current progress based on LaserTime
+      var progress = (LaserTime - startLaserTime) / (endLaserTime - startLaserTime);
+      
+      // Smoothly interpolate between start and finish progress
+      var currentProgress = startProgress + (targetProgress - startProgress) * progress;
+    
+      KF_Laser = currentProgress * 10; //dikali berapa untuk jarak laser
     }
+
+    //LIBS.translateX(LASER_MATRIX, KF_Laser)
+    //LIBS.translateY(LASER_MATRIX, KF_Laser);
+    LIBS.translateZ(LASER_MATRIX, KF_Laser);
     
-    //LIBS.translateX(LEFT_LASER_MATRIX, (KF_Left_Laser))
-    //LIBS.translateZ(LEFT_LASER_MATRIX, (KF_Left_Laser * 10))
+    //LIBS.rotateY(LASER_MATRIX, theta);
+    //LIBS.rotateX(LASER_MATRIX, alpha);
 
-    LIBS.translateY(LEFT_LASER_MATRIX, KF_Left_Laser)
-    //LIBS.translateX(LEFT_LASER_MATRIX, KF_Left_Laser * 10)
-    //LIBS.translateZ(LEFT_LASER_MATRIX, KF_Left_Laser)
-
-    LIBS.rotateY(LEFT_LASER_MATRIX, theta);
-    //LIBS.rotateX(LEFT_LASER_MATRIX, alpha);
-
-
-    // Right Laser
-    RIGHT_LASER_MATRIX = LIBS.get_I4();
-   
-    var KF_Right_Laser = 0;
-
-    if (time < 100) {
-      if (RightLaserTime <= -10) {
-        RightLaserReverse = true;
-      } else if (RightLaserTime >= 10) {
-        RightLaserReverse = false;
-      }
-
-      if (RightLaserReverse) {
-        RightLaserTime += deltaTime;
-      } else {
-        RightLaserTime -= deltaTime;
-      }
-
-      KF_Right_Laser = LIBS.degToRad(RightLaserTime);
-      KF_Right_Laser *= 2.5
-    }
-    
-    
-    LIBS.translateY(RIGHT_LASER_MATRIX, KF_Right_Laser)
-    //LIBS.translateX(RIGHT_LASER_MATRIX, KF_Right_Laser * 10)
-    //LIBS.translateZ(RIGHT_LASER_MATRIX, KF_Right_Laser)
-
-    LIBS.rotateY(RIGHT_LASER_MATRIX, theta);
-    //LIBS.rotateX(RIGHT_LASER_MATRIX, alpha);
-
-    /*========================= ROBOT TIME ========================= */
+    /*========================= UFO TIME AND ANIMATION  ========================= */
 
     /*========================= WORLD ANIMASI ========================= */
     WORLD_MATRIX = LIBS.get_I4();
@@ -595,12 +580,7 @@ function main() {
     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
-    GL.drawElements(
-      GL.TRIANGLES,
-      kepala2.faces.length,
-      GL.UNSIGNED_SHORT,
-      0
-    );
+    GL.drawElements(GL.TRIANGLES, kepala2.faces.length, GL.UNSIGNED_SHORT, 0);
 
     // badan 1
     GL.bindBuffer(GL.ARRAY_BUFFER, badan1_VERTEX);
@@ -670,34 +650,28 @@ function main() {
     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
 
+    GL.drawElements(GL.TRIANGLE_STRIP, ufo2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Bot UFO
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
     GL.drawElements(
       GL.TRIANGLE_STRIP,
-      ufo2.faces.length,
+      botUFO.faces.length,
       GL.UNSIGNED_SHORT,
       0
     );
 
-    //Bot UFO
-     GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
-     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
-     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
- 
-     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
- 
-     GL.drawElements(
-       GL.TRIANGLE_STRIP,
-       botUFO.faces.length,
-       GL.UNSIGNED_SHORT,
-       0
-     );
-
-  
     // Draw bagian top backpack
     GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -818,7 +792,6 @@ function main() {
       0
     );
 
-
     // Gambar LeftWeapon
     GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_vertex);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -860,47 +833,87 @@ function main() {
     );
 
     //
-    // LASER
+    // LASER untuk badan
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-     // Gambar left laser
-     GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
-     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
-     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
- 
-     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, LEFT_LASER_MATRIX);
- 
-     GL.drawElements(
-       GL.TRIANGLE_STRIP,
-       leftLaser.faces.length,
-       GL.UNSIGNED_SHORT,
-       0
-     );
- 
-     // Gambar right laser
-     GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
-     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
-     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
- 
-     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
- 
-     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-     GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-     GL.uniformMatrix4fv(_MMatrix, false, RIGHT_LASER_MATRIX);
- 
-     GL.drawElements(
-       GL.TRIANGLE_STRIP,
-       rightLaser.faces.length,
-       GL.UNSIGNED_SHORT,
-       0
-     );
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      leftLaser.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      rightLaser.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    //Laser untuk menembak
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      leftLaserShoot.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+
+    GL.drawElements(
+      GL.TRIANGLE_STRIP,
+      rightLaserShoot.faces.length,
+      GL.UNSIGNED_SHORT,
+      0
+    );
 
     /*================================================================= */
     /*=========================== WORLD DRAW ========================== */
@@ -967,7 +980,7 @@ function main() {
 
 
 
-
+    //Obstacle
     GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
