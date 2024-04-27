@@ -482,7 +482,7 @@ function main() {
   // gun eye
   var SABER_MATRIX = LIBS.get_I4();
 
-  LIBS.translateZ(VIEW_MATRIX, -40);
+  LIBS.translateZ(VIEW_MATRIX, -20);
 
   /*========================= DRAWING ========================= */
   GL.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -498,6 +498,9 @@ function main() {
   var KakiKiriTime = 0;
   var KakiKiriReverse = false;
 
+  var SaberTime = 0;
+  var SaberReverse = false;
+
   var animateRobot = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
@@ -507,14 +510,6 @@ function main() {
     var deltaTime = (time - then) * 100;
     then = time;
 
-    if (!drag) {
-      dx *= friction;
-      dy *= friction;
-
-      theta += (dx * 2 * Math.PI) / CANVAS.width;
-      alpha += (dy * 2 * Math.PI) / CANVAS.height;
-    }
-
     /*========================= TIME ========================= */
     // Badan
     BADAN_MATRIX = LIBS.get_I4();
@@ -523,7 +518,7 @@ function main() {
     KAKI_KANAN_MATRIX = LIBS.get_I4();
     var KF_KakiKanan = 0;
 
-    if (time < 10) {
+    
       if (KakiKananTime <= -10) {
         KakiKananReverse = true;
       } else if (KakiKananTime >= 10) {
@@ -537,13 +532,13 @@ function main() {
       }
 
       KF_KakiKanan = LIBS.degToRad(KakiKananTime);
-    }
+    
 
     // Kaki Kiri
     KAKI_KIRI_MATRIX = LIBS.get_I4();
     var KF_KakiKiri = 0;
 
-    if (time < 10) {
+    
       if (KakiKiriTime <= -10) {
         KakiKiriReverse = false;
       } else if (KakiKiriTime >= 10) {
@@ -557,9 +552,25 @@ function main() {
       }
 
       KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
-    }
+    
 
     SABER_MATRIX = LIBS.get_I4();
+    var KF_Saber = 0;
+    
+      if (SaberTime <= -9) {
+        SaberReverse = true;
+      } else if (SaberTime >= 9) {
+        SaberReverse = false;
+      }
+
+      if (SaberReverse == true) {
+        SaberTime += deltaTime;
+      } else {
+        SaberTime -= deltaTime;
+      }
+
+      KF_Saber = LIBS.degToRad(SaberTime / (Math.PI * 1));
+    
 
     MODEL_MATRIX = LIBS.get_I4();
 
@@ -582,6 +593,7 @@ function main() {
     LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
 
     // SABER
+    LIBS.rotateX(SABER_MATRIX, KF_Saber);
     LIBS.rotateY(SABER_MATRIX, theta);
     LIBS.rotateX(SABER_MATRIX, alpha);
 
