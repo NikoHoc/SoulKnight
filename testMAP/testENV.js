@@ -481,9 +481,6 @@ function main() {
   var WALL3_COLORS = createColorBuffer(GL, wall3.colors);
   var WALL3_FACES = createFacesBuffer(GL, wall3.faces);
 
-  
-
-
 
   /*========================================================= */
   /*========================= MATRIX ======================== */

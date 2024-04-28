@@ -87,6 +87,7 @@ function createVertexBuffer(GL, data) {
               gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
               vColor = color;
               }`;
+
     var shader_fragment_source = `
               precision mediump float;
               varying vec3 vColor;
@@ -95,6 +96,7 @@ function createVertexBuffer(GL, data) {
               gl_FragColor = vec4(vColor, 1.);
             
               }`;
+              
     var compile_shader = function (source, type, typeString) {
       var shader = GL.createShader(type);
       GL.shaderSource(shader, source);
