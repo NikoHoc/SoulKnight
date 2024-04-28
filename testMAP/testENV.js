@@ -453,19 +453,29 @@ function main() {
   var RIGHT_WALL_FACES = createFacesBuffer(GL, rightWall.faces);
 
   //Obstacle
-  var wall1 = generateCube(5, 2, 10, 6, 3, 4, [0.14, 0.16, 0.17]);
+  // x, y, z, width, height, depth, color
+  var wall1 = generateCube(5, 2, 10, 4, 10, 10, [204/255, 102/255, 0]);
 
-  var WALL1_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(wall1.vertices), GL.STATIC_DRAW);
+  var WALL1_VERTEX = createVertexBuffer(GL, wall1.vertices);
+  var WALL1_COLORS = createColorBuffer(GL, wall1.colors);
+  var WALL1_FACES = createFacesBuffer(GL, wall1.faces);
 
-  var WALL1_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(wall1.colors), GL.STATIC_DRAW);
+  var wall2 = generateCube(-10, 2, 22, 4, 3, 4, [204/255, 102/255, 0]);
 
-  var WALL1_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL1_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(wall1.faces), GL.STATIC_DRAW);
+  var WALL2_VERTEX = createVertexBuffer(GL, wall2.vertices);
+  var WALL2_COLORS = createColorBuffer(GL, wall2.colors);
+  var WALL2_FACES = createFacesBuffer(GL, wall2.faces);
+
+  
+  var wall3 = generateCube(-4, 2, 1, 4, 5, 4, [204/255, 102/255, 0]);
+
+  var WALL3_VERTEX = createVertexBuffer(GL, wall3.vertices);
+  var WALL3_COLORS = createColorBuffer(GL, wall3.colors);
+  var WALL3_FACES = createFacesBuffer(GL, wall3.faces);
+
+  
+
+
 
   /*========================================================= */
   /*========================= MATRIX ======================== */
@@ -492,6 +502,8 @@ function main() {
   // Floor
   var WORLD_MATRIX = LIBS.get_I4();
   var WALL1_MATRIX = LIBS.get_I4();
+  var WALL2_MATRIX = LIBS.get_I4();
+  var WALL3_MATRIX = LIBS.get_I4();
 
   LIBS.translateZ(VIEW_MATRIX, -60);
   LIBS.translateY(VIEW_MATRIX, -10);
@@ -745,6 +757,8 @@ function main() {
     //LIBS.rotateY(WORLD_MATRIX, theta);
 
     WALL1_MATRIX = LIBS.get_I4();
+    WALL2_MATRIX = LIBS.get_I4();
+    WALL3_MATRIX = LIBS.get_I4();
     //LIBS.rotateY(WALL1_MATRIX, theta);
     /*========================= WORLD ANIMASI ========================= */
 
@@ -1119,6 +1133,35 @@ function main() {
     GL.uniformMatrix4fv(_MMatrix, false, WALL1_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, wall1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, WALL2_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, WALL2_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL2_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WALL2_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, wall2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    
+    GL.bindBuffer(GL.ARRAY_BUFFER, WALL3_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, WALL3_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL3_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WALL3_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, wall3.faces.length, GL.UNSIGNED_SHORT, 0);
 
     // ======================================
 
