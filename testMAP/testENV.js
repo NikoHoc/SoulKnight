@@ -1,3 +1,24 @@
+function createVertexBuffer(GL, data) {
+  var buffer = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, buffer);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(data), GL.STATIC_DRAW);
+  return buffer;
+}
+
+function createColorBuffer(GL, data) {
+  var buffer = GL.createBuffer();
+  GL.bindBuffer(GL.ARRAY_BUFFER, buffer);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(data), GL.STATIC_DRAW);
+  return buffer;
+}
+
+function createFacesBuffer(GL, data) {
+  var buffer = GL.createBuffer();
+  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, buffer);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(data), GL.STATIC_DRAW);
+  return buffer;
+}
+
 function main() {
   var CANVAS = document.getElementById("myCanvas");
 
@@ -107,376 +128,293 @@ function main() {
   GL.useProgram(SHADER_PROGRAM);
 
   /*========================================================= */
+  /*========================= UFO ========================= */
+  /*========================================================= */
+
+  // ========================== Kepala ==================================
+  //bagian dalam
+  var kepala1 = generateHalfSphere(0, 2, 0, 1.5, 30, [0, 0.45, 0.64]);
+
+  // Create buffers
+  var kepala1_vertex = createVertexBuffer(GL, kepala1.vertices);
+  var kepala1_colors = createColorBuffer(GL, kepala1.colors);
+  var kepala1_faces = createFacesBuffer(GL, kepala1.faces);
+
+  //bagian pola
+  var kepala2 = generateHalfSphere(0, 2.1, 0, 1.53, 30, [0.11, 0.88, 0.94]);
+
+  // Create buffers
+  var kepala2_vertex = createVertexBuffer(GL, kepala2.vertices);
+  var kepala2_colors = createColorBuffer(GL, kepala2.colors);
+  var kepala2_faces = createFacesBuffer(GL, kepala2.faces);
+
+  // ========================== Badan ==================================
+  // bagian dalam
+  var badan1 = generateSolidTube(0, 0, 0, 1.5, 1.5, 4, 30, [0, 0.45, 0.64]);
+
+  // Create buffers for the first octagon
+  var badan1_VERTEX = createVertexBuffer(GL, badan1.vertices);
+  var badan1_COLORS = createColorBuffer(GL, badan1.colors);
+  var badan1_FACES = createFacesBuffer(GL, badan1.faces);
+
+  // bagian luar
+  var badan2 = generateSolidTube(0, 0, 0, 1.505, 1.505, 4, 10, [0.11, 0.88, 0.94]);
+
+  // Create buffers for the first octagon
+  var badan2_VERTEX = createVertexBuffer(GL, badan2.vertices);
+  var badan2_COLORS = createColorBuffer(GL, badan2.colors);
+  var badan2_FACES = createFacesBuffer(GL, badan2.faces);
+
+  // ========================== Tube Backpack ==================================
+
+  // top backpack
+  var topBackpack = generateHalfSphere(0, 1.9, -2.8, 0.65, 30, [0.44, 0.44, 0.52]);
+  // Create buffers
+  var topBackpack_vertex = createVertexBuffer(GL, topBackpack.vertices);
+  var topBackpack_colors = createColorBuffer(GL, topBackpack.colors);
+  var topBackpack_faces = createFacesBuffer(GL, topBackpack.faces);
+
+  // body backpack
+  var backpack = generateSolidTube(0, 0.16, -2.8, 0.65, 0.65, 3.5, 30, [0.24, 0.25, 0.29]);
+  // Create buffers
+  var backpack_vertex = createVertexBuffer(GL, backpack.vertices);
+  var backpack_colors = createColorBuffer(GL, backpack.colors);
+  var backpack_faces = createFacesBuffer(GL, backpack.faces);
+
+  // backpack aksesoris 2
+  var backpack2 = generateSolidTube(0, 1.46, -2.8, 0.67, 0.67, 0.35, 30, [0.09, 1, 0.99]);
+  // Create buffers
+  var backpack2_vertex = createVertexBuffer(GL, backpack2.vertices);
+  var backpack2_colors = createColorBuffer(GL, backpack2.colors);
+  var backpack2_faces = createFacesBuffer(GL, backpack2.faces);
+
+  // backpack aksesoris 3
+  var backpack3 = generateSolidTube(0, 1.1, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
+  // Create buffers
+  var backpack3_vertex = createVertexBuffer(GL, backpack3.vertices);
+  var backpack3_colors = createColorBuffer(GL, backpack3.colors);
+  var backpack3_faces = createFacesBuffer(GL, backpack3.faces);
+
+  // backpack aksesoris 4
+  var backpack4 = generateSolidTube(0, 0.16, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
+  // Create buffers
+  var backpack4_vertex = createVertexBuffer(GL, backpack4.vertices);
+  var backpack4_colors = createColorBuffer(GL, backpack4.colors);
+  var backpack4_faces = createFacesBuffer(GL, backpack4.faces);
+
+  // bottom backpack
+  var bottomBackpack = generateHalfSphere(0, -1.58, -2.8, -0.65, 30, [0.44, 0.44, 0.52]);
+  // Create buffers
+  var bottomBackpack_vertex = createVertexBuffer(GL, bottomBackpack.vertices);
+  var bottomBackpack_colors = createColorBuffer(GL, bottomBackpack.colors);
+  var bottomBackpack_faces = createFacesBuffer(GL, bottomBackpack.faces);
+
+  // ========================== UFO ==================================
+  // UFO dark grey
+  var ufo1 = generateUFO(2.5, 2.5, 1.2, 30, 0, -1.4, 0, [0.44, 0.44, 0.52]);
+
+  // Create buffers
+  var ufo1_vertex = createVertexBuffer(GL, ufo1.vertices);
+  var ufo1_colors = createColorBuffer(GL, ufo1.colors);
+  var ufo1_faces = createFacesBuffer(GL, ufo1.faces);
+
+  // UFO Yellow
+  var ufo2 = generateUFO(2.2, 2.2, 1.5, 40, 0, -1.4, 0, [1, 0.85, 0.21]);
+
+  // Create buffers
+  var ufo2_vertex = createVertexBuffer(GL, ufo2.vertices);
+  var ufo2_colors = createColorBuffer(GL, ufo2.colors);
+  var ufo2_faces = createFacesBuffer(GL, ufo2.faces);
+
+  // UFO3
+  // bottom UFO
+  var botUFO = generateHalfSphere(0, -1, 0, -2.4, 30, [0.24, 0.25, 0.29]);
+
+  // Create buffers
+  var botUFO_vertex = createVertexBuffer(GL, botUFO.vertices);
+  var botUFO_colors = createColorBuffer(GL, botUFO.colors);
+  var botUFO_faces = createFacesBuffer(GL, botUFO.faces);
+
+  // ========================== Weapon ==================================
+  var leftWeapon = generateWeapon(-2.65, -1.5, 1, 0.2, 0, 4, 5, [0, 0, 0]);
+  // Create buffers
+  var leftWeapon_vertex = createVertexBuffer(GL, leftWeapon.vertices);
+  var leftWeapon_colors = createColorBuffer(GL, leftWeapon.colors);
+  var leftWeapon_faces = createFacesBuffer(GL, leftWeapon.faces);
+
+  var rightWeapon = generateWeapon(2.61, -1.5, 1, 0.2, 0, 4, 5, [0, 0, 0]);
+  // Create buffers
+  var rightWeapon_vertex = createVertexBuffer(GL, rightWeapon.vertices);
+  var rightWeapon_colors = createColorBuffer(GL, rightWeapon.colors);
+  var rightWeapon_faces = createFacesBuffer(GL, rightWeapon.faces);
+
+  // ======================== Laser For The Body =========================================
+  var leftLaser = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var leftLaser_vertex = createVertexBuffer(GL, leftLaser.vertices);
+  var leftLaser_colors = createColorBuffer(GL, leftLaser.colors);
+  var leftLaser_faces = createFacesBuffer(GL, leftLaser.faces);
+
+  var rightLaser = generateWeapon(2.61, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var rightLaser_vertex = createVertexBuffer(GL, rightLaser.vertices);
+  var rightLaser_colors = createColorBuffer(GL, rightLaser.colors);
+  var rightLaser_faces = createFacesBuffer(GL, rightLaser.faces);
+
+  // Laser for shooting
+  var leftLaserShoot = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var leftLaserShoot_vertex = createVertexBuffer(GL, leftLaserShoot.vertices);
+  var leftLaserShoot_colors = createColorBuffer(GL, leftLaserShoot.colors);
+  var leftLaserShoot_faces = createFacesBuffer(GL, leftLaserShoot.faces);
+
+  var rightLaserShoot = generateWeapon(2.61, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  // Create buffers
+  var rightLaserShoot_vertex = createVertexBuffer(GL, rightLaserShoot.vertices);
+  var rightLaserShoot_colors = createColorBuffer(GL, rightLaserShoot.colors);
+  var rightLaserShoot_faces = createFacesBuffer(GL, rightLaserShoot.faces);
+
+  /*========================================================= */
+  /*======================== END UFO ====================== */
+  /*========================================================= */
+
+  /*========================================================= */
   /*========================= ROBOT ========================= */
   /*========================================================= */
 
   /*========================= HEAD ========================= */
-  // top part of robot head
-  // x, y, z, outerRadius, innerRadius, height, segments, color
   var kepalaATAS = generateSolidOctagon(0, 0.85, 0, 2, 1, 1.3, 8, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the first octagon
-  var kepalaATAS_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, kepalaATAS_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(kepalaATAS.vertices), GL.STATIC_DRAW);
+  var kepalaATAS_VERTEX = GL.createVertexBuffer(GL, kepalaATAS_VERTEX);
+  var kepalaATAS_COLORS = GL.createColorBuffer(GL, kepalaATAS_COLORS);
+  var kepalaATAS_FACES = GL.createFacesBuffer(GL, kepalaATAS_FACES);
 
-  var kepalaATAS_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, kepalaATAS_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(kepalaATAS.colors), GL.STATIC_DRAW);
-
-  var kepalaATAS_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepalaATAS_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(kepalaATAS.faces), GL.STATIC_DRAW);
-
-  // middle part of robot head
   var kepalaTENGAH = generateSolidOctagon(0, -0.15, 0, 1, 1.6, 0.7, 8, [0, 0, 0]);
 
-  // Create buffers for the second octagon
-  var kepalaTENGAH_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, kepalaTENGAH_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(kepalaTENGAH.vertices), GL.STATIC_DRAW);
+  var kepalaTENGAH_VERTEX = GL.createVertexBuffer(GL, kepalaTENGAH_VERTEX);
+  var kepalaTENGAH_COLORS = GL.createColorBuffer(GL, kepalaTENGAH_COLORS);
+  var kepalaTENGAH_FACES = GL.createFacesBuffer(GL, kepalaTENGAH_FACES);
 
-  var kepalaTENGAH_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, kepalaTENGAH_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(kepalaTENGAH.colors), GL.STATIC_DRAW);
-
-  var kepalaTENGAH_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepalaTENGAH_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(kepalaTENGAH.faces), GL.STATIC_DRAW);
-
-  // bottom part of robot head
   var kepalaBAWAH = generateSolidOctagon(0, -1, 0, 2, 1, 1, 8, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the third octagon
-  var kepalaBAWAH_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, kepalaBAWAH_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(kepalaBAWAH.vertices), GL.STATIC_DRAW);
-
-  var kepalaBAWAH_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, kepalaBAWAH_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(kepalaBAWAH.colors), GL.STATIC_DRAW);
-
-  var kepalaBAWAH_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepalaBAWAH_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(kepalaBAWAH.faces), GL.STATIC_DRAW);
-  /*========================= HEAD ========================= */
+  var kepalaBAWAH_VERTEX = GL.createVertexBuffer(GL, kepalaBAWAH_VERTEX);
+  var kepalaBAWAH_COLORS = GL.createColorBuffer(GL, kepalaBAWAH_COLORS);
+  var kepalaBAWAH_FACES = GL.createFacesBuffer(GL, kepalaBAWAH_FACES);
 
   /*========================= MATA ========================= */
-  // eyes of robot head
   var MATA = generateSphere(0, -0.15, 1.82, 0.4, 16);
 
-  // Create buffers for the sphere
-  var MATA_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, MATA_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(MATA.vertices), GL.STATIC_DRAW);
-
-  var MATA_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, MATA_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(MATA.colors), GL.STATIC_DRAW);
-
-  var MATA_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, MATA_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(MATA.faces), GL.STATIC_DRAW);
-  /*========================= MATA ========================= */
+  var MATA = GL.createVertexBuffer(GL, MATA);
+  var MATA = GL.createColorBuffer(GL, MATA);
+  var MATA = GL.createFacesBuffer(GL, MATA);
 
   /*========================= BODY ========================= */
-  // x, y, z, width, height, depth, color
   var MAIN_BODY = generateCube(0, -3.27, 0, 3.95, 3.5, 2, [100 / 256, 140 / 256, 139 / 256]);
 
-  // Create buffers for the cube
-  var MAIN_BODY_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(MAIN_BODY.vertices), GL.STATIC_DRAW);
+  var MAIN_BODY_VERTEX = GL.createVertexBuffer(GL, MAIN_BODY_VERTEX);
+  var MAIN_BODY_COLORS = GL.createColorBuffer(GL, MAIN_BODY_COLORS);
+  var MAIN_BODY_FACES = GL.createFacesBuffer(GL, MAIN_BODY_FACES);
 
-  var MAIN_BODY_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(MAIN_BODY.colors), GL.STATIC_DRAW);
-
-  var MAIN_BODY_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, MAIN_BODY_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(MAIN_BODY.faces), GL.STATIC_DRAW);
-
-  // x, y, z, width, height, depth, color
   var BOTTOM_BODY = generateCube(0, -5.2, 0, 1.7, 0.5, 2, [100 / 256, 140 / 256, 139 / 256]);
 
-  // Create buffers for the cube
-  var BOTTOM_BODY_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(BOTTOM_BODY.vertices), GL.STATIC_DRAW);
-
-  var BOTTOM_BODY_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(BOTTOM_BODY.colors), GL.STATIC_DRAW);
-
-  var BOTTOM_BODY_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_BODY_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(BOTTOM_BODY.faces), GL.STATIC_DRAW);
-  /*========================= BODY ========================= */
+  var BOTTOM_BODY_VERTEX = GL.createVertexBuffer(GL, BOTTOM_BODY_VERTEX);
+  var BOTTOM_BODY_COLORS = GL.createColorBuffer(GL, BOTTOM_BODY_COLORS);
+  var BOTTOM_BODY_FACES = GL.createFacesBuffer(GL, BOTTOM_BODY_FACES);
 
   /*========================= Armor Plate ========================= */
   var ARMOR = generateCube(0, -3.15, 1.2, 3.5, 2.7, 0.7, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the cube
-  var ARMOR_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, ARMOR_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(ARMOR.vertices), GL.STATIC_DRAW);
-
-  var ARMOR_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, ARMOR_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(ARMOR.colors), GL.STATIC_DRAW);
-
-  var ARMOR_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ARMOR_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(ARMOR.faces), GL.STATIC_DRAW);
-
-  /*========================= Armor Plate ========================= */
+  var ARMOR_VERTEX = GL.createVertexBuffer(GL, ARMOR_VERTEX);
+  var ARMOR_COLORS = GL.createColorBuffer(GL, ARMOR_COLORS);
+  var ARMOR_FACES = GL.createFacesBuffer(GL, ARMOR_FACES);
 
   /*========================= Shoulder ========================= */
-  // x, y, z, radius, width, length, segments, right, rgbColor
-  // Right shoulder
   var shoulderDataRight = generateShoulder(1.95, -3, 0, 1.3, 1, 1.4, 50, true, [172 / 256, 189 / 256, 190 / 256]);
 
-  var SHOULDER_VERTEX_RIGHT = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_VERTEX_RIGHT);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(shoulderDataRight.vertices), GL.STATIC_DRAW);
+  var SHOULDER_VERTEX_RIGHT = GL.createVertexBuffer(GL, SHOULDER_VERTEX_RIGHT);
+  var SHOULDER_COLORS_RIGHT = GL.createColorBuffer(GL, SHOULDER_COLORS_RIGHT);
+  var SHOULDER_FACES_RIGHT = GL.createFacesBuffer(GL, SHOULDER_FACES_RIGHT);
 
-  var SHOULDER_COLORS_RIGHT = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_COLORS_RIGHT);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(shoulderDataRight.colors), GL.STATIC_DRAW);
-
-  var SHOULDER_FACES_RIGHT = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SHOULDER_FACES_RIGHT);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(shoulderDataRight.faces), GL.STATIC_DRAW);
-
-  // Left shoulder
   var shoulderDataLeft = generateShoulder(-1.95, -3, 0, 1.3, 1, 1.4, 50, false, [172 / 256, 189 / 256, 190 / 256]);
 
-  var SHOULDER_VERTEX_LEFT = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_VERTEX_LEFT);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(shoulderDataLeft.vertices), GL.STATIC_DRAW);
-
-  var SHOULDER_COLORS_LEFT = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_COLORS_LEFT);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(shoulderDataLeft.colors), GL.STATIC_DRAW);
-
-  var SHOULDER_FACES_LEFT = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SHOULDER_FACES_LEFT);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(shoulderDataLeft.faces), GL.STATIC_DRAW);
-  /*========================= Shoulder ========================= */
+  var SHOULDER_VERTEX_LEFT = GL.createVertexBuffer(GL, SHOULDER_VERTEX_LEFT);
+  var SHOULDER_COLORS_LEFT = GL.createColorBuffer(GL, SHOULDER_COLORS_LEFT);
+  var SHOULDER_FACES_LEFT = GL.createFacesBuffer(GL, SHOULDER_FACES_LEFT);
 
   /*========================= Hands ========================= */
-  // x, y, z, width, height, depth, color
   var HANDS_RIGHT = generateCube(2.6, -3.55, 0.1, 0.8, 2.2, 0.67, [66 / 256, 94 / 256, 96 / 256]);
 
-  // Create buffers for the cube
-  var HANDS_RIGHT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_RIGHT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(HANDS_RIGHT.vertices), GL.STATIC_DRAW);
+  var HANDS_RIGHT_VERTEX = GL.createVertexBuffer(GL, HANDS_RIGHT_VERTEX);
+  var HANDS_RIGHT_COLORS = GL.createColorBuffer(GL, HANDS_RIGHT_COLORS);
+  var HANDS_RIGHT_FACES = GL.createFacesBuffer(GL, HANDS_RIGHT_FACES);
 
-  var HANDS_RIGHT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_RIGHT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(HANDS_RIGHT.colors), GL.STATIC_DRAW);
-
-  var HANDS_RIGHT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_RIGHT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(HANDS_RIGHT.faces), GL.STATIC_DRAW);
-
-  // kiri (dri depan)
   var HANDS_LEFT = generateCube(-2.6, -3.25, 0.1, 0.8, 1, 0.67, [66 / 256, 94 / 256, 96 / 256]);
 
-  // Create buffers for the cube
-  var HANDS_LEFT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(HANDS_LEFT.vertices), GL.STATIC_DRAW);
+  var HANDS_LEFT_VERTEX = GL.createVertexBuffer(GL, HANDS_LEFT_VERTEX);
+  var HANDS_LEFT_COLORS = GL.createColorBuffer(GL, HANDS_LEFT_COLORS);
+  var HANDS_LEFT_FACES = GL.createFacesBuffer(GL, HANDS_LEFT_FACES);
 
-  var HANDS_LEFT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(HANDS_LEFT.colors), GL.STATIC_DRAW);
+  var HANDS_LEFT2 = generateCube(-2.6, -3.5, 1.2, 0.8, 0.5, 1.7, [66 / 256, 94 / 256, 96 / 256]);
 
-  var HANDS_LEFT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_LEFT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(HANDS_LEFT.faces), GL.STATIC_DRAW);
-  /*========================= Hands ========================= */
+  var HANDS_LEFT_VERTEX2 = GL.createVertexBuffer(GL, HANDS_LEFT_VERTEX2);
+  var HANDS_LEFT_COLORS2 = GL.createColorBuffer(GL, HANDS_LEFT_COLORS2);
+  var HANDS_LEFT_FACES2 = GL.createFacesBuffer(GL, HANDS_LEFT_FACES2);
 
   /*========================= Legs ========================= */
-  // thigh
-  // x, y, z, width, height, depth, color
   var PAHA_RIGHT = generateCube(1.37, -5.71, 0.15, 1, 1.35, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the cube
-  var PAHA_RIGHT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.vertices), GL.STATIC_DRAW);
+  var PAHA_RIGHT_VERTEX = GL.createVertexBuffer(GL, PAHA_RIGHT_VERTEX);
+  var PAHA_RIGHT_COLORS = GL.createColorBuffer(GL, PAHA_RIGHT_COLORS);
+  var PAHA_RIGHT_FACES = GL.createFacesBuffer(GL, PAHA_RIGHT_FACES);
 
-  var PAHA_RIGHT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.colors), GL.STATIC_DRAW);
-
-  var PAHA_RIGHT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_RIGHT.faces), GL.STATIC_DRAW);
-
-  // x, y, z, width, height, depth, color
   var PAHA_LEFT = generateCube(-1.37, -5.71, 0.15, 1, 1.35, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the cube
-  var PAHA_LEFT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.vertices), GL.STATIC_DRAW);
+  var PAHA_LEFT_VERTEX = GL.createVertexBuffer(GL, PAHA_LEFT_VERTEX);
+  var PAHA_LEFT_COLORS = GL.createColorBuffer(GL, PAHA_LEFT_COLORS);
+  var PAHA_LEFT_FACES = GL.createFacesBuffer(GL, PAHA_LEFT_FACES);
 
-  var PAHA_LEFT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.colors), GL.STATIC_DRAW);
-
-  var PAHA_LEFT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_LEFT.faces), GL.STATIC_DRAW);
-
-  // Legs
-  // x, y, z, width, height, depth, color
   var KAKI_RIGHT = generateCube(1.37, -7, 0.15, 0.8, 1.35, 0.8, [100 / 256, 140 / 256, 139 / 256]);
 
-  // Create buffers for the cube
-  var KAKI_RIGHT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_RIGHT.vertices), GL.STATIC_DRAW);
+  var KAKI_RIGHT_VERTEX = GL.createVertexBuffer(GL, KAKI_RIGHT_VERTEX);
+  var KAKI_RIGHT_COLORS = GL.createColorBuffer(GL, KAKI_RIGHT_COLORS);
+  var KAKI_RIGHT_FACES = GL.createFacesBuffer(GL, KAKI_RIGHT_FACES);
 
-  var KAKI_RIGHT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_RIGHT.colors), GL.STATIC_DRAW);
-
-  var KAKI_RIGHT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_RIGHT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(KAKI_RIGHT.faces), GL.STATIC_DRAW);
-
-  // x, y, z, width, height, depth, color
   var KAKI_LEFT = generateCube(-1.37, -7, 0.15, 0.8, 1.35, 0.8, [100 / 256, 140 / 256, 139 / 256]);
 
-  // Create buffers for the cube
-  var KAKI_LEFT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_LEFT.vertices), GL.STATIC_DRAW);
+  var KAKI_LEFT_VERTEX = GL.createVertexBuffer(GL, KAKI_LEFT_VERTEX);
+  var KAKI_LEFT_COLORS = GL.createColorBuffer(GL, KAKI_LEFT_COLORS);
+  var KAKI_LEFT_FACES = GL.createFacesBuffer(GL, KAKI_LEFT_FACES);
 
-  var KAKI_LEFT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(KAKI_LEFT.colors), GL.STATIC_DRAW);
-
-  var KAKI_LEFT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_LEFT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(KAKI_LEFT.faces), GL.STATIC_DRAW);
-
-  // Foot
-  // x, y, z, width, height, depth, color
   var TELAPAK_RIGHT = generateCube(1.37, -7.9, 0.3, 1, 0.5, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the cube
-  var TELAPAK_RIGHT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_RIGHT.vertices), GL.STATIC_DRAW);
+  var TELAPAK_RIGHT_VERTEX = GL.createVertexBuffer(GL, TELAPAK_RIGHT_VERTEX);
+  var TELAPAK_RIGHT_COLORS = GL.createColorBuffer(GL, TELAPAK_RIGHT_COLORS);
+  var TELAPAK_RIGHT_FACES = GL.createFacesBuffer(GL, TELAPAK_RIGHT_FACES);
 
-  var TELAPAK_RIGHT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_RIGHT.colors), GL.STATIC_DRAW);
-
-  var TELAPAK_RIGHT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_RIGHT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(TELAPAK_RIGHT.faces), GL.STATIC_DRAW);
-
-  // x, y, z, width, height, depth, color
   var TELAPAK_LEFT = generateCube(-1.37, -7.9, 0.3, 1, 0.5, 1.2, [172 / 256, 189 / 256, 190 / 256]);
 
-  // Create buffers for the cube
-  var TELAPAK_LEFT_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_LEFT.vertices), GL.STATIC_DRAW);
-
-  var TELAPAK_LEFT_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(TELAPAK_LEFT.colors), GL.STATIC_DRAW);
-
-  var TELAPAK_LEFT_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_LEFT_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(TELAPAK_LEFT.faces), GL.STATIC_DRAW);
-  /*========================= Legs ========================= */
+  var TELAPAK_LEFT_VERTEX = GL.createVertexBuffer(GL, TELAPAK_LEFT_VERTEX);
+  var TELAPAK_LEFT_COLORS = GL.createColorBuffer(GL, TELAPAK_LEFT_COLORS);
+  var TELAPAK_LEFT_FACES = GL.createFacesBuffer(GL, TELAPAK_LEFT_FACES);
 
   /*========================= WEAPON ========================= */
-  // x, y, z, outerRadius, innerRadius, height, segments, color
-  var tabung = generateTabung(-2.8, -4.3, 1.3, 0.5, 1, 5, 8, [90 / 256, 130 / 256, 143 / 256]);
+  var tabung = generateTabung(-2.59, -3.5, 1.8, 0.1, 0.4, 1.3, 100, [90 / 256, 130 / 256, 143 / 256]);
 
-  var tabungVertex = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, tabungVertex);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(tabung.vertices), GL.STATIC_DRAW);
+  var tabungVertex = GL.createVertexBuffer(GL, tabungVertex);
+  var tabungColors = GL.createColorBuffer(GL, tabungColors);
+  var tabungFaces = GL.createFacesBuffer(GL, tabungFaces);
 
-  var tabungColors = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, tabungColors);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(tabung.colors), GL.STATIC_DRAW);
+  var SABER = generateTabung(-2.59, -0.5, 1.8, 0.1, 0.3, 5, 100, [1.0, 0.0, 0]);
 
-  var tabungFaces = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, tabungFaces);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(tabung.faces), GL.STATIC_DRAW);
+  var SABER_VERTEX = GL.createVertexBuffer(GL, SABER_VERTEX);
+  var SABER_COLORS = GL.createColorBuffer(GL, SABER_COLORS);
+  var SABER_FACES = GL.createFacesBuffer(GL, SABER_FACES);
 
-  // eyes of gun
-  // x, y, z, radius, segments
-  var gun = generateSphere(-2.8, -4.3, 3.7, 0.7, 16);
+  var gun = generateSphere(-2.59, 2, 1.8, 0.3, 16);
 
-  // Create buffers for the sphere
-  var gunVertex = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, gunVertex);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(gun.vertices), GL.STATIC_DRAW);
-
-  var gunColors = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, gunColors);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(gun.colors), GL.STATIC_DRAW);
-
-  var gunFaces = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, gunFaces);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(gun.faces), GL.STATIC_DRAW);
-  /*========================= WEAPON ========================= */
-
-  /*========================= KECILIN ROBOT ========================= */
-  var scaleFactor = 0.1;
-  var childRobot = [
-    kepalaATAS,
-    kepalaTENGAH,
-    kepalaBAWAH,
-    MATA,
-    MAIN_BODY,
-    BOTTOM_BODY,
-    ARMOR,
-    shoulderDataRight,
-    shoulderDataLeft,
-    HANDS_RIGHT,
-    HANDS_LEFT,
-    PAHA_RIGHT,
-    PAHA_LEFT,
-    KAKI_RIGHT,
-    KAKI_LEFT,
-    TELAPAK_RIGHT,
-    TELAPAK_LEFT,
-    tabung,
-    gun
-  ];
-
-  for (var i = 0; i < childRobot.length; i++) {
-    childRobot[i].vertices = childRobot[i].vertices.map((coord) => coord * scaleFactor);
-  }
-
-  // GESER(?)
-  var geserX = 0;
-  var geserY = 0.5;
-  var geserZ = 5;
-
-  for (var i = 0; i < childRobot.length; i++) {
-    for (var j = 0; j < childRobot[i].vertices.length; j += 3) {
-      childRobot[i].vertices[j] += geserX;
-    }
-    for (var j = 1; j < childRobot[i].vertices.length; j += 3) {
-      childRobot[i].vertices[j] += geserY;
-    }
-    for (var j = 2; j < childRobot[i].vertices.length; j += 3) {
-      childRobot[i].vertices[j] += geserZ;
-    }
-  }
+  var gunVertex = GL.createVertexBuffer(GL, gunVertex);
+  var gunColors = GL.createColorBuffer(GL, gunColors);
+  var gunFaces = GL.createFacesBuffer(GL, gunFaces);
 
   /*========================================================= */
   /*======================== END ROBOT ====================== */
@@ -486,21 +424,36 @@ function main() {
   /*====================== ENVIROMENT ======================= */
   /*========================================================= */
 
-  var world = generateWorld(25, 25, 0.3);
+  //Floor
+  var floor = generateWorld(50, 50, 0.3, 0, 0, 0, [0.33, 0.44, 0.48]);
 
-  var WORLD_VERTEX = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, WORLD_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(world.vertices), GL.STATIC_DRAW);
+  var FLOOR_VERTEX = createVertexBuffer(GL, floor.vertices);
+  var FLOOR_COLORS = createColorBuffer(GL, floor.colors);
+  var FLOOR_FACES = createFacesBuffer(GL, floor.faces);
 
-  var WORLD_COLORS = GL.createBuffer();
-  GL.bindBuffer(GL.ARRAY_BUFFER, WORLD_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(world.colors), GL.STATIC_DRAW);
+  //Back
+  var backWall = generateWorld(50, 0.3, 7, 0, 3.2, -22, [0.52, 0.77, 0.86]);
 
-  var WORLD_FACES = GL.createBuffer();
-  GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WORLD_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(world.faces), GL.STATIC_DRAW);
+  var BACK_WALL_VERTEX = createVertexBuffer(GL, backWall.vertices);
+  var BACK_WALL_COLORS = createColorBuffer(GL, backWall.colors);
+  var BACK_WALL_FACES = createFacesBuffer(GL, backWall.faces);
 
-  var wall1 = generateCube(0, 2, 0, 3, 3, 3, [0, 0, 0]);
+  //Left
+  var leftWall = generateWorld(50, 0.3, 7, -5, 3, -1, [0.52, 0.77, 0.86]);
+
+  var LEFT_WALL_VERTEX = createVertexBuffer(GL, leftWall.vertices);
+  var LEFT_WALL_COLORS = createColorBuffer(GL, leftWall.colors);
+  var LEFT_WALL_FACES = createFacesBuffer(GL, leftWall.faces);
+
+  //Right
+  var rightWall = generateWorld(50, 0.3, 7, 5, 3.05, -1, [0.52, 0.77, 0.86]);
+
+  var RIGHT_WALL_VERTEX = createVertexBuffer(GL, rightWall.vertices);
+  var RIGHT_WALL_COLORS = createColorBuffer(GL, rightWall.colors);
+  var RIGHT_WALL_FACES = createFacesBuffer(GL, rightWall.faces);
+
+  //Obstacle
+  var wall1 = generateCube(5, 2, 10, 6, 3, 4, [0.14, 0.16, 0.17]);
 
   var WALL1_VERTEX = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
@@ -521,25 +474,65 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  /*========================= MATRIX ROBOT ======================== */
-  // badan
-  var BADAN_MATRIX = LIBS.get_I4();
+  /*========================= MATRIX UFO ======================== */
+  var BODY_MATRIX = LIBS.get_I4();
 
-  // Kaki kanan
-  var KAKI_KANAN_MATRIX = LIBS.get_I4();
+  var LASER_MATRIX = LIBS.get_I4();
 
-  // Kaki kanan
-  var KAKI_KIRI_MATRIX = LIBS.get_I4();
+  var UFO_VIEW_MATRIX = LIBS.get_I4();
 
-  // gun eye
-  var GUN_BULLET_MATRIX = LIBS.get_I4();
+  //First Render of the UFO
+  LIBS.translateX(UFO_VIEW_MATRIX, -21);
+  LIBS.translateY(UFO_VIEW_MATRIX, -4.5);
+  LIBS.translateZ(UFO_VIEW_MATRIX, -80);
 
-  LIBS.translateZ(VIEW_MATRIX, -100);
-  LIBS.translateY(VIEW_MATRIX, -2);
+  LIBS.rotateY(UFO_VIEW_MATRIX, 20);
 
   /*========================= MATRIX ENV ========================= */
+  // Floor
   var WORLD_MATRIX = LIBS.get_I4();
   var WALL1_MATRIX = LIBS.get_I4();
+
+  LIBS.translateZ(VIEW_MATRIX, -60);
+  LIBS.translateY(VIEW_MATRIX, -10);
+
+  //Left Wall
+  var LEFT_WALL_VIEW_MATRIX = LIBS.get_I4();
+  LIBS.translateZ(LEFT_WALL_VIEW_MATRIX, -56.1);
+  LIBS.translateY(LEFT_WALL_VIEW_MATRIX, -10);
+  LIBS.translateX(LEFT_WALL_VIEW_MATRIX, -27);
+
+  LIBS.rotateX(LEFT_WALL_VIEW_MATRIX, 6.3);
+  LIBS.rotateY(LEFT_WALL_VIEW_MATRIX, -7.85);
+  //LIBS.rotateZ(LEFT_WALL_VIEW_MATRIX, 0);
+
+  //Right Wall
+  var RIGHT_WALL_VIEW_MATRIX = LIBS.get_I4();
+  LIBS.translateZ(RIGHT_WALL_VIEW_MATRIX, -56.1);
+  LIBS.translateY(RIGHT_WALL_VIEW_MATRIX, -10);
+  LIBS.translateX(RIGHT_WALL_VIEW_MATRIX, 27);
+
+  LIBS.rotateX(RIGHT_WALL_VIEW_MATRIX, -6.3);
+  LIBS.rotateY(RIGHT_WALL_VIEW_MATRIX, 7.85);
+  // LIBS.rotateZ(RIGHT_WALL_VIEW_MATRIX, 10);
+
+  /*========================= MATRIX ROBOT ========================= */
+  var BADAN_MATRIX = LIBS.get_I4();
+
+  var KAKI_KANAN_MATRIX = LIBS.get_I4();
+
+  var KAKI_KIRI_MATRIX = LIBS.get_I4();
+
+  var SABER_MATRIX = LIBS.get_I4();
+
+  var ROBOT_VIEW_MATRIX = LIBS.get_I4();
+
+  //First Render of the ROBOT
+  LIBS.translateX(UFO_VIEW_MATRIX, -30);
+  LIBS.translateY(UFO_VIEW_MATRIX, -2);
+  LIBS.translateZ(UFO_VIEW_MATRIX, -50);
+
+  LIBS.rotateY(UFO_VIEW_MATRIX, 10);
 
   /*=========================================================== */
   /*========================= DRAWING ========================= */
@@ -549,6 +542,22 @@ function main() {
   GL.enable(GL.DEPTH_TEST);
   GL.depthFunc(GL.LEQUAL);
 
+  // FOR  UFO
+  var UFOBodyTime = 0;
+  var UFOBodyReverse = false;
+
+  var LaserTime = 0;
+  var isMovingForward = true;
+  var animationDuration = 27; //Cepat lambatnya laser
+  var startLaserTime = 0;
+  var endLaserTime = animationDuration;
+  var startProgress = 0;
+  var finishProgress = 1;
+  var targetProgress = finishProgress;
+
+  var time_prev = 0;
+
+  // FOR ROBOT
   var then = 0;
 
   var KakiKananTime = 0;
@@ -557,122 +566,456 @@ function main() {
   var KakiKiriTime = 0;
   var KakiKiriReverse = false;
 
+  var SaberTime = 0;
+  var SaberReverse = false;
+
   /*=========================================================== */
   /*========================= ANIMATE ========================= */
   /*=========================================================== */
-  var animateRobot = function (time) {
+  var animateUFO = function (time) {
     GL.viewport(0, 0, CANVAS.width, CANVAS.height);
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
-    time *= 0.001;
+    time *= 0.0004;
 
-    var deltaTime = (time - then) * 100;
-    then = time;
+    var deltaTime = (time - time_prev) * 100;
+    time_prev = time;
 
-    /*========================= TIME ========================= */
+    /*========================= UFO TIME AND ANIMATION ========================= */
+    // Body
+    BODY_MATRIX = LIBS.get_I4();
 
-    /*========================= ROBOT TIME ========================= */
-    // Badan
-    BADAN_MATRIX = LIBS.get_I4();
+    var KF_UFO_Body = 0;
 
-    // Kaki Kanan
-    KAKI_KANAN_MATRIX = LIBS.get_I4();
-    var KF_KakiKanan = 0;
-
-    if (time < 20) {
-      if (KakiKananTime <= -10) {
-        KakiKananReverse = true;
-      } else if (KakiKananTime >= 10) {
-        KakiKananReverse = false;
+    if (time < 40) {
+      if (UFOBodyTime <= -10) {
+        UFOBodyReverse = true;
+      } else if (UFOBodyTime >= 10) {
+        UFOBodyReverse = false;
       }
 
-      if (KakiKananReverse) {
-        KakiKananTime += deltaTime;
+      if (UFOBodyReverse) {
+        UFOBodyTime += deltaTime;
       } else {
-        KakiKananTime -= deltaTime;
+        UFOBodyTime -= deltaTime;
       }
 
-      KF_KakiKanan = LIBS.degToRad(KakiKananTime);
+      KF_UFO_Body = LIBS.degToRad(UFOBodyTime);
+      KF_UFO_Body *= 2.5;
     }
 
-    // Kaki Kiri
-    KAKI_KIRI_MATRIX = LIBS.get_I4();
-    var KF_KakiKiri = 0;
+    LIBS.translateY(BODY_MATRIX, KF_UFO_Body);
+    LIBS.rotateY(BODY_MATRIX, theta);
+    //LIBS.rotateX(BODY_MATRIX, alpha);
 
-    if (time < 20) {
-      if (KakiKiriTime <= -10) {
-        KakiKiriReverse = false;
-      } else if (KakiKiriTime >= 10) {
-        KakiKiriReverse = true;
+    //===================== LASER ANIMATION =============
+    LASER_MATRIX = LIBS.get_I4();
+
+    var KF_Laser = 0;
+
+    if (time < 60) {
+      if (isMovingForward && LaserTime >= endLaserTime) {
+        // If moving forward and reached the finish point, reset to start point
+        startLaserTime = 0;
+        LaserTime = startLaserTime;
+        targetProgress = finishProgress; // Set target progress for next movement
+      } else if (!isMovingForward && LaserTime <= startLaserTime) {
+        // If moving backward and reached the start point, reset to start point
+        LaserTime = startLaserTime;
+        targetProgress = finishProgress; // Set target progress for next movement
       }
 
-      if (KakiKiriReverse) {
-        KakiKiriTime -= deltaTime;
+      // Calculate movement based on direction
+      if (isMovingForward) {
+        LaserTime += deltaTime;
       } else {
-        KakiKiriTime += deltaTime;
+        LaserTime -= deltaTime;
       }
 
-      KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
+      // Calculate current progress based on LaserTime
+      var progress = (LaserTime - startLaserTime) / (endLaserTime - startLaserTime);
+
+      // Smoothly interpolate between start and finish progress
+      var currentProgress = startProgress + (targetProgress - startProgress) * progress;
+
+      KF_Laser = currentProgress * 10; //dikali berapa untuk jarak laser
     }
 
-    GUN_BULLET_MATRIX = LIBS.get_I4();
-    /*========================= ROBOT TIME ========================= */
+    //LIBS.translateX(LASER_MATRIX, KF_Laser)
+    //LIBS.translateY(LASER_MATRIX, KF_Laser);
+    LIBS.translateZ(LASER_MATRIX, KF_Laser);
+
+    //LIBS.rotateY(LASER_MATRIX, theta);
+    //LIBS.rotateX(LASER_MATRIX, alpha);
+
+    /*========================= UFO TIME AND ANIMATION  ========================= */
 
     /*========================= WORLD ANIMASI ========================= */
     WORLD_MATRIX = LIBS.get_I4();
-    LIBS.rotateY(WORLD_MATRIX, theta);
+    //LIBS.rotateY(WORLD_MATRIX, theta);
 
     WALL1_MATRIX = LIBS.get_I4();
-    LIBS.rotateY(WALL1_MATRIX, theta);
+    //LIBS.rotateY(WALL1_MATRIX, theta);
     /*========================= WORLD ANIMASI ========================= */
 
     // MODEL_MATRIX = LIBS.get_I4();
 
-    /*========================= ROBOT ANIMASI ========================= */
-    // LIBS.rotateY(MODEL_MATRIX, theta);
-    // LIBS.rotateX(MODEL_MATRIX, alpha);
-
-    // BADAN
-    LIBS.rotateY(BADAN_MATRIX, theta);
-    LIBS.rotateX(BADAN_MATRIX, alpha);
-
-    // KAKI KANAN
-    LIBS.rotateX(KAKI_KANAN_MATRIX, KF_KakiKanan);
-    LIBS.rotateY(KAKI_KANAN_MATRIX, theta);
-    LIBS.rotateX(KAKI_KANAN_MATRIX, alpha);
-
-    // KAKI KIRI
-    LIBS.rotateX(KAKI_KIRI_MATRIX, KF_KakiKiri);
-    LIBS.rotateY(KAKI_KIRI_MATRIX, theta);
-    LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
-
-    // GUN BULLET
-    LIBS.rotateY(GUN_BULLET_MATRIX, theta);
-    LIBS.rotateX(GUN_BULLET_MATRIX, alpha);
-    /*========================= ROBOT ANIMASI ========================= */
-
     /*================================================================= */
-    /*=========================== ROBOT DRAW ========================== */
+    /*=========================== ufo DRAW ========================== */
     /*================================================================= */
 
+    // kepala1
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala1_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, kepala1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // kepala2
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, kepala2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // badan 1
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan1_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, badan1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // badan 2
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan2_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, badan2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //gambar ufo1
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo1_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo1_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo1_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, ufo1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //gambar ufo2
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, ufo2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Bot UFO
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, botUFO.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw bagian top backpack
+    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, topBackpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, topBackpack.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw backpack body
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw aksesoris backpack 2
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw aksesoris backpack 3
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack3_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack3.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw aksesoris backpack 4
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack4_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack4.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw bagian bottom backpack
+    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, bottomBackpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, bottomBackpack.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar LeftWeapon
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftWeapon_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, leftWeapon.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar RightWeapon
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightWeapon_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, rightWeapon.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //
+    // LASER untuk badan
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, leftLaser.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, rightLaser.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Laser untuk menembak
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
 
     /*================================================================= */
     /*=========================== WORLD DRAW ========================== */
     /*================================================================= */
-    GL.bindBuffer(GL.ARRAY_BUFFER, WORLD_VERTEX);
+    // Floor
+    GL.bindBuffer(GL.ARRAY_BUFFER, FLOOR_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, WORLD_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, FLOOR_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WORLD_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FLOOR_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
     GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, world.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, floor.faces.length, GL.UNSIGNED_SHORT, 0);
 
+    // BACK Wall
+    GL.bindBuffer(GL.ARRAY_BUFFER, BACK_WALL_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BACK_WALL_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BACK_WALL_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, backWall.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // LEFT Wall
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_WALL_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_WALL_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEFT_WALL_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, LEFT_WALL_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, leftWall.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // RIGHT Wall
+    GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_WALL_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_WALL_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, RIGHT_WALL_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, RIGHT_WALL_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, rightWall.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Obstacle
     GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -689,9 +1032,429 @@ function main() {
 
     GL.flush();
 
+    window.requestAnimationFrame(animateUFO);
+  };
+
+  var animateRobot = function (time) {
+    GL.viewport(0, 0, CANVAS.width, CANVAS.height);
+    GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+
+    time *= 0.001;
+
+    var deltaTime = (time - then) * 100;
+    then = time;
+
+    /*========================= TIME ========================= */
+    // Badan
+    BADAN_MATRIX = LIBS.get_I4();
+
+    // Kaki Kanan
+    KAKI_KANAN_MATRIX = LIBS.get_I4();
+    var KF_KakiKanan = 0;
+
+    if (KakiKananTime <= -10) {
+      KakiKananReverse = true;
+    } else if (KakiKananTime >= 10) {
+      KakiKananReverse = false;
+    }
+
+    if (KakiKananReverse) {
+      KakiKananTime += deltaTime;
+    } else {
+      KakiKananTime -= deltaTime;
+    }
+
+    KF_KakiKanan = LIBS.degToRad(KakiKananTime);
+
+    // Kaki Kiri
+    KAKI_KIRI_MATRIX = LIBS.get_I4();
+    var KF_KakiKiri = 0;
+
+    if (KakiKiriTime <= -10) {
+      KakiKiriReverse = false;
+    } else if (KakiKiriTime >= 10) {
+      KakiKiriReverse = true;
+    }
+
+    if (KakiKiriReverse) {
+      KakiKiriTime -= deltaTime;
+    } else {
+      KakiKiriTime += deltaTime;
+    }
+
+    KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
+
+    SABER_MATRIX = LIBS.get_I4();
+    var KF_Saber = 0;
+
+    if (SaberTime <= -9) {
+      SaberReverse = true;
+    } else if (SaberTime >= 9) {
+      SaberReverse = false;
+    }
+
+    if (SaberReverse == true) {
+      SaberTime += deltaTime;
+    } else {
+      SaberTime -= deltaTime;
+    }
+
+    KF_Saber = LIBS.degToRad(SaberTime / (Math.PI * 1));
+
+    MODEL_MATRIX = LIBS.get_I4();
+
+    /*========================= ANIMASI ========================= */
+    LIBS.rotateY(MODEL_MATRIX, theta);
+    LIBS.rotateX(MODEL_MATRIX, alpha);
+
+    // BADAN
+    LIBS.rotateY(BADAN_MATRIX, theta);
+    LIBS.rotateX(BADAN_MATRIX, alpha);
+
+    // KAKI KANAN
+    LIBS.rotateX(KAKI_KANAN_MATRIX, KF_KakiKanan);
+    LIBS.rotateY(KAKI_KANAN_MATRIX, theta);
+    LIBS.rotateX(KAKI_KANAN_MATRIX, alpha);
+
+    // KAKI KIRI
+    LIBS.rotateX(KAKI_KIRI_MATRIX, KF_KakiKiri);
+    LIBS.rotateY(KAKI_KIRI_MATRIX, theta);
+    LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
+
+    // SABER
+    LIBS.rotateX(SABER_MATRIX, KF_Saber);
+    LIBS.rotateY(SABER_MATRIX, theta);
+    LIBS.rotateX(SABER_MATRIX, alpha);
+
+    /*========================= HEAD ========================= */
+    // Draw first octagon
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepalaATAS_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepalaATAS_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepalaATAS_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_FAN, kepalaATAS.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw second octagon
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepalaTENGAH_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepalaTENGAH_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepalaTENGAH_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_FAN, kepalaTENGAH.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw third octagon
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepalaBAWAH_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepalaBAWAH_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepalaBAWAH_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_FAN, kepalaBAWAH.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= HEAD ========================= */
+
+    /*========================= MATA ========================= */
+    // Draw sphere
+    GL.bindBuffer(GL.ARRAY_BUFFER, MATA_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, MATA_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, MATA_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, MATA.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= MATA ========================= */
+
+    /*========================= BODY ========================= */
+    // Draw cube
+    GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, MAIN_BODY_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, MAIN_BODY_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, MAIN_BODY.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Bottom
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BODY_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_BODY_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, BOTTOM_BODY.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= BODY ========================= */
+
+    /*========================= Armor Plate ========================= */
+    // Draw Squircle
+    GL.bindBuffer(GL.ARRAY_BUFFER, ARMOR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, ARMOR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ARMOR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, ARMOR.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= Armor Plate ========================= */
+
+    /*========================= SHOULDERS ========================= */
+    // Draw right shoulder
+    GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_VERTEX_RIGHT);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_COLORS_RIGHT);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SHOULDER_FACES_RIGHT);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, shoulderDataRight.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw left shoulder
+    GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_VERTEX_LEFT);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, SHOULDER_COLORS_LEFT);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SHOULDER_FACES_LEFT);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, shoulderDataLeft.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= SHOULDERS ========================= */
+
+    /*========================= Hands ========================= */
+    // Draw Hands
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_RIGHT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_RIGHT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_RIGHT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, HANDS_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_LEFT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, HANDS_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_VERTEX2);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, HANDS_LEFT_COLORS2);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, HANDS_LEFT_FACES2);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BADAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, HANDS_LEFT2.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= Hands ========================= */
+
+    /*========================= Legs ========================= */
+    // thigh
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KANAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, PAHA_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KIRI_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, PAHA_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_RIGHT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_RIGHT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KANAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, KAKI_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, KAKI_LEFT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, KAKI_LEFT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KIRI_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, KAKI_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Foot
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_RIGHT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_RIGHT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KANAN_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, TELAPAK_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, TELAPAK_LEFT_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TELAPAK_LEFT_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, KAKI_KIRI_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, TELAPAK_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= Legs ========================= */
+
+    /*========================= WEAPONS ========================= */
+    GL.bindBuffer(GL.ARRAY_BUFFER, tabungVertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, tabungColors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, tabungFaces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, SABER_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, SABER_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, SABER_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, SABER_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, SABER_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, tabung.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Eye of gun
+    GL.bindBuffer(GL.ARRAY_BUFFER, gunVertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, gunColors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, gunFaces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, ROBOT_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, SABER_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, gun.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= WEAPONS ========================= */
+
+    GL.flush();
+
     window.requestAnimationFrame(animateRobot);
   };
 
+  animateUFO(0);
   animateRobot(0);
 }
 
