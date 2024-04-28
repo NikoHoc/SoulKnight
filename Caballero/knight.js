@@ -1,5 +1,3 @@
-
-
 function createVertexBuffer(GL, data) {
   var buffer = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, buffer);
@@ -604,8 +602,151 @@ function main() {
 
 
       
-      //pistol
+      //pistol kiri
+      //belakang
+      -1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+        -0.8, -0.2, -0.4, 0.5, 0.5, 0.5, 
+        -1, -0.2, -0.4, 0.5, 0.5,0.5,
+  
+      //depan
+      -1, -0.4, -0.4, 0.5, 0.5, 0.5,
+       -0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+        -0.8, -0.2, -0.2, 0.5, 0.5, 0.5, 
+        -1, -0.2, -0.2, 0.5, 0.5,0.5,
+  
+      //kiri
+      -1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -1, -0.2, -0.4, 0.5, 0.5, 0.5,
+        -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+         -1, -0.4, -0.4, 0.5, 0.5, 0.5,
+  
+      //kanan
+      -0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+        -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+         -0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+      //bawah
+      -1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -1, -0.4, -0.4, 0.5, 0.5, 0.5,
+        -0.8, -0.4, -0.4, 0.5, 0.5, 0.5, 
+        -0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+  
+      //atas
+      -1, -0.2, -0.4, 0.5, 0.5, 0.5,
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+      -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+      -0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
 
+      //pistol kiri bagian tengahnya
+      //belakang
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+        -0.8, -0, -0.2, 0.5, 0.5, 0.5, 
+        -1, -0, -0.2, 0.5, 0.5,0.5,
+  
+      //depan
+      -1, -0.2, 0.8, 0.5, 0.5, 0.5,
+       -0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+        -0.8, -0, 1, 0.5, 0.5, 0.5, 
+        -1, -0, 1, 0.5, 0.5,0.5,
+  
+      //kiri
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -1, -0, -0.2, 0.5, 0.5, 0.5,
+        -1, -0, 1, 0.5, 0.5, 0.5,
+         -1, -0.2, 0.8, 0.5, 0.5, 0.5,
+  
+      //kanan
+      -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -0.8, -0, -0.2, 0.5, 0.5, 0.5,
+        -0.8, -0, 1, 0.5, 0.5, 0.5,
+         -0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+      //bawah
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -1, -0.2, 0.8, 0.5, 0.5, 0.5,
+        -0.8, -0.2, 0.8, 0.5, 0.5, 0.5, 
+        -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+  
+      //atas
+      -1, -0, -0.2, 0.5, 0.5, 0.5,
+      -1, -0, 1, 0.5, 0.5, 0.5,
+      -0.8, -0, 1, 0.5, 0.5, 0.5,
+      -0.8, -0, -0.2, 0.5, 0.5, 0.5,
+      
+
+
+      //pistol kanan
+      //belakang
+      1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+        0.8, -0.2, -0.4, 0.5, 0.5, 0.5, 
+        1, -0.2, -0.4, 0.5, 0.5,0.5,
+  
+      //depan
+      1, -0.4, -0.4, 0.5, 0.5, 0.5,
+       0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+        0.8, -0.2, -0.2, 0.5, 0.5, 0.5, 
+        1, -0.2, -0.2, 0.5, 0.5,0.5,
+  
+      //kiri
+      1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       1, -0.2, -0.4, 0.5, 0.5, 0.5,
+        1, -0.2, -0.2, 0.5, 0.5, 0.5,
+         1, -0.4, -0.4, 0.5, 0.5, 0.5,
+  
+      //kanan
+      0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+       0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+        0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+         0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+      //bawah
+      1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       1, -0.4, -0.4, 0.5, 0.5, 0.5,
+        0.8, -0.4, -0.4, 0.5, 0.5, 0.5, 
+        0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+  
+      //atas
+      1, -0.2, -0.4, 0.5, 0.5, 0.5,
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+      0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+      0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+
+      //pistol kanan bagian tengahnya
+      //belakang
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+        0.8, -0, -0.2, 0.5, 0.5, 0.5, 
+        1, -0, -0.2, 0.5, 0.5,0.5,
+  
+      //depan
+      1, -0.2, 0.8, 0.5, 0.5, 0.5,
+       0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+        0.8, -0, 1, 0.5, 0.5, 0.5, 
+        1, -0, 1, 0.5, 0.5,0.5,
+  
+      //kiri
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       1, -0, -0.2, 0.5, 0.5, 0.5,
+        1, -0, 1, 0.5, 0.5, 0.5,
+         1, -0.2, 0.8, 0.5, 0.5, 0.5,
+  
+      //kanan
+      0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+       0.8, -0, -0.2, 0.5, 0.5, 0.5,
+        0.8, -0, 1, 0.5, 0.5, 0.5,
+         0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+      //bawah
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       1, -0.2, 0.8, 0.5, 0.5, 0.5,
+        0.8, -0.2, 0.8, 0.5, 0.5, 0.5, 
+        0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+  
+      //atas
+      1, -0, -0.2, 0.5, 0.5, 0.5,
+      1, -0, 1, 0.5, 0.5, 0.5,
+      0.8, -0, 1, 0.5, 0.5, 0.5,
+      0.8, -0, -0.2, 0.5, 0.5, 0.5,
       
     ];
 
@@ -772,8 +913,62 @@ function main() {
 
       276, 277, 278, 276, 278, 279,
 
+      //pistol kiri
+      280, 281, 282, 280, 282, 283,
+
+      284, 285, 286, 284, 286, 287,
+
+      288, 289, 290, 288, 290, 291,
+
+      292, 293, 294, 292, 294, 295,
+
+      296, 297, 298, 296, 298, 299,
+
+      300, 301, 302, 300, 302, 303,
+
+      //pistol kiri bagian badannya
+
+      304, 305, 306, 304, 306, 307,
+
+      308, 309, 310, 308, 310, 311,
+
+      312, 313, 314, 312, 314, 315,
+
+      316, 317, 318, 316, 318, 319,
+
+      320, 321, 322, 320, 322, 323,
+
+      324, 325, 326, 324, 326, 327,
+
+      //pistol kanan
+      328, 329, 330, 328, 330, 331,
+
+      332, 333, 334, 332, 334, 335,
+
+      336, 337, 338, 336, 338, 339,
+
+      340, 341, 342, 340, 342, 343,
+
+      344, 345, 346, 344, 346, 347,
+
+      348, 349, 350, 348, 350, 351,
+
+      //pistol kanan bagian dalamnya
+
+      352, 353, 354, 352, 354, 355,
+
+      356, 357, 358, 356, 358, 359,
+
+      360, 361, 362, 360, 362, 363,
+
+      364, 365, 366, 364, 366, 367,
+
+      368, 369, 370, 368, 370, 371,
+
+      372, 373, 374, 372, 374, 375,
+
     ];
-  
+
     var triangle_vbo = GL.createBuffer();
     GL.bindBuffer(GL.ARRAY_BUFFER, triangle_vbo);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cube), GL.STATIC_DRAW);
@@ -786,6 +981,70 @@ function main() {
       GL.STATIC_DRAW
     );
 
+    //pistol kiri
+    // Magazine
+    var magLeft = generateSolidTube(
+      -0.89,
+      -0.3,
+      0.2,
+      0.1,
+      0.1,
+      0.5,
+      30,
+      [0.5, 0.5, 0.5]
+    );
+    // Create buffers
+    var mag_vertex_left = createVertexBuffer(GL, magLeft.vertices);
+    var mag_colors_left = createColorBuffer(GL, magLeft.colors);
+    var mag_faces_left = createFacesBuffer(GL, magLeft.faces);
+
+    //pelatuk
+    var Left = generateCurvePistol(-0.9, -0.2, -0.2, 0.2, 0.1, 0.2, 30, true, [0.6, 0.6, 0.6]);
+  
+    var VERTEX_LEFT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_LEFT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Left.vertices), GL.STATIC_DRAW);
+  
+    var COLORS_LEFT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_LEFT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Left.colors), GL.STATIC_DRAW);
+  
+    var FACES_LEFT = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_LEFT);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(Left.faces), GL.STATIC_DRAW);
+    
+    //pistol kanan
+    // Magazine
+    var magRight = generateSolidTube(
+      0.89,
+      -0.3,
+      0.2,
+      0.1,
+      0.1,
+      0.5,
+      30,
+      [0.5, 0.5, 0.5]
+    );
+    // Create buffers
+    var mag_vertex_right = createVertexBuffer(GL, magRight.vertices);
+    var mag_colors_right = createColorBuffer(GL, magRight.colors);
+    var mag_faces_right = createFacesBuffer(GL, magRight.faces);
+
+    //pelatuk
+    var Right = generateCurvePistol(0.9, -0.2, -0.2, 0.2, 0.1, 0.2, 30, true, [0.6, 0.6, 0.6]);
+  
+    var VERTEX_RIGHT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_RIGHT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Right.vertices), GL.STATIC_DRAW);
+  
+    var COLORS_RIGHT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_RIGHT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Right.colors), GL.STATIC_DRAW);
+
+    var FACES_RIGHT = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_RIGHT);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(Right.faces), GL.STATIC_DRAW);
+  
     // Create buffers
   
   
@@ -796,13 +1055,13 @@ function main() {
       100
     );
 
-    //coba
-    var PROJECTION_MATRIX = LIBS.get_projection(40, canvas.width/canvas.height, 1,100);
-    //coba
 
     var MODEL_MATRIX = LIBS.get_I4();
     var VIEW_MATRIX = LIBS.get_I4();
   
+    var SPHERE_VIEW_MATRIX = LIBS.get_I4();
+    LIBS.rotateY(SPHERE_VIEW_MATRIX, -7);
+
     LIBS.translateZ(VIEW_MATRIX, -7);
   
     var prevTime = 0;
@@ -839,12 +1098,86 @@ function main() {
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
       GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
-  
+
       // GL.drawArrays(GL.LINES, 0, cube.length/6);
+      //Badan
       GL.drawElements(GL.TRIANGLES, cube_faces.length, GL.UNSIGNED_SHORT, 0);
 
       
+      // Pistol kiri
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_vertex_left);
+      GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
   
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_colors_left);
+      GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, mag_faces_left);
+  
+      GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
+  
+      GL.drawElements(
+        GL.TRIANGLE_STRIP,
+        magLeft.faces.length,
+        GL.UNSIGNED_SHORT,
+        0
+      );
+
+      //pelatuk
+      // Draw Left
+      GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_LEFT);
+      GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_LEFT);
+      GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_LEFT);
+  
+      GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, Left.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //Pistol Kanan
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_vertex_right);
+      GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_colors_right);
+      GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, mag_faces_right);
+  
+      GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
+  
+      GL.drawElements(
+        GL.TRIANGLE_STRIP,
+        magLeft.faces.length,
+        GL.UNSIGNED_SHORT,
+        0
+      );
+
+      //pelatuk
+      // Draw Right
+      GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_RIGHT);
+      GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_RIGHT);
+      GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_RIGHT);
+  
+      GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, Left.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      
+
       GL.flush();
   
       window.requestAnimationFrame(animate);

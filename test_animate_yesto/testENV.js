@@ -59,10 +59,10 @@ function main() {
     alpha += (dy * 2 * Math.PI) / CANVAS.height;
   };
 
-  CANVAS.addEventListener("mousedown", mouseDown, false);
-  CANVAS.addEventListener("mouseup", mouseUP, false);
-  CANVAS.addEventListener("mouseout", mouseOut, false);
-  CANVAS.addEventListener("mousemove", mouseMove, false);
+  // CANVAS.addEventListener("mousedown", mouseDown, false);
+  // CANVAS.addEventListener("mouseup", mouseUP, false);
+  // CANVAS.addEventListener("mouseout", mouseOut, false);
+  // CANVAS.addEventListener("mousemove", mouseMove, false);
 
   var GL;
   try {
@@ -75,26 +75,28 @@ function main() {
 
   //shaders
   var shader_vertex_source = `
-            attribute vec3 position;
-            attribute vec3 color;
-        
-            uniform mat4 PMatrix;
-            uniform mat4 VMatrix;
-            uniform mat4 MMatrix;
+              attribute vec3 position;
+              attribute vec3 color;
           
-            varying vec3 vColor;
-            void main(void) {
-            gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
-            vColor = color;
-            }`;
+              uniform mat4 PMatrix;
+              uniform mat4 VMatrix;
+              uniform mat4 MMatrix;
+            
+              varying vec3 vColor;
+              void main(void) {
+              gl_Position = PMatrix*VMatrix*MMatrix*vec4(position, 1.);
+              vColor = color;
+              }`;
+
   var shader_fragment_source = `
-            precision mediump float;
-            varying vec3 vColor;
-            // uniform vec3 color;
-            void main(void) {
-            gl_FragColor = vec4(vColor, 1.);
-          
-            }`;
+              precision mediump float;
+              varying vec3 vColor;
+              // uniform vec3 color;
+              void main(void) {
+              gl_FragColor = vec4(vColor, 1.);
+            
+              }`;
+
   var compile_shader = function (source, type, typeString) {
     var shader = GL.createShader(type);
     GL.shaderSource(shader, source);
@@ -134,7 +136,6 @@ function main() {
   // ========================== Kepala ==================================
   //bagian dalam
   var kepala1 = generateHalfSphere(0, 2, 0, 1.5, 30, [0, 0.45, 0.64]);
-
   // Create buffers
   var kepala1_vertex = createVertexBuffer(GL, kepala1.vertices);
   var kepala1_colors = createColorBuffer(GL, kepala1.colors);
@@ -142,7 +143,6 @@ function main() {
 
   //bagian pola
   var kepala2 = generateHalfSphere(0, 2.1, 0, 1.53, 30, [0.11, 0.88, 0.94]);
-
   // Create buffers
   var kepala2_vertex = createVertexBuffer(GL, kepala2.vertices);
   var kepala2_colors = createColorBuffer(GL, kepala2.colors);
@@ -151,7 +151,6 @@ function main() {
   // ========================== Badan ==================================
   // bagian dalam
   var badan1 = generateSolidTube(0, 0, 0, 1.5, 1.5, 4, 30, [0, 0.45, 0.64]);
-
   // Create buffers for the first octagon
   var badan1_VERTEX = createVertexBuffer(GL, badan1.vertices);
   var badan1_COLORS = createColorBuffer(GL, badan1.colors);
@@ -159,14 +158,12 @@ function main() {
 
   // bagian luar
   var badan2 = generateSolidTube(0, 0, 0, 1.505, 1.505, 4, 10, [0.11, 0.88, 0.94]);
-
   // Create buffers for the first octagon
   var badan2_VERTEX = createVertexBuffer(GL, badan2.vertices);
   var badan2_COLORS = createColorBuffer(GL, badan2.colors);
   var badan2_FACES = createFacesBuffer(GL, badan2.faces);
 
   // ========================== Tube Backpack ==================================
-
   // top backpack
   var topBackpack = generateHalfSphere(0, 1.9, -2.8, 0.65, 30, [0.44, 0.44, 0.52]);
   // Create buffers
@@ -209,27 +206,23 @@ function main() {
   var bottomBackpack_colors = createColorBuffer(GL, bottomBackpack.colors);
   var bottomBackpack_faces = createFacesBuffer(GL, bottomBackpack.faces);
 
-  // ========================== UFO ==================================
-  // UFO dark grey
+  // ========================== UFO (LEG) ==================================
+  // UFO1 dark grey
   var ufo1 = generateUFO(2.5, 2.5, 1.2, 30, 0, -1.4, 0, [0.44, 0.44, 0.52]);
-
   // Create buffers
   var ufo1_vertex = createVertexBuffer(GL, ufo1.vertices);
   var ufo1_colors = createColorBuffer(GL, ufo1.colors);
   var ufo1_faces = createFacesBuffer(GL, ufo1.faces);
 
-  // UFO Yellow
+  // UFO2 Yellow
   var ufo2 = generateUFO(2.2, 2.2, 1.5, 40, 0, -1.4, 0, [1, 0.85, 0.21]);
-
   // Create buffers
   var ufo2_vertex = createVertexBuffer(GL, ufo2.vertices);
   var ufo2_colors = createColorBuffer(GL, ufo2.colors);
   var ufo2_faces = createFacesBuffer(GL, ufo2.faces);
 
-  // UFO3
-  // bottom UFO
+  // UFO3 bottom
   var botUFO = generateHalfSphere(0, -1, 0, -2.4, 30, [0.24, 0.25, 0.29]);
-
   // Create buffers
   var botUFO_vertex = createVertexBuffer(GL, botUFO.vertices);
   var botUFO_colors = createColorBuffer(GL, botUFO.colors);
@@ -326,7 +319,7 @@ function main() {
 
   var ARMOR_VERTEX = createVertexBuffer(GL, ARMOR.vertices);
   var ARMOR_COLORS = createColorBuffer(GL, ARMOR.colors);
-  var ARMOR_FACES = createFacesBuffer(GL, ARMOR_FACES);
+  var ARMOR_FACES = createFacesBuffer(GL, ARMOR.faces);
 
   /*========================= Shoulder ========================= */
   var shoulderDataRight = generateShoulder(1.95, -3, 0, 1.3, 1, 1.4, 50, true, [172 / 256, 189 / 256, 190 / 256]);
@@ -425,28 +418,28 @@ function main() {
   /*========================================================= */
 
   //Floor
-  var floor = generateWorld(50, 500, 0.3, 0, 0, 0, [0.33, 0.44, 0.48]);
+  var floor = generateWorld(50, 500, 0.3, 0, 0, 0, [0.04, 0.18, 0.21]);
 
   var FLOOR_VERTEX = createVertexBuffer(GL, floor.vertices);
   var FLOOR_COLORS = createColorBuffer(GL, floor.colors);
   var FLOOR_FACES = createFacesBuffer(GL, floor.faces);
 
   // roof
-  var roof = generateWorld(50, 500, 0.3, 0, 40, 0, [0.33, 0.44, 0.48]);
+  var roof = generateWorld(50, 500, 0.3, 0, 21, 0, [0.04, 0.18, 0.21]);
 
   var ROOF_VERTEX = createVertexBuffer(GL, roof.vertices);
   var ROOF_COLORS = createColorBuffer(GL, roof.colors);
   var ROOF_FACES = createFacesBuffer(GL, roof.faces);
 
   //Back
-  var backWall = generateWorld(50, 0.3, 75, 0, 3, -22, [0.52, 0.77, 0.86]);
+  var backWall = generateWorld(50, 0.3, 75, 0, 3, -22, [0.37, 0.46, 0.49]);
 
   var BACK_WALL_VERTEX = createVertexBuffer(GL, backWall.vertices);
   var BACK_WALL_COLORS = createColorBuffer(GL, backWall.colors);
   var BACK_WALL_FACES = createFacesBuffer(GL, backWall.faces);
 
   //Left
-  var leftWall = generateWorld(60, 0.3, 80, -5, 3, -1, [0.52, 0.77, 0.86]);
+  var leftWall = generateWorld(60, 0.3, 80, -5, 3, -1, [0.37, 0.46, 0.49]);
 
   var LEFT_WALL_VERTEX = createVertexBuffer(GL, leftWall.vertices);
   var LEFT_WALL_COLORS = createColorBuffer(GL, leftWall.colors);
@@ -454,33 +447,95 @@ function main() {
 
   //Right
   // width, length, height, x, y, z, customColor
-  var rightWall = generateWorld(50, 0.3, 75, 5, 3, -1, [0.52, 0.77, 0.86]);
+  var rightWall = generateWorld(50, 0.3, 75, 5, 3, -1, [0.37, 0.46, 0.49]);
 
   var RIGHT_WALL_VERTEX = createVertexBuffer(GL, rightWall.vertices);
   var RIGHT_WALL_COLORS = createColorBuffer(GL, rightWall.colors);
   var RIGHT_WALL_FACES = createFacesBuffer(GL, rightWall.faces);
 
+  //Left back pillar
+  // x, y, z, width, height, depth, color
+  var leftBackPillar = generateCube(-24.5, 3, -21, 1, 35.6, 1, [0.22, 0.44, 0.27]);
+
+  var LEFT_BACK_PILLAR_VERTEX = createVertexBuffer(GL, leftBackPillar.vertices);
+  var LEFT_BACK_PILLAR_COLORS = createColorBuffer(GL, leftBackPillar.colors);
+  var LEFT_BACK_PILLAR_FACES = createFacesBuffer(GL, leftBackPillar.faces);
+
+  //Right back pillar
+  // x, y, z, width, height, depth, color
+  var rightBackPillar = generateCube(24.5, 3, -21, 1, 35.6, 1, [0.22, 0.44, 0.27]);
+
+  var RIGHT_BACK_PILLAR_VERTEX = createVertexBuffer(GL, rightBackPillar.vertices);
+  var RIGHT_BACK_PILLAR_COLORS = createColorBuffer(GL, rightBackPillar.colors);
+  var RIGHT_BACK_PILLAR_FACES = createFacesBuffer(GL, rightBackPillar.faces);
+
+  //bottom back pillar
+  // x, y, z, width, height, depth, color
+  var bottomBackPillar = generateCube(0, 0.2, -21, 50, 2, 1, [0.22, 0.44, 0.27]);
+
+  var BOTTOM_BACK_PILLAR_VERTEX = createVertexBuffer(GL, bottomBackPillar.vertices);
+  var BOTTOM_BACK_PILLAR_COLORS = createColorBuffer(GL, bottomBackPillar.colors);
+  var BOTTOM_BACK_PILLAR_FACES = createFacesBuffer(GL, bottomBackPillar.faces);
+
+  //top back pillar
+  // x, y, z, width, height, depth, color
+  var topBackPillar = generateCube(0, 20.7, -21, 50, 2, 1, [0.22, 0.44, 0.27]);
+
+  var TOP_BACK_PILLAR_VERTEX = createVertexBuffer(GL, topBackPillar.vertices);
+  var TOP_BACK_PILLAR_COLORS = createColorBuffer(GL, topBackPillar.colors);
+  var TOP_BACK_PILLAR_FACES = createFacesBuffer(GL, topBackPillar.faces);
+
+  //bottom left pillar
+  // x, y, z, width, height, depth, color
+  var bottomLeftPillar = generateCube(-24.5, 0.2, 2, 1, 2, 50, [0.22, 0.44, 0.27]);
+
+  var BOTTOM_LEFT_PILLAR_VERTEX = createVertexBuffer(GL, bottomLeftPillar.vertices);
+  var BOTTOM_LEFT_PILLAR_COLORS = createColorBuffer(GL, bottomLeftPillar.colors);
+  var BOTTOM_LEFT_PILLAR_FACES = createFacesBuffer(GL, bottomLeftPillar.faces);
+
+  //top left pillar
+  // x, y, z, width, height, depth, color
+  var topLeftPillar = generateCube(-24.5, 20.7, 2, 1, 2, 50, [0.22, 0.44, 0.27]);
+
+  var TOP_LEFT_PILLAR_VERTEX = createVertexBuffer(GL, topLeftPillar.vertices);
+  var TOP_LEFT_PILLAR_COLORS = createColorBuffer(GL, topLeftPillar.colors);
+  var TOP_LEFT_PILLAR_FACES = createFacesBuffer(GL, topLeftPillar.faces);
+
+  //bottom right pillar
+  // x, y, z, width, height, depth, color
+  var bottomRightPillar = generateCube(24.5, 0.2, 2, 1, 2, 50, [0.22, 0.44, 0.27]);
+
+  var BOTTOM_RIGHT_PILLAR_VERTEX = createVertexBuffer(GL, bottomRightPillar.vertices);
+  var BOTTOM_RIGHT_PILLAR_COLORS = createColorBuffer(GL, bottomRightPillar.colors);
+  var BOTTOM_RIGHT_PILLAR_FACES = createFacesBuffer(GL, bottomRightPillar.faces);
+
+  //top right right pillar
+  // x, y, z, width, height, depth, color
+  var topRightPillar = generateCube(24.5, 20.7, 2, 1, 2, 50, [0.22, 0.44, 0.27]);
+
+  var TOP_RIGHT_PILLAR_VERTEX = createVertexBuffer(GL, topRightPillar.vertices);
+  var TOP_RIGHT_PILLAR_COLORS = createColorBuffer(GL, topRightPillar.colors);
+  var TOP_RIGHT_PILLAR_FACES = createFacesBuffer(GL, topRightPillar.faces);
+
   //Obstacle
   // x, y, z, width, height, depth, color
-  var wall1 = generateCube(5, 2, 10, 4, 10, 10, [0.58, 0.42, 0.27]);
+  var box1 = generateCube(7, 2, 10, 4, 10, 10, [0.58, 0.42, 0.27]);
 
-  var WALL1_VERTEX = createVertexBuffer(GL, wall1.vertices);
-  var WALL1_COLORS = createColorBuffer(GL, wall1.colors);
-  var WALL1_FACES = createFacesBuffer(GL, wall1.faces);
+  var BOX1_VERTEX = createVertexBuffer(GL, box1.vertices);
+  var BOX1_COLORS = createColorBuffer(GL, box1.colors);
+  var BOX1_FACES = createFacesBuffer(GL, box1.faces);
 
-  var wall2 = generateCube(-10, 2, 22, 4, 3, 4, [0.58, 0.42, 0.27]);
+  var box2 = generateCube(-10, 2, 22, 4, 3, 4, [0.58, 0.42, 0.27]);
 
-  var WALL2_VERTEX = createVertexBuffer(GL, wall2.vertices);
-  var WALL2_COLORS = createColorBuffer(GL, wall2.colors);
-  var WALL2_FACES = createFacesBuffer(GL, wall2.faces);
+  var BOX2_VERTEX = createVertexBuffer(GL, box2.vertices);
+  var BOX2_COLORS = createColorBuffer(GL, box2.colors);
+  var BOX2_FACES = createFacesBuffer(GL, box2.faces);
 
-  
-  var wall3 = generateCube(-4, 2, 1, 4, 5, 4, [0.58, 0.42, 0.27]);
+  var box3 = generateCube(-4, 2, 1, 4, 5, 4, [0.58, 0.42, 0.27]);
 
-  var WALL3_VERTEX = createVertexBuffer(GL, wall3.vertices);
-  var WALL3_COLORS = createColorBuffer(GL, wall3.colors);
-  var WALL3_FACES = createFacesBuffer(GL, wall3.faces);
-
+  var BOX3_VERTEX = createVertexBuffer(GL, box3.vertices);
+  var BOX3_COLORS = createColorBuffer(GL, box3.colors);
+  var BOX3_FACES = createFacesBuffer(GL, box3.faces);
 
   /*========================================================= */
   /*========================= MATRIX ======================== */
@@ -489,26 +544,9 @@ function main() {
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
-  /*========================= MATRIX UFO ======================== */
-  var BODY_MATRIX = LIBS.get_I4();
-
-  var LASER_MATRIX = LIBS.get_I4();
-
-  var UFO_VIEW_MATRIX = LIBS.get_I4();
-
-  //First Render of the UFO
-  LIBS.translateX(UFO_VIEW_MATRIX, -21);
-  LIBS.translateY(UFO_VIEW_MATRIX, -4.5);
-  LIBS.translateZ(UFO_VIEW_MATRIX, -80);
-
-  LIBS.rotateY(UFO_VIEW_MATRIX, 20);
-
   /*========================= MATRIX ENV ========================= */
   // Floor
   var WORLD_MATRIX = LIBS.get_I4();
-  var WALL1_MATRIX = LIBS.get_I4();
-  var WALL2_MATRIX = LIBS.get_I4();
-  var WALL3_MATRIX = LIBS.get_I4();
 
   LIBS.translateZ(VIEW_MATRIX, -60);
   LIBS.translateY(VIEW_MATRIX, -10);
@@ -533,6 +571,23 @@ function main() {
   LIBS.rotateY(RIGHT_WALL_VIEW_MATRIX, 7.85);
   // LIBS.rotateZ(RIGHT_WALL_VIEW_MATRIX, 10);
 
+  /*========================= MATRIX ENV ========================= */
+
+  /*========================= MATRIX UFO ======================== */
+  var BODY_UFO_MATRIX = LIBS.get_I4();
+
+  var LASER_UFO_MATRIX = LIBS.get_I4();
+
+  var UFO_VIEW_MATRIX = LIBS.get_I4();
+
+  //First Render of the UFO
+  LIBS.translateX(UFO_VIEW_MATRIX, -21);
+  LIBS.translateY(UFO_VIEW_MATRIX, -4.5);
+  LIBS.translateZ(UFO_VIEW_MATRIX, -20);
+
+  LIBS.rotateY(UFO_VIEW_MATRIX, 3);
+  /*========================= MATRIX UFO ======================== */
+
   /*========================= MATRIX ROBOT ========================= */
   var BADAN_MATRIX = LIBS.get_I4();
 
@@ -546,10 +601,11 @@ function main() {
 
   //First Render of the ROBOT
   LIBS.translateX(ROBOT_VIEW_MATRIX, 12);
-  LIBS.translateY(ROBOT_VIEW_MATRIX, -2);
+  LIBS.translateY(ROBOT_VIEW_MATRIX, 20);
   LIBS.translateZ(ROBOT_VIEW_MATRIX, -50);
 
   LIBS.rotateY(ROBOT_VIEW_MATRIX, 0);
+  /*========================= MATRIX ROBOT ========================= */
 
   /*=========================================================== */
   /*========================= DRAWING ========================= */
@@ -566,13 +622,27 @@ function main() {
   var LaserTime = 0;
   var isMovingForward = true;
   var animationDuration = 27; //Cepat lambatnya laser
+
   var startLaserTime = 0;
   var endLaserTime = animationDuration;
+
   var startProgress = 0;
   var finishProgress = 1;
   var targetProgress = finishProgress;
 
   var time_prev = 0;
+
+  var flyingUFO1 = 0;
+  var flyingUFO2 = 0;
+  var flyingUFO3 = 0;
+  var flyingUFO4 = 0;
+  var flyingUFO5 = 0;
+  var flyingUFO6 = 0;
+  var flyingUFO7 = 0;
+  var flyingUFO8 = 0;
+  var flyingUFO9 = 0;
+  var flyingUFO10 = 0;
+  var flyingUFO11 = 0;
 
   // FOR ROBOT
   var then = 0;
@@ -586,6 +656,18 @@ function main() {
   var SaberTime = 0;
   var SaberReverse = false;
 
+  var runningRobot0 = 0;
+  var runningRobot1 = 0;
+  var runningRobot2 = 0;
+  var runningRobot3 = 0;
+  var runningRobot4 = 0;
+  var runningRobot5 = 0;
+  var runningRobot6 = 0;
+  var runningRobot7 = 0;
+  var runningRobot8 = 0;
+  var runningRobot9 = 0;
+  var runningRobot10 = 0;
+
   /*=========================================================== */
   /*========================= ANIMATE ========================= */
   /*=========================================================== */
@@ -594,14 +676,15 @@ function main() {
     GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
     time *= 0.0004;
+    // runningRobot1 = prevRunTime;
 
     var deltaTime = (time - time_prev) * 100;
     time_prev = time;
     then = time;
 
     /*========================= UFO TIME AND ANIMATION ========================= */
-    // Body
-    BODY_MATRIX = LIBS.get_I4();
+    // UFO floating Animation
+    BODY_UFO_MATRIX = LIBS.get_I4();
 
     var KF_UFO_Body = 0;
 
@@ -622,12 +705,12 @@ function main() {
       KF_UFO_Body *= 2.5;
     }
 
-    LIBS.translateY(BODY_MATRIX, KF_UFO_Body);
-    LIBS.rotateY(BODY_MATRIX, theta);
-    //LIBS.rotateX(BODY_MATRIX, alpha);
+    LIBS.translateY(BODY_UFO_MATRIX, KF_UFO_Body);
+    LIBS.rotateY(BODY_UFO_MATRIX, theta);
+    //LIBS.rotateX(BODY_UFO_MATRIX, alpha);
 
-    //===================== LASER ANIMATION =============
-    LASER_MATRIX = LIBS.get_I4();
+    // Laser shooting animation
+    LASER_UFO_MATRIX = LIBS.get_I4();
 
     var KF_Laser = 0;
 
@@ -636,21 +719,19 @@ function main() {
         // If moving forward and reached the finish point, reset to start point
         startLaserTime = 0;
         LaserTime = startLaserTime;
-        targetProgress = finishProgress; // Set target progress for next movement
+        targetProgress = finishProgress;
       } else if (!isMovingForward && LaserTime <= startLaserTime) {
         // If moving backward and reached the start point, reset to start point
         LaserTime = startLaserTime;
-        targetProgress = finishProgress; // Set target progress for next movement
+        targetProgress = finishProgress;
       }
 
-      // Calculate movement based on direction
       if (isMovingForward) {
         LaserTime += deltaTime;
       } else {
         LaserTime -= deltaTime;
       }
 
-      // Calculate current progress based on LaserTime
       var progress = (LaserTime - startLaserTime) / (endLaserTime - startLaserTime);
 
       // Smoothly interpolate between start and finish progress
@@ -659,12 +740,12 @@ function main() {
       KF_Laser = currentProgress * 10; //dikali berapa untuk jarak laser
     }
 
-    //LIBS.translateX(LASER_MATRIX, KF_Laser)
-    //LIBS.translateY(LASER_MATRIX, KF_Laser);
-    LIBS.translateZ(LASER_MATRIX, KF_Laser);
+    //LIBS.translateX(LASER_UFO_MATRIX, KF_Laser)
+    //LIBS.translateY(LASER_UFO_MATRIX, KF_Laser);
+    LIBS.translateZ(LASER_UFO_MATRIX, KF_Laser);
 
-    //LIBS.rotateY(LASER_MATRIX, theta);
-    //LIBS.rotateX(LASER_MATRIX, alpha);
+    //LIBS.rotateY(LASER_UFO_MATRIX, theta);
+    //LIBS.rotateX(LASER_UFO_MATRIX, alpha);
 
     /*========================= UFO TIME AND ANIMATION  ========================= */
 
@@ -676,60 +757,54 @@ function main() {
     KAKI_KANAN_MATRIX = LIBS.get_I4();
     var KF_KakiKanan = 0;
 
-    if (time < 40) {
-      if (KakiKananTime <= -10) {
-        KakiKananReverse = true;
-      } else if (KakiKananTime >= 10) {
-        KakiKananReverse = false;
-      }
-
-      if (KakiKananReverse) {
-        KakiKananTime += deltaTime;
-      } else {
-        KakiKananTime -= deltaTime;
-      }
-
-      KF_KakiKanan = LIBS.degToRad(KakiKananTime);
+    if (KakiKananTime <= -10) {
+      KakiKananReverse = true;
+    } else if (KakiKananTime >= 10) {
+      KakiKananReverse = false;
     }
+
+    if (KakiKananReverse) {
+      KakiKananTime += deltaTime;
+    } else {
+      KakiKananTime -= deltaTime;
+    }
+
+    KF_KakiKanan = LIBS.degToRad(KakiKananTime);
 
     // Kaki Kiri
     KAKI_KIRI_MATRIX = LIBS.get_I4();
     var KF_KakiKiri = 0;
 
-    if (time < 40) {
-      if (KakiKiriTime <= -10) {
-        KakiKiriReverse = false;
-      } else if (KakiKiriTime >= 10) {
-        KakiKiriReverse = true;
-      }
-
-      if (KakiKiriReverse) {
-        KakiKiriTime -= deltaTime;
-      } else {
-        KakiKiriTime += deltaTime;
-      }
-
-      KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
+    if (KakiKiriTime <= -10) {
+      KakiKiriReverse = false;
+    } else if (KakiKiriTime >= 10) {
+      KakiKiriReverse = true;
     }
+
+    if (KakiKiriReverse) {
+      KakiKiriTime -= deltaTime;
+    } else {
+      KakiKiriTime += deltaTime;
+    }
+
+    KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
 
     SABER_MATRIX = LIBS.get_I4();
     var KF_Saber = 0;
 
-    if (time < 40) {
-      if (SaberTime <= -9) {
-        SaberReverse = true;
-      } else if (SaberTime >= 9) {
-        SaberReverse = false;
-      }
-
-      if (SaberReverse == true) {
-        SaberTime += deltaTime;
-      } else {
-        SaberTime -= deltaTime;
-      }
-
-      KF_Saber = LIBS.degToRad(SaberTime / (Math.PI * 1));
+    if (SaberTime <= -9) {
+      SaberReverse = true;
+    } else if (SaberTime >= 9) {
+      SaberReverse = false;
     }
+
+    if (SaberReverse == true) {
+      SaberTime += deltaTime;
+    } else {
+      SaberTime -= deltaTime;
+    }
+
+    KF_Saber = LIBS.degToRad(SaberTime / (Math.PI * 1));
 
     // MODEL_MATRIX = LIBS.get_I4();
 
@@ -757,309 +832,510 @@ function main() {
     LIBS.rotateX(SABER_MATRIX, alpha);
     /*========================= ROBOT TIME AND ANIMATION  ========================= */
 
-    /*========================= WORLD ANIMASI ========================= */
+    /*========================= WORLD ANIMATION ========================= */
     WORLD_MATRIX = LIBS.get_I4();
     //LIBS.rotateY(WORLD_MATRIX, theta);
-
-    WALL1_MATRIX = LIBS.get_I4();
-    WALL2_MATRIX = LIBS.get_I4();
-    WALL3_MATRIX = LIBS.get_I4();
     //LIBS.rotateY(WALL1_MATRIX, theta);
-    /*========================= WORLD ANIMASI ========================= */
 
-    // MODEL_MATRIX = LIBS.get_I4();
-
-    /*================================================================= */
-    /*=========================== ufo DRAW ========================== */
-    /*================================================================= */
-
-    // kepala1
-    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala1_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, kepala1.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // kepala2
-    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala2_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLES, kepala2.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // badan 1
-    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_VERTEX);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_COLORS);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan1_FACES);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, badan1.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // badan 2
-    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_VERTEX);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_COLORS);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan2_FACES);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, badan2.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    //gambar ufo1
-    GL.bindBuffer(GL.ARRAY_BUFFER, ufo1_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, ufo1_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo1_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, ufo1.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    //gambar ufo2
-    GL.bindBuffer(GL.ARRAY_BUFFER, ufo2_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, ufo2_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo2_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, ufo2.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    //Bot UFO
-    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, botUFO.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Draw bagian top backpack
-    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, topBackpack_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, topBackpack.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Draw backpack body
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, backpack.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Draw aksesoris backpack 2
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack2_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, backpack2.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Draw aksesoris backpack 3
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack3_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, backpack3.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Draw aksesoris backpack 4
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack4_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, backpack4.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Draw bagian bottom backpack
-    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, bottomBackpack_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, bottomBackpack.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Gambar LeftWeapon
-    GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftWeapon_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, leftWeapon.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Gambar RightWeapon
-    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightWeapon_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, rightWeapon.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    //
-    // LASER untuk badan
-    // Gambar left laser
-    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, leftLaser.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Gambar right laser
-    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, rightLaser.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    //Laser untuk menembak
-    // Gambar left laser
-    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
-
-    // Gambar right laser
-    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
-    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
-    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
-
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
-
-    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
-
-    GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+    /*========================= WORLD ANIMATION ========================= */
+
+    /*========================= SCENE ANIMATION ========================= */
+
+    // robot walking
+    if (time < 1) {
+      runningRobot8 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+    } else if (time > 1 && time < 3) {
+      runningRobot0 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+    } else if (time > 3 && time < 4.3) {
+      runningRobot1 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+    } else if (time > 4.3 && time < 5.6) {
+      runningRobot2 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+
+      LIBS.translateX(BADAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KANAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KIRI_MATRIX, -runningRobot2);
+      LIBS.translateX(SABER_MATRIX, -runningRobot2);
+    } else if (time > 5.6 && time < 7.3) {
+      runningRobot3 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+
+      LIBS.translateX(BADAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KANAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KIRI_MATRIX, -runningRobot2);
+      LIBS.translateX(SABER_MATRIX, -runningRobot2);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot3);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot3);
+    } else if (time > 7.3 && time < 8.6) {
+      runningRobot4 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+
+      LIBS.translateX(BADAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KANAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KIRI_MATRIX, -runningRobot2);
+      LIBS.translateX(SABER_MATRIX, -runningRobot2);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot3);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot3);
+
+      LIBS.translateX(BADAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KANAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KIRI_MATRIX, runningRobot4);
+      LIBS.translateX(SABER_MATRIX, runningRobot4);
+    } else if (time > 8.6 && time < 13) {
+      runningRobot5 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+
+      LIBS.translateX(BADAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KANAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KIRI_MATRIX, -runningRobot2);
+      LIBS.translateX(SABER_MATRIX, -runningRobot2);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot3);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot3);
+
+      LIBS.translateX(BADAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KANAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KIRI_MATRIX, runningRobot4);
+      LIBS.translateX(SABER_MATRIX, runningRobot4);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot5);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot5);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot5);
+      LIBS.translateZ(SABER_MATRIX, runningRobot5);
+    } else if (time > 13 && time < 16) {
+      runningRobot6 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+
+      LIBS.translateX(BADAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KANAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KIRI_MATRIX, -runningRobot2);
+      LIBS.translateX(SABER_MATRIX, -runningRobot2);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot3);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot3);
+
+      LIBS.translateX(BADAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KANAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KIRI_MATRIX, runningRobot4);
+      LIBS.translateX(SABER_MATRIX, runningRobot4);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot5);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot5);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot5);
+      LIBS.translateZ(SABER_MATRIX, runningRobot5);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot6);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot6);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot6);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot6);
+    } else if (time > 16) {
+      runningRobot7 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot1);
+      LIBS.translateZ(SABER_MATRIX, runningRobot1);
+
+      LIBS.translateX(BADAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KANAN_MATRIX, -runningRobot2);
+      LIBS.translateX(KAKI_KIRI_MATRIX, -runningRobot2);
+      LIBS.translateX(SABER_MATRIX, -runningRobot2);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot3);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot3);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot3);
+
+      LIBS.translateX(BADAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KANAN_MATRIX, runningRobot4);
+      LIBS.translateX(KAKI_KIRI_MATRIX, runningRobot4);
+      LIBS.translateX(SABER_MATRIX, runningRobot4);
+
+      LIBS.translateZ(BADAN_MATRIX, runningRobot5);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot5);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot5);
+      LIBS.translateZ(SABER_MATRIX, runningRobot5);
+
+      LIBS.translateZ(BADAN_MATRIX, -runningRobot6);
+      LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot6);
+      LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot6);
+      LIBS.translateZ(SABER_MATRIX, -runningRobot6);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot7);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot7);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot7);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot7);
+    }
+
+    // robot rotating
+    if (time > 3 && time < 4.3) {
+      LIBS.rotateAroundY(BADAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, -180, 0, 0, 0);
+    } else if (time > 4.3 && time < 5.6) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 95, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 95, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 95, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 95, 0, 0, 0);
+    } else if (time > 5.6 && time < 7.3) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 100, 0, 0, 0);
+    } else if (time > 7.3 && time < 8.6) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 60, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 60, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 60, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 60, 0, 0, 0);
+    } else if (time > 8.6 && time < 13) {
+      LIBS.rotateAroundY(BADAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, -180, 0, 0, 0);
+    } else if (time > 13) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 100, 0, 0, 0);
+    }
+    // end robot walking
+
+
+    // start ufo flying
+    //UFO ANIMATION
+    if (time > 0.8 && time < 3) {
+      flyingUFO1 += deltaTime * 0.2;
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+    
+    } else if (time > 3 && time < 3.83) {
+      flyingUFO2 += deltaTime * 0.2;
+      //LIBS.rotateY(UFO_VIEW_MATRIX, 3);
+      
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+    } else if (time > 3.83 && time < 4.7) {
+      flyingUFO3 += deltaTime * 0.2;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+    } else if (time > 4.7 && time < 5.5) {
+      flyingUFO4 += deltaTime * 0.2;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+    } else if (time > 5.5 && time < 7) {
+      flyingUFO5 += deltaTime * 0.2;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+    } else if (time > 7 && time < 8.5) {
+      flyingUFO6 += deltaTime * 0.2;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+    } else if (time > 8.5 && time < 10) {
+      flyingUFO7 += deltaTime * 0.2;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
+    } else if (time > 10 && time < 11.7) {
+      flyingUFO8 += deltaTime * 0.2;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO8);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO8);
+    } else if (time > 11.7) {
+      flyingUFO9 += deltaTime * 0.025;
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+
+      LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+      LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
+      LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+
+      LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
+      LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
+
+      LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO8);
+      LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO8);
+
+      LIBS.rotateY(BODY_UFO_MATRIX, flyingUFO9);
+      LIBS.rotateY(LASER_UFO_MATRIX, flyingUFO9);
+    } 
+
+    //UFO POV
+    if (time > 0.8 && time < 3) {
+      //normal
+    } else if (time > 3 && time < 3.83) {
+      LIBS.rotateAroundY(BODY_UFO_MATRIX, 80, 0, 0, 0)
+      LIBS.rotateAroundY(LASER_UFO_MATRIX, 80, 0, 0, 0)
+
+    } else if (time > 3.83 && time < 4.7) {
+      LIBS.rotateAroundY(BODY_UFO_MATRIX, -60, 0, 0, 0)
+      LIBS.rotateAroundY(LASER_UFO_MATRIX, -60, 0, 0, 0)
+
+    } else if (time > 4.7 && time < 5.5) {
+      LIBS.rotateAroundY(BODY_UFO_MATRIX, 70, 0, 0, 0)
+      LIBS.rotateAroundY(LASER_UFO_MATRIX, 70, 0, 0, 0)
+    } else if (time > 5.5 && time < 7) {
+      LIBS.rotateAroundY(BODY_UFO_MATRIX, 80, 0, 0, 0)
+      LIBS.rotateAroundY(LASER_UFO_MATRIX, 80, 0, 0, 0)
+
+    } else if (time > 7 && time < 8.5) {
+      LIBS.rotateAroundY(BODY_UFO_MATRIX, -160, 0, 0, 0)
+      LIBS.rotateAroundY(LASER_UFO_MATRIX, -160, 0, 0, 0)
+
+    } else if (time > 8.5 && time < 10) {
+      LIBS.rotateAroundY(BODY_UFO_MATRIX, 89.5, 0, 0, 0)
+      LIBS.rotateAroundY(LASER_UFO_MATRIX, 89.5, 0, 0, 0)
+
+    } else if (time > 10 && time < 12) {
+
+
+    }
+
+
+
+
+
+    /*========================= SCENE ANIMATION ========================= */
 
     /*================================================================= */
     /*=========================== WORLD DRAW ========================== */
@@ -1079,7 +1355,7 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, floor.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // roof
+    // Roof
     GL.bindBuffer(GL.ARRAY_BUFFER, ROOF_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -1094,8 +1370,7 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, roof.faces.length, GL.UNSIGNED_SHORT, 0);
 
-
-    // BACK Wall
+    // Back Wall
     GL.bindBuffer(GL.ARRAY_BUFFER, BACK_WALL_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -1110,7 +1385,7 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, backWall.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // LEFT Wall
+    // Left Wall
     GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_WALL_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -1125,7 +1400,7 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, leftWall.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // RIGHT Wall
+    // Right Wall
     GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_WALL_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
@@ -1140,57 +1415,469 @@ function main() {
 
     GL.drawElements(GL.TRIANGLES, rightWall.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    //Obstacle
-    GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
+    // LEFT back Pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_BACK_PILLAR_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEFT_BACK_PILLAR_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL1_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEFT_BACK_PILLAR_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, WALL1_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, wall1.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, leftBackPillar.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, WALL2_VERTEX);
+    // RIGHT back pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_BACK_PILLAR_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, WALL2_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, RIGHT_BACK_PILLAR_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL2_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, RIGHT_BACK_PILLAR_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, WALL2_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, wall2.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, rightBackPillar.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    
-    GL.bindBuffer(GL.ARRAY_BUFFER, WALL3_VERTEX);
+    // top back Pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, TOP_BACK_PILLAR_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, WALL3_COLORS);
+    GL.bindBuffer(GL.ARRAY_BUFFER, TOP_BACK_PILLAR_COLORS);
     GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL3_FACES);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TOP_BACK_PILLAR_FACES);
 
     GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
     GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
-    GL.uniformMatrix4fv(_MMatrix, false, WALL3_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
 
-    GL.drawElements(GL.TRIANGLES, wall3.faces.length, GL.UNSIGNED_SHORT, 0);
+    GL.drawElements(GL.TRIANGLES, topBackPillar.faces.length, GL.UNSIGNED_SHORT, 0);
 
-    // ======================================
+    // bottom back pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BACK_PILLAR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_BACK_PILLAR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_BACK_PILLAR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, bottomBackPillar.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // bottom left Pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_LEFT_PILLAR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_LEFT_PILLAR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_LEFT_PILLAR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, bottomLeftPillar.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // top left Pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, TOP_LEFT_PILLAR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, TOP_LEFT_PILLAR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TOP_LEFT_PILLAR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, topLeftPillar.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // bottom right pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_RIGHT_PILLAR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOTTOM_RIGHT_PILLAR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOTTOM_RIGHT_PILLAR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, bottomRightPillar.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // top right pillar
+    GL.bindBuffer(GL.ARRAY_BUFFER, TOP_RIGHT_PILLAR_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, TOP_RIGHT_PILLAR_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, TOP_RIGHT_PILLAR_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, topRightPillar.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //======================World Obstacle=================
+    // Box1
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOX1_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOX1_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOX1_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, box1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Box2
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOX2_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOX2_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOX2_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, box2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Box3
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOX3_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, BOX3_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BOX3_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, box3.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    /*================================================================= */
+    /*=========================== ufo DRAW ========================== */
+    /*================================================================= */
+
+    // kepala1
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala1_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, kepala1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // kepala2
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, kepala2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, kepala2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, kepala2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // badan 1
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan1_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan1_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, badan1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // badan 2
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, badan2_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, badan2_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, badan2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //gambar ufo1
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo1_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo1_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo1_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, ufo1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //gambar ufo2
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, ufo2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ufo2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, ufo2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Bot UFO
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, botUFO_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, botUFO_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, botUFO.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw bagian top backpack
+    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, topBackpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, topBackpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, topBackpack.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw backpack body
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw aksesoris backpack 2
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack2_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack2_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw aksesoris backpack 3
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack3_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack3_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack3.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw aksesoris backpack 4
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, backpack4_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, backpack4_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, backpack4.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Draw bagian bottom backpack
+    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, bottomBackpack_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, bottomBackpack_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, bottomBackpack.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar LeftWeapon
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftWeapon_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftWeapon_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, leftWeapon.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar RightWeapon
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightWeapon_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightWeapon_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, rightWeapon.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //
+    // LASER untuk badan
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, leftLaser.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaser_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaser_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, rightLaser.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    //Laser untuk menembak
+    // Gambar left laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // Gambar right laser
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+
+    GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
 
     /*================================================================= */
     /*=========================== DRAW ROBOT ========================== */
     /*================================================================= */
 
-     /*========================= HEAD ========================= */
+    /*========================= HEAD ========================= */
     // Draw first octagon
     GL.bindBuffer(GL.ARRAY_BUFFER, kepalaATAS_VERTEX);
     GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
