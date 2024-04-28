@@ -27,8 +27,7 @@ C14220331 - Yestoya L. Minggus
 
 C14220293 - Nikolas Henrik Owen Chan
   1. Membuat Character UFO Alien dengan referensi karakter Engineer pada soul knight (Folder: UFO)
-  2. Memodifikasi Map Enviroment dengan menambahkan dan merapikan dinding / tembok pada sisi-sisi map
-  3. Memberikan semacam outline / pillar pada tiap sisi map
+  2. Memodifikasi Map Enviroment dengan menambahkan dinding / tembok dan pillar pada map
 
 C14220304 - Nicholas Anthony Prasetyo
   1. Membuat Character ...
