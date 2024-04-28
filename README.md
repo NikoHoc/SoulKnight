@@ -9,7 +9,7 @@ Characters References
    
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128313978/38f6c967-8241-49b6-90fa-61d92c220933)
 
-3. Kngiht - X
+3. Knight-S
    
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128332966/356389d5-b50d-4704-85f8-def18ff9724c)
 
@@ -17,7 +17,7 @@ Characters References
 Laporan Pengerjaan:
 
 C14220331 - Yestoya L. Minggus
-  1. Membuat Character ...
+  1. Membuat Character Knight dengan referensi karakter Knight-S pada soul knight (Folder RobotYesto)
   2. Membuat base Map Enviroment (lantai)
 
 C14220293 - Nikolas Henrik Owen Chan
