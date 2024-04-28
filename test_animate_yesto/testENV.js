@@ -1324,6 +1324,7 @@ function main() {
       LIBS.rotateAroundY(BODY_UFO_MATRIX, 89.5, 0, 0, 0)
       LIBS.rotateAroundY(LASER_UFO_MATRIX, 89.5, 0, 0, 0)
     }
+    // End UFO animation
 
     /*========================= SCENE ANIMATION ========================= */
 
