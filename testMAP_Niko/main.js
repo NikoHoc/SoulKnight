@@ -100,14 +100,24 @@ function main() {
     GL.shaderSource(shader, source);
     GL.compileShader(shader);
     if (!GL.getShaderParameter(shader, GL.COMPILE_STATUS)) {
-      alert("ERROR IN " + typeString + " SHADER: " + GL.getShaderInfoLog(shader));
+      alert(
+        "ERROR IN " + typeString + " SHADER: " + GL.getShaderInfoLog(shader)
+      );
       return false;
     }
     return shader;
   };
 
-  var shader_vertex = compile_shader(shader_vertex_source, GL.VERTEX_SHADER, "VERTEX");
-  var shader_fragment = compile_shader(shader_fragment_source, GL.FRAGMENT_SHADER, "FRAGMENT");
+  var shader_vertex = compile_shader(
+    shader_vertex_source,
+    GL.VERTEX_SHADER,
+    "VERTEX"
+  );
+  var shader_fragment = compile_shader(
+    shader_fragment_source,
+    GL.FRAGMENT_SHADER,
+    "FRAGMENT"
+  );
 
   var SHADER_PROGRAM = GL.createProgram();
   GL.attachShader(SHADER_PROGRAM, shader_vertex);
@@ -147,7 +157,6 @@ function main() {
   var kepala2_vertex = createVertexBuffer(GL, kepala2.vertices);
   var kepala2_colors = createColorBuffer(GL, kepala2.colors);
   var kepala2_faces = createFacesBuffer(GL, kepala2.faces);
-  
 
   // ========================== Badan ==================================
   // bagian dalam
@@ -159,58 +168,115 @@ function main() {
   var badan1_FACES = createFacesBuffer(GL, badan1.faces);
 
   // bagian luar
-  var badan2 = generateSolidTube(0, 0, 0,  1.505, 1.505, 4, 10, [0.11, 0.88, 0.94]);
+  var badan2 = generateSolidTube(
+    0,
+    0,
+    0,
+    1.505,
+    1.505,
+    4,
+    10,
+    [0.11, 0.88, 0.94]
+  );
 
   // Create buffers for the first octagon
   var badan2_VERTEX = createVertexBuffer(GL, badan2.vertices);
   var badan2_COLORS = createColorBuffer(GL, badan2.colors);
   var badan2_FACES = createFacesBuffer(GL, badan2.faces);
 
-
   // ========================== Tube Backpack ==================================
 
   // top backpack
-  var topBackpack = generateHalfSphere(0, 1.9, -2.8, 0.65, 30, [0.44, 0.44, 0.52]);
+  var topBackpack = generateHalfSphere(
+    0,
+    1.9,
+    -2.8,
+    0.65,
+    30,
+    [0.44, 0.44, 0.52]
+  );
   // Create buffers
   var topBackpack_vertex = createVertexBuffer(GL, topBackpack.vertices);
   var topBackpack_colors = createColorBuffer(GL, topBackpack.colors);
   var topBackpack_faces = createFacesBuffer(GL, topBackpack.faces);
 
   // body backpack
-  var backpack = generateSolidTube(0, 0.16, -2.8, 0.65, 0.65, 3.5, 30, [0.24, 0.25, 0.29]);
+  var backpack = generateSolidTube(
+    0,
+    0.16,
+    -2.8,
+    0.65,
+    0.65,
+    3.5,
+    30,
+    [0.24, 0.25, 0.29]
+  );
   // Create buffers
   var backpack_vertex = createVertexBuffer(GL, backpack.vertices);
   var backpack_colors = createColorBuffer(GL, backpack.colors);
   var backpack_faces = createFacesBuffer(GL, backpack.faces);
 
   // backpack aksesoris 2
-  var backpack2 = generateSolidTube(0, 1.46, -2.8, 0.67, 0.67, 0.35, 30, [0.09, 1, 0.99]);
+  var backpack2 = generateSolidTube(
+    0,
+    1.46,
+    -2.8,
+    0.67,
+    0.67,
+    0.35,
+    30,
+    [0.09, 1, 0.99]
+  );
   // Create buffers
   var backpack2_vertex = createVertexBuffer(GL, backpack2.vertices);
   var backpack2_colors = createColorBuffer(GL, backpack2.colors);
   var backpack2_faces = createFacesBuffer(GL, backpack2.faces);
 
   // backpack aksesoris 3
-  var backpack3 = generateSolidTube(0, 1.1, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
+  var backpack3 = generateSolidTube(
+    0,
+    1.1,
+    -2.8,
+    0.67,
+    0.67,
+    0.35,
+    30,
+    [0.17, 0.84, 0.83]
+  );
   // Create buffers
   var backpack3_vertex = createVertexBuffer(GL, backpack3.vertices);
   var backpack3_colors = createColorBuffer(GL, backpack3.colors);
   var backpack3_faces = createFacesBuffer(GL, backpack3.faces);
 
   // backpack aksesoris 4
-  var backpack4 = generateSolidTube(0, 0.16, -2.8, 0.67, 0.67, 0.35, 30, [0.17, 0.84, 0.83]);
+  var backpack4 = generateSolidTube(
+    0,
+    0.16,
+    -2.8,
+    0.67,
+    0.67,
+    0.35,
+    30,
+    [0.17, 0.84, 0.83]
+  );
   // Create buffers
   var backpack4_vertex = createVertexBuffer(GL, backpack4.vertices);
   var backpack4_colors = createColorBuffer(GL, backpack4.colors);
   var backpack4_faces = createFacesBuffer(GL, backpack4.faces);
 
   // bottom backpack
-  var bottomBackpack = generateHalfSphere(0, -1.58, -2.8, -0.65, 30, [0.44, 0.44, 0.52]);
+  var bottomBackpack = generateHalfSphere(
+    0,
+    -1.58,
+    -2.8,
+    -0.65,
+    30,
+    [0.44, 0.44, 0.52]
+  );
   // Create buffers
   var bottomBackpack_vertex = createVertexBuffer(GL, bottomBackpack.vertices);
   var bottomBackpack_colors = createColorBuffer(GL, bottomBackpack.colors);
   var bottomBackpack_faces = createFacesBuffer(GL, bottomBackpack.faces);
-  
 
   // ========================== UFO ==================================
   // UFO dark grey
@@ -222,7 +288,7 @@ function main() {
   var ufo1_faces = createFacesBuffer(GL, ufo1.faces);
 
   // UFO Yellow
-  var ufo2 = generateUFO(2.2, 2.2, 1.5, 40,  0, -1.4, 0, [1, 0.85, 0.21]);
+  var ufo2 = generateUFO(2.2, 2.2, 1.5, 40, 0, -1.4, 0, [1, 0.85, 0.21]);
 
   // Create buffers
   var ufo2_vertex = createVertexBuffer(GL, ufo2.vertices);
@@ -237,7 +303,6 @@ function main() {
   var botUFO_vertex = createVertexBuffer(GL, botUFO.vertices);
   var botUFO_colors = createColorBuffer(GL, botUFO.colors);
   var botUFO_faces = createFacesBuffer(GL, botUFO.faces);
-
 
   // ========================== Weapon ==================================
   var leftWeapon = generateWeapon(-2.65, -1.5, 1, 0.2, 0, 4, 5, [0, 0, 0]);
@@ -266,63 +331,74 @@ function main() {
   var rightLaser_faces = createFacesBuffer(GL, rightLaser.faces);
 
   // Laser for shooting
-  var leftLaserShoot = generateWeapon(-2.65, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  var leftLaserShoot = generateWeapon(
+    -2.65,
+    -1.5,
+    2.5,
+    0.15,
+    -0.1,
+    1,
+    5,
+    [1, 0, 0]
+  );
   // Create buffers
   var leftLaserShoot_vertex = createVertexBuffer(GL, leftLaserShoot.vertices);
   var leftLaserShoot_colors = createColorBuffer(GL, leftLaserShoot.colors);
   var leftLaserShoot_faces = createFacesBuffer(GL, leftLaserShoot.faces);
 
-  var rightLaserShoot = generateWeapon(2.61, -1.5, 2.5, 0.15, -0.1, 1, 5, [1, 0, 0]);
+  var rightLaserShoot = generateWeapon(
+    2.61,
+    -1.5,
+    2.5,
+    0.15,
+    -0.1,
+    1,
+    5,
+    [1, 0, 0]
+  );
   // Create buffers
   var rightLaserShoot_vertex = createVertexBuffer(GL, rightLaserShoot.vertices);
   var rightLaserShoot_colors = createColorBuffer(GL, rightLaserShoot.colors);
   var rightLaserShoot_faces = createFacesBuffer(GL, rightLaserShoot.faces);
 
+  //
+  // KECILIN UFO
+  //
+  var scaleFactor = 0.04;
+  var childUFO = [
+    kepala1, kepala2,
+    badan1, badan2,
+    topBackpack, backpack, backpack2, backpack3, backpack4, bottomBackpack,
+    ufo1, ufo2, botUFO,
+    leftWeapon, rightWeapon,
+    leftLaser, rightLaser,
+    leftLaserShoot, rightLaserShoot
+  ];
 
-  // /*========================= KECILIN ROBOT ========================= */
-  // var scaleFactor = 0.1;
-  // var childRobot = [
-  //   kepalaATAS,
-  //   kepalaTENGAH,
-  //   kepalaBAWAH,
-  //   MATA,
-  //   MAIN_BODY,
-  //   BOTTOM_BODY,
-  //   ARMOR,
-  //   shoulderDataRight,
-  //   shoulderDataLeft,
-  //   HANDS_RIGHT,
-  //   HANDS_LEFT,
-  //   PAHA_RIGHT,
-  //   PAHA_LEFT,
-  //   KAKI_RIGHT,
-  //   KAKI_LEFT,
-  //   TELAPAK_RIGHT,
-  //   TELAPAK_LEFT,
-  //   tabung,
-  //   gun
-  // ];
+  for (var i = 0; i < childUFO.length; i++) {
+    childUFO[i].vertices = childUFO[i].vertices.map(
+      (coord) => coord * scaleFactor
+    );
+  }
 
-  // for (var i = 0; i < childRobot.length; i++) {
-  //   childRobot[i].vertices = childRobot[i].vertices.map((coord) => coord * scaleFactor);
-  // }
+  //
+  // GESER-GESER UFO
+  //
+  var geserX = 0;
+  var geserY = 0.5;
+  var geserZ = 4;
 
-  // // GESER(?)
-  // var geserX = 0;
-  // var geserY = 0.5;
-  // var geserZ = 5;
-
-  // for (var i = 0; i < childRobot.length; i++) {
-  //   for (var j = 0; j < childRobot[i].vertices.length; j += 3) {
-  //     childRobot[i].vertices[j] += geserX;
-  //   }
-  //   for (var j = 1; j < childRobot[i].vertices.length; j += 3) {
-  //     childRobot[i].vertices[j] += geserY;
-  //   }
-  //   for (var j = 2; j < childRobot[i].vertices.length; j += 3) {
-  //     childRobot[i].vertices[j] += geserZ;
-  //   }
-  // }
+  for (var i = 0; i < childUFO.length; i++) {
+    for (var j = 0; j < childUFO[i].vertices.length; j += 3) {
+      childUFO[i].vertices[j] += geserX;
+    }
+    for (var j = 1; j < childUFO[i].vertices.length; j += 3) {
+      childUFO[i].vertices[j] += geserY;
+    }
+    for (var j = 2; j < childUFO[i].vertices.length; j += 3) {
+      childUFO[i].vertices[j] += geserZ;
+    }
+  }
 
   /*========================================================= */
   /*======================== END UFO ====================== */
@@ -360,26 +436,42 @@ function main() {
   var RIGHT_WALL_COLORS = createColorBuffer(GL, rightWall.colors);
   var RIGHT_WALL_FACES = createFacesBuffer(GL, rightWall.faces);
 
-
   //Obstacle
   var wall1 = generateCube(5, 2, 10, 6, 3, 4, [0.14, 0.16, 0.17]);
 
   var WALL1_VERTEX = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(wall1.vertices), GL.STATIC_DRAW);
+  GL.bufferData(
+    GL.ARRAY_BUFFER,
+    new Float32Array(wall1.vertices),
+    GL.STATIC_DRAW
+  );
 
   var WALL1_COLORS = GL.createBuffer();
   GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_COLORS);
-  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(wall1.colors), GL.STATIC_DRAW);
+  GL.bufferData(
+    GL.ARRAY_BUFFER,
+    new Float32Array(wall1.colors),
+    GL.STATIC_DRAW
+  );
 
   var WALL1_FACES = GL.createBuffer();
   GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, WALL1_FACES);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(wall1.faces), GL.STATIC_DRAW);
+  GL.bufferData(
+    GL.ELEMENT_ARRAY_BUFFER,
+    new Uint16Array(wall1.faces),
+    GL.STATIC_DRAW
+  );
 
   /*========================================================= */
   /*========================= MATRIX ======================== */
   /*========================================================= */
-  var PROJECTION_MATRIX = LIBS.get_projection(40, CANVAS.width / CANVAS.height, 1, 100);
+  var PROJECTION_MATRIX = LIBS.get_projection(
+    40,
+    CANVAS.width / CANVAS.height,
+    1,
+    100
+  );
   var VIEW_MATRIX = LIBS.get_I4();
   var MODEL_MATRIX = LIBS.get_I4();
 
@@ -392,11 +484,10 @@ function main() {
 
   //First Render of the UFO
   LIBS.translateX(UFO_VIEW_MATRIX, -21);
-  LIBS.translateY(UFO_VIEW_MATRIX, -4.5)
+  LIBS.translateY(UFO_VIEW_MATRIX, -4.5);
   LIBS.translateZ(UFO_VIEW_MATRIX, -80);
 
   LIBS.rotateY(UFO_VIEW_MATRIX, 20);
-  
 
   /*========================= MATRIX ENV ========================= */
   // Floor
@@ -411,7 +502,7 @@ function main() {
   LIBS.translateZ(LEFT_WALL_VIEW_MATRIX, -56.1);
   LIBS.translateY(LEFT_WALL_VIEW_MATRIX, -10);
   LIBS.translateX(LEFT_WALL_VIEW_MATRIX, -27);
-  
+
   LIBS.rotateX(LEFT_WALL_VIEW_MATRIX, 6.3);
   LIBS.rotateY(LEFT_WALL_VIEW_MATRIX, -7.85);
   //LIBS.rotateZ(LEFT_WALL_VIEW_MATRIX, 0);
@@ -421,11 +512,10 @@ function main() {
   LIBS.translateZ(RIGHT_WALL_VIEW_MATRIX, -56.1);
   LIBS.translateY(RIGHT_WALL_VIEW_MATRIX, -10);
   LIBS.translateX(RIGHT_WALL_VIEW_MATRIX, 27);
-  
+
   LIBS.rotateX(RIGHT_WALL_VIEW_MATRIX, -6.3);
   LIBS.rotateY(RIGHT_WALL_VIEW_MATRIX, 7.85);
   // LIBS.rotateZ(RIGHT_WALL_VIEW_MATRIX, 10);
-
 
   /*=========================================================== */
   /*========================= DRAWING ========================= */
@@ -449,7 +539,6 @@ function main() {
   var targetProgress = finishProgress;
 
   var time_prev = 0;
-
 
   /*=========================================================== */
   /*========================= ANIMATE ========================= */
@@ -494,7 +583,7 @@ function main() {
     LASER_MATRIX = LIBS.get_I4();
 
     var KF_Laser = 0;
-  
+
     if (time < 60) {
       if (isMovingForward && LaserTime >= endLaserTime) {
         // If moving forward and reached the finish point, reset to start point
@@ -506,27 +595,29 @@ function main() {
         LaserTime = startLaserTime;
         targetProgress = finishProgress; // Set target progress for next movement
       }
-    
+
       // Calculate movement based on direction
       if (isMovingForward) {
         LaserTime += deltaTime;
       } else {
         LaserTime -= deltaTime;
       }
-    
+
       // Calculate current progress based on LaserTime
-      var progress = (LaserTime - startLaserTime) / (endLaserTime - startLaserTime);
-      
+      var progress =
+        (LaserTime - startLaserTime) / (endLaserTime - startLaserTime);
+
       // Smoothly interpolate between start and finish progress
-      var currentProgress = startProgress + (targetProgress - startProgress) * progress;
-    
+      var currentProgress =
+        startProgress + (targetProgress - startProgress) * progress;
+
       KF_Laser = currentProgress * 10; //dikali berapa untuk jarak laser
     }
 
     //LIBS.translateX(LASER_MATRIX, KF_Laser)
     //LIBS.translateY(LASER_MATRIX, KF_Laser);
     LIBS.translateZ(LASER_MATRIX, KF_Laser);
-    
+
     //LIBS.rotateY(LASER_MATRIX, theta);
     //LIBS.rotateX(LASER_MATRIX, alpha);
 
@@ -541,7 +632,6 @@ function main() {
     /*========================= WORLD ANIMASI ========================= */
 
     // MODEL_MATRIX = LIBS.get_I4();
-    
 
     /*================================================================= */
     /*=========================== ufo DRAW ========================== */
@@ -977,8 +1067,6 @@ function main() {
     GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, rightWall.faces.length, GL.UNSIGNED_SHORT, 0);
-
-
 
     //Obstacle
     GL.bindBuffer(GL.ARRAY_BUFFER, WALL1_VERTEX);
