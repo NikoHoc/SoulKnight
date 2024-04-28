@@ -10,8 +10,9 @@ Characters References
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128313978/38f6c967-8241-49b6-90fa-61d92c220933)
 
 3. Knight-S
-   
-![image](https://github.com/NikoHoc/SoulKnight/assets/128332966/356389d5-b50d-4704-85f8-def18ff9724c)
+
+![image](https://github.com/NikoHoc/SoulKnight/assets/128332966/e4c57e53-f4d0-4b0f-afbd-9bf25b2dc82a)
+
 
 
 Laporan Pengerjaan:
