@@ -1451,7 +1451,7 @@ function main() {
 
     GL.flush();
 
-    window.requestAnimationFrame(animateUFO);
+    window.requestAnimationFrame(animate);
   };
 
   animate(0);
