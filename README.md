@@ -1,5 +1,8 @@
 This project is based on a game call Soul Knight
 
+Enviroment References:
+![image](https://github.com/NikoHoc/SoulKnight/assets/128313978/b70fd882-71c4-4c8a-9e20-72b97295c98e)
+
 Characters References
 1. Engineer
    
@@ -19,11 +22,12 @@ Laporan Pengerjaan:
 
 C14220331 - Yestoya L. Minggus
   1. Membuat Character Knight dengan referensi karakter Knight-S pada soul knight (Folder RobotYesto)
-  2. Membuat base dan floor dari Map Enviroment dan menambahkan obstacle-obstacle di enviroment 
+  2. Membuat base dan roof dari Map Enviroment dan menambahkan obstacle-obstacle di enviroment 
 
 C14220293 - Nikolas Henrik Owen Chan
   1. Membuat Character UFO Alien dengan referensi karakter Engineer pada soul knight (Folder: UFO)
   2. Memodifikasi Map Enviroment dengan menambahkan dan merapikan dinding / tembok pada sisi-sisi map
+  3. Memberikan semacam outline / pillar pada tiap sisi map
 
 C14220304 - Nicholas Anthony Prasetyo
   1. Membuat Character ...
