@@ -19,7 +19,7 @@ Laporan Pengerjaan:
 
 C14220331 - Yestoya L. Minggus
   1. Membuat Character Knight dengan referensi karakter Knight-S pada soul knight (Folder RobotYesto)
-  2. Membuat base Map Enviroment (lantai)
+  2. Membuat base dari Map Enviroment dan menambahkan obstacle-obstacle di enviroment 
 
 C14220293 - Nikolas Henrik Owen Chan
   1. Membuat Character UFO Alien dengan referensi karakter Engineer pada soul knight (Folder: UFO)
