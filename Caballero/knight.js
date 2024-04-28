@@ -981,6 +981,40 @@ function main() {
       GL.STATIC_DRAW
     );
 
+    //kaki kanan
+    // x, y, z, width, height, depth, color
+    var PAHA_RIGHT = generateCube(0.4, -0.8, 0, 0.21, 0.21, 0.21, [0.6, 0.6, 0.6]);
+  
+    // Create buffers for the cube
+    var PAHA_RIGHT_VERTEX = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.vertices), GL.STATIC_DRAW);
+  
+    var PAHA_RIGHT_COLORS = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.colors), GL.STATIC_DRAW);
+  
+    var PAHA_RIGHT_FACES = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_RIGHT.faces), GL.STATIC_DRAW);
+
+    //kaki kiri
+    // x, y, z, width, height, depth, color
+    var PAHA_LEFT = generateCube(-0.4, -0.8, 0, 0.21, 0.21, 0.21, [0.6, 0.6, 0.6]);
+  
+    // Create buffers for the cube
+    var PAHA_LEFT_VERTEX = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.vertices), GL.STATIC_DRAW);
+  
+    var PAHA_LEFT_COLORS = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.colors), GL.STATIC_DRAW);
+  
+    var PAHA_LEFT_FACES = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_LEFT.faces), GL.STATIC_DRAW);
+
     //pistol kiri
     // Magazine
     var magLeft = generateSolidTube(
@@ -1059,21 +1093,26 @@ function main() {
     var MODEL_MATRIX = LIBS.get_I4();
     var VIEW_MATRIX = LIBS.get_I4();
   
-    var SPHERE_VIEW_MATRIX = LIBS.get_I4();
-    LIBS.rotateY(SPHERE_VIEW_MATRIX, -7);
 
     LIBS.translateZ(VIEW_MATRIX, -7);
   
     var prevTime = 0;
+
   
+  
+    GL.clearColor(0, 0, 0, 0);
     GL.enable(GL.DEPTH_TEST);
     GL.depthFunc(GL.LEQUAL);
   
     var animate = function (time) {
-      var diff = time - prevTime;
-      prevTime = time;
-      GL.clearColor(0, 0, 0, 0);
+      GL.viewport(0, 0, canvas.width, canvas.height);
       GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+      time *= 0.001;
+      then = time;
+      
+      
+      prevTime = time;
+      
   
       theta += (rotateX * 2 * Math.PI) / canvas.width;
       alpha += (rotateY * 2 * Math.PI) / canvas.width;
@@ -1084,6 +1123,9 @@ function main() {
       }
   
       MODEL_MATRIX = LIBS.get_I4();
+      
+
+      
       LIBS.rotateY(MODEL_MATRIX, theta);
       LIBS.rotateX(MODEL_MATRIX, alpha);
 
@@ -1103,6 +1145,34 @@ function main() {
       //Badan
       GL.drawElements(GL.TRIANGLES, cube_faces.length, GL.UNSIGNED_SHORT, 0);
 
+      //kaki kanan
+      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
+      GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
+      GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
+  
+      GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, PAHA_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
+      GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
+      GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
+  
+      GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MODEL_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, PAHA_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
       
       // Pistol kiri
       GL.bindBuffer(GL.ARRAY_BUFFER, mag_vertex_left);
