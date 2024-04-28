@@ -425,28 +425,36 @@ function main() {
   /*========================================================= */
 
   //Floor
-  var floor = generateWorld(50, 50, 0.3, 0, 0, 0, [0.33, 0.44, 0.48]);
+  var floor = generateWorld(50, 500, 0.3, 0, 0, 0, [0.33, 0.44, 0.48]);
 
   var FLOOR_VERTEX = createVertexBuffer(GL, floor.vertices);
   var FLOOR_COLORS = createColorBuffer(GL, floor.colors);
   var FLOOR_FACES = createFacesBuffer(GL, floor.faces);
 
+  // roof
+  var roof = generateWorld(50, 500, 0.3, 0, 40, 0, [0.33, 0.44, 0.48]);
+
+  var ROOF_VERTEX = createVertexBuffer(GL, roof.vertices);
+  var ROOF_COLORS = createColorBuffer(GL, roof.colors);
+  var ROOF_FACES = createFacesBuffer(GL, roof.faces);
+
   //Back
-  var backWall = generateWorld(50, 0.3, 7, 0, 3.2, -22, [0.52, 0.77, 0.86]);
+  var backWall = generateWorld(50, 0.3, 75, 0, 3, -22, [0.52, 0.77, 0.86]);
 
   var BACK_WALL_VERTEX = createVertexBuffer(GL, backWall.vertices);
   var BACK_WALL_COLORS = createColorBuffer(GL, backWall.colors);
   var BACK_WALL_FACES = createFacesBuffer(GL, backWall.faces);
 
   //Left
-  var leftWall = generateWorld(50, 0.3, 7, -5, 3, -1, [0.52, 0.77, 0.86]);
+  var leftWall = generateWorld(60, 0.3, 80, -5, 3, -1, [0.52, 0.77, 0.86]);
 
   var LEFT_WALL_VERTEX = createVertexBuffer(GL, leftWall.vertices);
   var LEFT_WALL_COLORS = createColorBuffer(GL, leftWall.colors);
   var LEFT_WALL_FACES = createFacesBuffer(GL, leftWall.faces);
 
   //Right
-  var rightWall = generateWorld(50, 0.3, 7, 5, 3.05, -1, [0.52, 0.77, 0.86]);
+  // width, length, height, x, y, z, customColor
+  var rightWall = generateWorld(50, 0.3, 75, 5, 3, -1, [0.52, 0.77, 0.86]);
 
   var RIGHT_WALL_VERTEX = createVertexBuffer(GL, rightWall.vertices);
   var RIGHT_WALL_COLORS = createColorBuffer(GL, rightWall.colors);
@@ -454,20 +462,20 @@ function main() {
 
   //Obstacle
   // x, y, z, width, height, depth, color
-  var wall1 = generateCube(5, 2, 10, 4, 10, 10, [204/255, 102/255, 0]);
+  var wall1 = generateCube(5, 2, 10, 4, 10, 10, [0.58, 0.42, 0.27]);
 
   var WALL1_VERTEX = createVertexBuffer(GL, wall1.vertices);
   var WALL1_COLORS = createColorBuffer(GL, wall1.colors);
   var WALL1_FACES = createFacesBuffer(GL, wall1.faces);
 
-  var wall2 = generateCube(-10, 2, 22, 4, 3, 4, [204/255, 102/255, 0]);
+  var wall2 = generateCube(-10, 2, 22, 4, 3, 4, [0.58, 0.42, 0.27]);
 
   var WALL2_VERTEX = createVertexBuffer(GL, wall2.vertices);
   var WALL2_COLORS = createColorBuffer(GL, wall2.colors);
   var WALL2_FACES = createFacesBuffer(GL, wall2.faces);
 
   
-  var wall3 = generateCube(-4, 2, 1, 4, 5, 4, [204/255, 102/255, 0]);
+  var wall3 = generateCube(-4, 2, 1, 4, 5, 4, [0.58, 0.42, 0.27]);
 
   var WALL3_VERTEX = createVertexBuffer(GL, wall3.vertices);
   var WALL3_COLORS = createColorBuffer(GL, wall3.colors);
@@ -1073,6 +1081,22 @@ function main() {
     GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
 
     GL.drawElements(GL.TRIANGLES, floor.faces.length, GL.UNSIGNED_SHORT, 0);
+
+    // roof
+    GL.bindBuffer(GL.ARRAY_BUFFER, ROOF_VERTEX);
+    GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ARRAY_BUFFER, ROOF_COLORS);
+    GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, ROOF_FACES);
+
+    GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+    GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+    GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+
+    GL.drawElements(GL.TRIANGLES, roof.faces.length, GL.UNSIGNED_SHORT, 0);
+
 
     // BACK Wall
     GL.bindBuffer(GL.ARRAY_BUFFER, BACK_WALL_VERTEX);
