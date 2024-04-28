@@ -830,20 +830,37 @@ function main() {
     /*========================= SCENE ANIMATION ========================= */
 
     // robot walking
-    if (time > 2 && time < 3) {
+    if (time < 1) {
+      runningRobot8 += deltaTime * 0.2;
+
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+    } else if (time > 1 && time < 3) {
       runningRobot0 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
     } else if (time > 3 && time < 4.3) {
       runningRobot1 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -852,10 +869,15 @@ function main() {
     } else if (time > 4.3 && time < 5.6) {
       runningRobot2 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -869,10 +891,15 @@ function main() {
     } else if (time > 5.6 && time < 7.3) {
       runningRobot3 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -891,10 +918,15 @@ function main() {
     } else if (time > 7.3 && time < 8.6) {
       runningRobot4 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -918,10 +950,15 @@ function main() {
     } else if (time > 8.6 && time < 13) {
       runningRobot5 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -947,13 +984,18 @@ function main() {
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot5);
       LIBS.translateZ(KAKI_KIRI_MATRIX, runningRobot5);
       LIBS.translateZ(SABER_MATRIX, runningRobot5);
-    }else if(time > 16 && time < 19){
+    } else if (time > 16 && time < 19) {
       runningRobot6 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -984,13 +1026,18 @@ function main() {
       LIBS.translateZ(KAKI_KANAN_MATRIX, -runningRobot6);
       LIBS.translateZ(KAKI_KIRI_MATRIX, -runningRobot6);
       LIBS.translateZ(SABER_MATRIX, -runningRobot6);
-    }else if(time > 19){
+    } else if (time > 19) {
       runningRobot7 += deltaTime * 0.2;
 
-      LIBS.translateY(BADAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot0);
-      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot0);
-      LIBS.translateY(SABER_MATRIX, -runningRobot0);
+      LIBS.translateY(BADAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KANAN_MATRIX, -runningRobot8);
+      LIBS.translateY(KAKI_KIRI_MATRIX, -runningRobot8);
+      LIBS.translateY(SABER_MATRIX, -runningRobot8);
+
+      LIBS.rotateY(BADAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KANAN_MATRIX, -runningRobot0);
+      LIBS.rotateY(KAKI_KIRI_MATRIX, -runningRobot0);
+      LIBS.rotateY(SABER_MATRIX, -runningRobot0);
 
       LIBS.translateZ(BADAN_MATRIX, runningRobot1);
       LIBS.translateZ(KAKI_KANAN_MATRIX, runningRobot1);
@@ -1029,26 +1076,36 @@ function main() {
     }
 
     // robot rotating
-    if(time > 4.3 && time < 5.6){
-      LIBS.rotateAroundY(BADAN_MATRIX, -90, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, -90, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, -90, 0, 0, 0);
-      LIBS.rotateAroundY(SABER_MATRIX, -90, 0, 0, 0);
-    }else if(time > 5.6 && time < 7.3){
-      LIBS.rotateAroundY(BADAN_MATRIX, 210, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 210, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 210, 0, 0, 0);
-      LIBS.rotateAroundY(SABER_MATRIX, 210, 0, 0, 0);
-    }else if(time > 7.3 && time < 8.6){
-      LIBS.rotateAroundY(BADAN_MATRIX, 45, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 45, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 45, 0, 0, 0);
-      LIBS.rotateAroundY(SABER_MATRIX, 45, 0, 0, 0);
-    }else if(time > 13) {
-      LIBS.rotateAroundY(BADAN_MATRIX, -210, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, -210, 0, 0, 0);
-      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, -210, 0, 0, 0);
-      LIBS.rotateAroundY(SABER_MATRIX, -210, 0, 0, 0);
+    if (time > 3 && time < 4.3) {
+      LIBS.rotateAroundY(BADAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, -180, 0, 0, 0);
+    } else if (time > 4.3 && time < 5.6) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 95, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 95, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 95, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 95, 0, 0, 0);
+    } else if (time > 5.6 && time < 7.3) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 100, 0, 0, 0);
+    } else if (time > 7.3 && time < 8.6) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 60, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 60, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 60, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 60, 0, 0, 0);
+    } else if (time > 8.6 && time < 13) {
+      LIBS.rotateAroundY(BADAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, -180, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, -180, 0, 0, 0);
+    } else if (time > 13) {
+      LIBS.rotateAroundY(BADAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KANAN_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(KAKI_KIRI_MATRIX, 100, 0, 0, 0);
+      LIBS.rotateAroundY(SABER_MATRIX, 100, 0, 0, 0);
     }
     /*========================= SCENE ANIMATION ========================= */
 
