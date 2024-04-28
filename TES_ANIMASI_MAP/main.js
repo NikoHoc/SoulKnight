@@ -567,7 +567,7 @@ function createVertexBuffer(GL, data) {
   
     //Obstacle
     // x, y, z, width, height, depth, color
-    var box1 = generateCube(5, 2, 10, 4, 10, 10, [0.58, 0.42, 0.27]);
+    var box1 = generateCube(10, 2, 10, 4, 10, 10, [0.58, 0.42, 0.27]);
   
     var BOX1_VERTEX = createVertexBuffer(GL, box1.vertices);
     var BOX1_COLORS = createColorBuffer(GL, box1.colors);
@@ -630,18 +630,18 @@ function createVertexBuffer(GL, data) {
   
   
     /*========================= MATRIX UFO ======================== */
-    var BODY_MATRIX = LIBS.get_I4();
+    var BODY_UFO_MATRIX = LIBS.get_I4();
   
-    var LASER_MATRIX = LIBS.get_I4();
+    var LASER_UFO_MATRIX = LIBS.get_I4();
   
     var UFO_VIEW_MATRIX = LIBS.get_I4();
   
     //First Render of the UFO
-    LIBS.translateX(UFO_VIEW_MATRIX, -21);
+    LIBS.translateX(UFO_VIEW_MATRIX, -20);
     LIBS.translateY(UFO_VIEW_MATRIX, -4.5);
-    LIBS.translateZ(UFO_VIEW_MATRIX, -80);
+    LIBS.translateZ(UFO_VIEW_MATRIX, -10);
   
-    LIBS.rotateY(UFO_VIEW_MATRIX, 20);
+    LIBS.rotateY(UFO_VIEW_MATRIX, 2);
     /*========================= MATRIX UFO ======================== */
   
   
@@ -657,14 +657,14 @@ function createVertexBuffer(GL, data) {
     var ROBOT_VIEW_MATRIX = LIBS.get_I4();
   
     //First Render of the ROBOT
-    LIBS.translateX(ROBOT_VIEW_MATRIX, 12);
+    LIBS.translateX(ROBOT_VIEW_MATRIX, 0);
     LIBS.translateY(ROBOT_VIEW_MATRIX, -2);
-    LIBS.translateZ(ROBOT_VIEW_MATRIX, -50);
+    LIBS.translateZ(ROBOT_VIEW_MATRIX, -70);
   
     LIBS.rotateY(ROBOT_VIEW_MATRIX, 0);
     /*========================= MATRIX ROBOT ========================= */
   
-  
+   
     /*=========================================================== */
     /*========================= DRAWING ========================= */
     /*=========================================================== */
@@ -687,11 +687,16 @@ function createVertexBuffer(GL, data) {
     var startProgress = 0;
     var finishProgress = 1;
     var targetProgress = finishProgress;
-  
-    var time_prev = 0;
+
+    var flyingUFO1 = 0;
+    var flyingUFO2 = 0;
+    var flyingUFO3 = 0;
+    var flyingUFO4 = 0;
+    var flyingUFO5 = 0;
+    var flyingUFO6 = 0;
+
   
     // FOR ROBOT
-    var then = 0;
   
     var KakiKananTime = 0;
     var KakiKananReverse = false;
@@ -705,19 +710,21 @@ function createVertexBuffer(GL, data) {
     /*=========================================================== */
     /*========================= ANIMATE ========================= */
     /*=========================================================== */
+    var time_prev = 0;
     var animate = function (time) {
+
       GL.viewport(0, 0, CANVAS.width, CANVAS.height);
       GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
-  
-      time *= 0.0004;
+       
+      time *= 0.00035;
   
       var deltaTime = (time - time_prev) * 100;
       time_prev = time;
-      then = time;
-  
+
+
       /*========================= UFO TIME AND ANIMATION ========================= */
       // UFO floating Animation
-      BODY_MATRIX = LIBS.get_I4();
+      BODY_UFO_MATRIX = LIBS.get_I4();
   
       var KF_UFO_Body = 0;
   
@@ -738,15 +745,15 @@ function createVertexBuffer(GL, data) {
         KF_UFO_Body *= 2.5;
       }
   
-      LIBS.translateY(BODY_MATRIX, KF_UFO_Body);
-      LIBS.rotateY(BODY_MATRIX, theta);
+      LIBS.translateY(BODY_UFO_MATRIX, KF_UFO_Body);
+      LIBS.rotateY(BODY_UFO_MATRIX, theta);
       //LIBS.rotateX(BODY_MATRIX, alpha);
-  
+    
+
       // Laser shooting animation
-      LASER_MATRIX = LIBS.get_I4();
+      LASER_UFO_MATRIX = LIBS.get_I4();
   
       var KF_Laser = 0;
-  
       if (time < 60) {
         if (isMovingForward && LaserTime >= endLaserTime) {
           // If moving forward and reached the finish point, reset to start point
@@ -773,12 +780,12 @@ function createVertexBuffer(GL, data) {
         KF_Laser = currentProgress * 10; //dikali berapa untuk jarak laser
       }
   
-      //LIBS.translateX(LASER_MATRIX, KF_Laser)
-      //LIBS.translateY(LASER_MATRIX, KF_Laser);
-      LIBS.translateZ(LASER_MATRIX, KF_Laser);
+      //LIBS.translateX(LASER_UFO_MATRIX, KF_Laser)
+      //LIBS.translateY(LASER_UFO_MATRIX, KF_Laser);
+      LIBS.translateZ(LASER_UFO_MATRIX, KF_Laser);
   
-      //LIBS.rotateY(LASER_MATRIX, theta);
-      //LIBS.rotateX(LASER_MATRIX, alpha);
+      //LIBS.rotateY(LASER_UFO_MATRIX, theta);
+      //LIBS.rotateX(LASER_UFO_MATRIX, alpha);
   
       /*========================= UFO TIME AND ANIMATION  ========================= */
   
@@ -851,7 +858,7 @@ function createVertexBuffer(GL, data) {
       /*========================= ANIMASI ========================= */
       // LIBS.rotateY(MODEL_MATRIX, theta);
       // LIBS.rotateX(MODEL_MATRIX, alpha);
-  
+      
       // BADAN
       LIBS.rotateY(BADAN_MATRIX, theta);
       LIBS.rotateX(BADAN_MATRIX, alpha);
@@ -880,6 +887,70 @@ function createVertexBuffer(GL, data) {
   
       /*========================= WORLD ANIMATION ========================= */
   
+      /**========================== SCENE ANIMATION ==========================*/
+
+      // UFO ROTATION SHOOTING
+      // if (time = 1) {
+      //   LIBS.translateZ(BODY_UFO_MATRIX, 4)
+      //   LIBS.rotateY(UFO_VIEW_MATRIX, 0.02)
+      // }
+
+      //UFO ANIMATION
+      if (time > 0 && time < 1.7) {
+        flyingUFO1 += deltaTime * 0.2;
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+        
+    
+      } else if (time > 1.7 && time < 2.6) {
+        flyingUFO2 += deltaTime * 0.2;
+        //LIBS.rotateY(UFO_VIEW_MATRIX, 3);
+        
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+      } else if (time > 2.6 && time < 3.8) {
+        flyingUFO3 += deltaTime * 0.2;
+
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+        LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+        LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+      } else if (time > 3.8 && time < 5) {
+        flyingUFO4 += deltaTime * 0.2;
+
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+        LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+        LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+        LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+        LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+      }
+    
+
+      if (time)
+      
+
+
+
+
+      /**========================== SCENE ANIMATION ==========================*/
   
       /*================================================================= */
       /*=========================== WORLD DRAW ========================== */
@@ -1141,7 +1212,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(GL.TRIANGLE_STRIP, kepala1.faces.length, GL.UNSIGNED_SHORT, 0);
   
@@ -1156,7 +1227,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(GL.TRIANGLES, kepala2.faces.length, GL.UNSIGNED_SHORT, 0);
   
@@ -1171,7 +1242,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(GL.TRIANGLE_STRIP, badan1.faces.length, GL.UNSIGNED_SHORT, 0);
   
@@ -1186,7 +1257,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(GL.TRIANGLE_STRIP, badan2.faces.length, GL.UNSIGNED_SHORT, 0);
   
@@ -1201,7 +1272,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(GL.TRIANGLE_STRIP, ufo1.faces.length, GL.UNSIGNED_SHORT, 0);
   
@@ -1216,7 +1287,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(GL.TRIANGLE_STRIP, ufo2.faces.length, GL.UNSIGNED_SHORT, 0);
   
@@ -1231,7 +1302,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1251,7 +1322,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1271,7 +1342,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1291,7 +1362,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1311,7 +1382,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1331,7 +1402,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1351,7 +1422,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1371,7 +1442,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1391,7 +1462,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1413,7 +1484,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1433,7 +1504,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, BODY_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1454,7 +1525,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1474,7 +1545,7 @@ function createVertexBuffer(GL, data) {
   
       GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, LASER_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,

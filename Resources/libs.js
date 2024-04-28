@@ -105,7 +105,15 @@ var LIBS = {
     m[13] += t;
   },
 
-  radToDeg(r) {
-    return (r * 180) / Math.PI;
+  translate: function (m, x, y, z) {
+    m[12] += m[0] * x + m[4] * y + m[8] * z;
+    m[13] += m[1] * x + m[5] * y + m[9] * z;
+    m[14] += m[2] * x + m[6] * y + m[10] * z;
+  },
+  
+  rotateAroundY: function (m, angle, x, y, z) {
+    LIBS.translate(m, x, y, z);
+    LIBS.rotateY(m, angle);
+    LIBS.translate(m, -x, -y, -z);
   },
 };
