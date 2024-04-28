@@ -1121,7 +1121,6 @@ function main() {
     }
     // end robot walking
 
-
     // start ufo flying
     //UFO ANIMATION
     if (time > 0.8 && time < 3) {
@@ -1131,7 +1130,6 @@ function main() {
     
     } else if (time > 3 && time < 3.83) {
       flyingUFO2 += deltaTime * 0.2;
-      //LIBS.rotateY(UFO_VIEW_MATRIX, 3);
       
       LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
       LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
@@ -1325,9 +1323,7 @@ function main() {
     } else if (time > 8.5 && time < 10) {
       LIBS.rotateAroundY(BODY_UFO_MATRIX, 89.5, 0, 0, 0)
       LIBS.rotateAroundY(LASER_UFO_MATRIX, 89.5, 0, 0, 0)
-
     }
-
 
     /*========================= SCENE ANIMATION ========================= */
 
