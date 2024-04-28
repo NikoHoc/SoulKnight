@@ -59,10 +59,10 @@ function main() {
     alpha += (dy * 2 * Math.PI) / CANVAS.height;
   };
 
-  CANVAS.addEventListener("mousedown", mouseDown, false);
-  CANVAS.addEventListener("mouseup", mouseUP, false);
-  CANVAS.addEventListener("mouseout", mouseOut, false);
-  CANVAS.addEventListener("mousemove", mouseMove, false);
+  // CANVAS.addEventListener("mousedown", mouseDown, false);
+  // CANVAS.addEventListener("mouseup", mouseUP, false);
+  // CANVAS.addEventListener("mouseout", mouseOut, false);
+  // CANVAS.addEventListener("mousemove", mouseMove, false);
 
   var GL;
   try {
@@ -502,7 +502,7 @@ function main() {
   //First Render of the UFO
   LIBS.translateX(UFO_VIEW_MATRIX, -21);
   LIBS.translateY(UFO_VIEW_MATRIX, -4.5);
-  LIBS.translateZ(UFO_VIEW_MATRIX, -80);
+  LIBS.translateZ(UFO_VIEW_MATRIX, -40);
 
   LIBS.rotateY(UFO_VIEW_MATRIX, 20);
 
@@ -549,8 +549,8 @@ function main() {
 
   //First Render of the ROBOT
   LIBS.translateX(ROBOT_VIEW_MATRIX, 12);
-  LIBS.translateY(ROBOT_VIEW_MATRIX, -2);
-  LIBS.translateZ(ROBOT_VIEW_MATRIX, -50);
+  LIBS.translateY(ROBOT_VIEW_MATRIX, -0.5);
+  LIBS.translateZ(ROBOT_VIEW_MATRIX, -40);
 
   LIBS.rotateY(ROBOT_VIEW_MATRIX, 0);
 
@@ -578,7 +578,6 @@ function main() {
   var time_prev = 0;
 
   // FOR ROBOT
-  var then = 0;
 
   var KakiKananTime = 0;
   var KakiKananReverse = false;
@@ -600,7 +599,6 @@ function main() {
 
     var deltaTime = (time - time_prev) * 100;
     time_prev = time;
-    then = time;
 
     /*========================= UFO TIME AND ANIMATION ========================= */
     // Body
