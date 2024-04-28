@@ -983,37 +983,37 @@ function main() {
 
     //kaki kanan
     // x, y, z, width, height, depth, color
-    var PAHA_RIGHT = generateCube(0.4, -0.8, 0, 0.21, 0.4, 0.21, [0.3, 0.3, 0.3]);
+    var LEGG_RIGHT = generateCube(0.4, -0.8, 0, 0.21, 0.4, 0.21, [0.3, 0.3, 0.3]);
   
     // Create buffers for the cube
-    var PAHA_RIGHT_VERTEX = GL.createBuffer();
-    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
-    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.vertices), GL.STATIC_DRAW);
+    var LEGG_RIGHT_VERTEX = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_VERTEX);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_RIGHT.vertices), GL.STATIC_DRAW);
   
-    var PAHA_RIGHT_COLORS = GL.createBuffer();
-    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
-    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_RIGHT.colors), GL.STATIC_DRAW);
+    var LEGG_RIGHT_COLORS = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_COLORS);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_RIGHT.colors), GL.STATIC_DRAW);
   
-    var PAHA_RIGHT_FACES = GL.createBuffer();
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
-    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_RIGHT.faces), GL.STATIC_DRAW);
+    var LEGG_RIGHT_FACES = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_RIGHT_FACES);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(LEGG_RIGHT.faces), GL.STATIC_DRAW);
 
     //kaki kiri
     // x, y, z, width, height, depth, color
-    var PAHA_LEFT = generateCube(-0.4, -0.8, 0, 0.21, 0.4, 0.21, [0.3, 0.3, 0.3]);
+    var LEGG_LEFT = generateCube(-0.4, -0.8, 0, 0.21, 0.4, 0.21, [0.3, 0.3, 0.3]);
   
     // Create buffers for the cube
-    var PAHA_LEFT_VERTEX = GL.createBuffer();
-    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
-    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.vertices), GL.STATIC_DRAW);
+    var LEGG_LEFT_VERTEX = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_VERTEX);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_LEFT.vertices), GL.STATIC_DRAW);
   
-    var PAHA_LEFT_COLORS = GL.createBuffer();
-    GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
-    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(PAHA_LEFT.colors), GL.STATIC_DRAW);
+    var LEGG_LEFT_COLORS = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_COLORS);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_LEFT.colors), GL.STATIC_DRAW);
   
-    var PAHA_LEFT_FACES = GL.createBuffer();
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
-    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(PAHA_LEFT.faces), GL.STATIC_DRAW);
+    var LEGG_LEFT_FACES = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_LEFT_FACES);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(LEGG_LEFT.faces), GL.STATIC_DRAW);
 
     //pistol kiri
     // Magazine
@@ -1094,13 +1094,13 @@ function main() {
     var VIEW_MATRIX = LIBS.get_I4();
   
     //kaki kanan
-    var KAKI_KANAN_MATRIX = LIBS.get_I4();
+    var LEGG_KANAN_MATRIX = LIBS.get_I4();
 
     //kaki kiri
-    var KAKI_KIRI_MATRIX = LIBS.get_I4();
+    var LEGG_KIRI_MATRIX = LIBS.get_I4();
 
     //magazine
-    var BODY_MATRIX = LIBS.get_I4();
+    var MAG_MATRIX = LIBS.get_I4();
     
 
     LIBS.translateZ(VIEW_MATRIX, -7);
@@ -1108,14 +1108,14 @@ function main() {
     var prevTime = 0;
     var then = 0;
 
-    var KakiKananTime = 0;
-    var KakiKananReverse = false;
+    var LEGGKananTime = 0;
+    var LEGGKananReverse = false;
   
-    var KakiKiriTime = 0;
-    var KakiKiriReverse = false;
+    var LEGGKiriTime = 0;
+    var LEGGKiriReverse = false;
 
-    var BodyTime = 0;
-    var BodyReverse = false;
+    var MagTime = 0;
+    var MagReverse = false;
 
   
   
@@ -1145,43 +1145,43 @@ function main() {
       MODEL_MATRIX = LIBS.get_I4();
 
       // Kaki Kanan
-      KAKI_KANAN_MATRIX = LIBS.get_I4();
-      var KF_KakiKanan = 0;
+      LEGG_KANAN_MATRIX = LIBS.get_I4();
+      var KF_LEGGKanan = 0;
   
       
-        if (KakiKananTime <= -10) {
-          KakiKananReverse = true;
-        } else if (KakiKananTime >= 10) {
-          KakiKananReverse = false;
+        if (LEGGKananTime <= -10) {
+          LEGGKananReverse = true;
+        } else if (LEGGKananTime >= 10) {
+          LEGGKananReverse = false;
         }
   
-        if (KakiKananReverse) {
-          KakiKananTime += deltaTime;
+        if (LEGGKananReverse) {
+          LEGGKananTime += deltaTime;
         } else {
-          KakiKananTime -= deltaTime;
+          LEGGKananTime -= deltaTime;
         }
   
-        KF_KakiKanan = LIBS.degToRad(KakiKananTime);
+        KF_LEGGKanan = LIBS.degToRad(LEGGKananTime);
       
   
       // Kaki Kiri
-      KAKI_KIRI_MATRIX = LIBS.get_I4();
-      var KF_KakiKiri = 0;
+      LEGG_KIRI_MATRIX = LIBS.get_I4();
+      var KF_LEGGKiri = 0;
   
       
-        if (KakiKiriTime <= -10) {
-          KakiKiriReverse = false;
-        } else if (KakiKiriTime >= 10) {
-          KakiKiriReverse = true;
+        if (LEGGKiriTime <= -10) {
+          LEGGKiriReverse = false;
+        } else if (LEGGKiriTime >= 10) {
+          LEGGKiriReverse = true;
         }
   
-        if (KakiKiriReverse) {
-          KakiKiriTime -= deltaTime;
+        if (LEGGKiriReverse) {
+          LEGGKiriTime -= deltaTime;
         } else {
-          KakiKiriTime += deltaTime;
+          LEGGKiriTime += deltaTime;
         }
   
-        KF_KakiKiri = LIBS.degToRad(KakiKiriTime);
+        KF_LEGGKiri = LIBS.degToRad(LEGGKiriTime);
       
 
       
@@ -1189,39 +1189,39 @@ function main() {
       LIBS.rotateX(MODEL_MATRIX, alpha);
 
       // KAKI KANAN
-      LIBS.rotateX(KAKI_KANAN_MATRIX, KF_KakiKanan);
-      LIBS.rotateY(KAKI_KANAN_MATRIX, theta);
-      LIBS.rotateX(KAKI_KANAN_MATRIX, alpha);
+      LIBS.rotateX(LEGG_KANAN_MATRIX, KF_LEGGKanan);
+      LIBS.rotateY(LEGG_KANAN_MATRIX, theta);
+      LIBS.rotateX(LEGG_KANAN_MATRIX, alpha);
   
       // KAKI KIRI
-      LIBS.rotateX(KAKI_KIRI_MATRIX, KF_KakiKiri);
-      LIBS.rotateY(KAKI_KIRI_MATRIX, theta);
-      LIBS.rotateX(KAKI_KIRI_MATRIX, alpha);
+      LIBS.rotateX(LEGG_KIRI_MATRIX, KF_LEGGKiri);
+      LIBS.rotateY(LEGG_KIRI_MATRIX, theta);
+      LIBS.rotateX(LEGG_KIRI_MATRIX, alpha);
 
       // Body
-      BODY_MATRIX = LIBS.get_I4();
+      MAG_MATRIX = LIBS.get_I4();
   
-      var KF_Body = 0;
+      var KF_Mag = 0;
   
       if (time < 10) {
-        if (BodyTime <= -10) {
-          BodyReverse = true;
-        } else if (BodyTime >= 10) {
-          BodyReverse = false;
+        if (MagTime <= -10) {
+          MagReverse = true;
+        } else if (MagTime >= 10) {
+          MagReverse = false;
         }
   
-        if (BodyReverse) {
-          BodyTime += deltaTime;
+        if (MagReverse) {
+          MagTime += deltaTime;
         } else {
-          BodyTime -= deltaTime;
+          MagTime -= deltaTime;
         }
   
-        KF_Body = LIBS.degToRad(BodyTime);
-        KF_Body *= 0.3;
+        KF_Mag = LIBS.degToRad(MagTime);
+        KF_Mag *= 0.3;
       }
   
-      LIBS.translateY(BODY_MATRIX, KF_Body);
-      LIBS.rotateY(BODY_MATRIX, theta);
+      LIBS.translateY(MAG_MATRIX, KF_Mag);
+      LIBS.rotateY(MAG_MATRIX, theta);
 
     
       GL.bindBuffer(GL.ARRAY_BUFFER, triangle_vbo);
@@ -1240,33 +1240,35 @@ function main() {
       GL.drawElements(GL.TRIANGLES, cube_faces.length, GL.UNSIGNED_SHORT, 0);
 
       //kaki kanan
-      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_VERTEX);
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_VERTEX);
       GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_RIGHT_COLORS);
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_COLORS);
       GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_RIGHT_FACES);
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_RIGHT_FACES);
   
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
-      GL.uniformMatrix4fv(MMatrix_, false, KAKI_KANAN_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, LEGG_KANAN_MATRIX);
   
-      GL.drawElements(GL.TRIANGLES, PAHA_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+      GL.drawElements(GL.TRIANGLES, LEGG_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //kaki kiri
   
-      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_VERTEX);
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_VERTEX);
       GL.vertexAttribPointer(position_vao, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ARRAY_BUFFER, PAHA_LEFT_COLORS);
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_COLORS);
       GL.vertexAttribPointer(color_vao, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, PAHA_LEFT_FACES);
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_LEFT_FACES);
   
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
-      GL.uniformMatrix4fv(MMatrix_, false, KAKI_KIRI_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, LEGG_KIRI_MATRIX);
   
-      GL.drawElements(GL.TRIANGLES, PAHA_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+      GL.drawElements(GL.TRIANGLES, LEGG_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
       
       // Pistol kiri
       GL.bindBuffer(GL.ARRAY_BUFFER, mag_vertex_left);
@@ -1279,7 +1281,7 @@ function main() {
   
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
-      GL.uniformMatrix4fv(MMatrix_, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MAG_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1300,7 +1302,7 @@ function main() {
   
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
-      GL.uniformMatrix4fv(MMatrix_, false, KAKI_KIRI_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, LEGG_KIRI_MATRIX);
   
       GL.drawElements(GL.TRIANGLES, Left.faces.length, GL.UNSIGNED_SHORT, 0);
 
@@ -1315,7 +1317,7 @@ function main() {
   
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
-      GL.uniformMatrix4fv(MMatrix_, false, BODY_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, MAG_MATRIX);
   
       GL.drawElements(
         GL.TRIANGLE_STRIP,
@@ -1336,7 +1338,7 @@ function main() {
   
       GL.uniformMatrix4fv(PMatrix_, false, PROJECTION_MATRIX);
       GL.uniformMatrix4fv(VMatrix_, false, VIEW_MATRIX);
-      GL.uniformMatrix4fv(MMatrix_, false, KAKI_KANAN_MATRIX);
+      GL.uniformMatrix4fv(MMatrix_, false, LEGG_KANAN_MATRIX);
   
       GL.drawElements(GL.TRIANGLES, Left.faces.length, GL.UNSIGNED_SHORT, 0);
 
