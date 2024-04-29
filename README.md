@@ -18,17 +18,3 @@ Characters References
 ![image](https://github.com/NikoHoc/SoulKnight/assets/128332966/e4c57e53-f4d0-4b0f-afbd-9bf25b2dc82a)
 
 
-
-Laporan Pengerjaan:
-
-C14220331 - Yestoya L. Minggus
-  1. Membuat Character Knight dengan referensi karakter Knight-S pada soul knight (Folder RobotYesto)
-  2. Membuat base dan roof dari Map Enviroment dan menambahkan obstacle-obstacle di enviroment 
-
-C14220293 - Nikolas Henrik Owen Chan
-  1. Membuat Character UFO Alien dengan referensi karakter Engineer pada soul knight (Folder: UFO)
-  2. Memodifikasi Map Enviroment dengan menambahkan dinding / tembok dan pillar pada map
-
-C14220304 - Nicholas Anthony Prasetyo
-  1. Membuat Character ...
-
