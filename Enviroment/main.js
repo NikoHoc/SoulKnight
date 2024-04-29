@@ -516,6 +516,52 @@ function createVertexBuffer(GL, data) {
     var TOP_RIGHT_PILLAR_VERTEX = createVertexBuffer(GL, topRightPillar.vertices);
     var TOP_RIGHT_PILLAR_COLORS = createColorBuffer(GL, topRightPillar.colors);
     var TOP_RIGHT_PILLAR_FACES = createFacesBuffer(GL, topRightPillar.faces);
+
+    // hiasan untuk map
+    //untuk dinding depan
+    var ball1 = generateSphere2(-28, 10, 15, 5, 30);
+
+    var BALL1_VERTEX = createVertexBuffer(GL, ball1.vertices);
+    var BALL1_COLORS = createColorBuffer(GL, ball1.colors);
+    var BALL1_FACES = createFacesBuffer(GL, ball1.faces);
+
+    var ball2 = generateSphere2(-28, 10, -4, 5, 30);
+
+    var BALL2_VERTEX = createVertexBuffer(GL, ball2.vertices);
+    var BALL2_COLORS = createColorBuffer(GL, ball2.colors);
+    var BALL2_FACES = createFacesBuffer(GL, ball2.faces);
+
+    // untuk dinding belakang
+    var ball3 = generateSphere2(-16, 10, -24, 4, 30);
+
+    var BALL3_VERTEX = createVertexBuffer(GL, ball3.vertices);
+    var BALL3_COLORS = createColorBuffer(GL, ball3.colors);
+    var BALL3_FACES = createFacesBuffer(GL, ball3.faces);
+
+    var ball4 = generateSphere2(0, 10, -24, 4, 30);
+
+    var BALL4_VERTEX = createVertexBuffer(GL, ball4.vertices);
+    var BALL4_COLORS = createColorBuffer(GL, ball4.colors);
+    var BALL4_FACES = createFacesBuffer(GL, ball4.faces);
+
+    var ball5 = generateSphere2(16, 10, -24, 4, 30);
+
+    var BALL5_VERTEX = createVertexBuffer(GL, ball5.vertices);
+    var BALL5_COLORS = createColorBuffer(GL, ball5.colors);
+    var BALL5_FACES = createFacesBuffer(GL, ball5.faces);
+
+    //untuk dinding kanan
+    var ball6 = generateSphere2(28, 10, 15, 5, 30);
+
+    var BALL6_VERTEX = createVertexBuffer(GL, ball6.vertices);
+    var BALL6_COLORS = createColorBuffer(GL, ball6.colors);
+    var BALL6_FACES = createFacesBuffer(GL, ball6.faces);
+
+    var ball7 = generateSphere2(28, 10, -4, 5, 30);
+
+    var BALL7_VERTEX = createVertexBuffer(GL, ball7.vertices);
+    var BALL7_COLORS = createColorBuffer(GL, ball7.colors);
+    var BALL7_FACES = createFacesBuffer(GL, ball7.faces);
   
     //Obstacle
     // x, y, z, width, height, depth, color
@@ -1296,7 +1342,43 @@ function createVertexBuffer(GL, data) {
   
         LIBS.rotateY(BODY_UFO_MATRIX, flyingUFO9);
         LIBS.rotateY(LASER_UFO_MATRIX, flyingUFO9);
-      } 
+ 
+        //Laser untuk menembak
+        // Gambar left laser
+        GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+        GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+        GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+    
+        GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+        GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+        GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+    
+        GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+    
+        // Gambar right laser
+        GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+        GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+        GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+    
+        GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+        GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+        GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+    
+        GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+      }
+
+      // if (time = 1) {
+      //   LIBS.translateZ(BODY_UFO_MATRIX, 0.002)
+      //   LIBS.rotateY(UFO_VIEW_MATRIX, 0.002)
+      // }
   
       //UFO POV
       if (time > 0.8 && time < 3) {
@@ -1526,6 +1608,112 @@ function createVertexBuffer(GL, data) {
   
       GL.drawElements(GL.TRIANGLES, topRightPillar.faces.length, GL.UNSIGNED_SHORT, 0);
   
+      //Ball1
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL1_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL1_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL1_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball1.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      // Ball2
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL2_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL2_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL2_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball2.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //ball 3
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL3_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL3_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL3_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball3.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //ball 4
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL4_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL4_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL4_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball4.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //ball 5
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL5_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL5_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL5_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball5.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //Ball 6
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL6_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL6_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL6_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball6.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      // Ball 7
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL7_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, BALL7_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, BALL7_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, WORLD_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, ball7.faces.length, GL.UNSIGNED_SHORT, 0);
+
+
       //======================World Obstacle=================
       // Box1
       GL.bindBuffer(GL.ARRAY_BUFFER, BOX1_VERTEX);
@@ -1572,10 +1760,11 @@ function createVertexBuffer(GL, data) {
   
       GL.drawElements(GL.TRIANGLES, box3.faces.length, GL.UNSIGNED_SHORT, 0);
   
+
       /*================================================================= */
       /*=========================== ufo DRAW ========================== */
       /*================================================================= */
-  
+
       // kepala1
       GL.bindBuffer(GL.ARRAY_BUFFER, kepala1_vertex);
       GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
@@ -1833,36 +2022,36 @@ function createVertexBuffer(GL, data) {
   
       GL.drawElements(GL.TRIANGLE_STRIP, rightLaser.faces.length, GL.UNSIGNED_SHORT, 0);
   
-      //Laser untuk menembak
-      // Gambar left laser
-      GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
-      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+      // //Laser untuk menembak
+      // // Gambar left laser
+      // GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+      // GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
-      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+      // GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+      // GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+      // GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
   
-      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-      GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+      // GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      // GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+      // GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
   
-      GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+      // GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
   
-      // Gambar right laser
-      GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
-      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+      // // Gambar right laser
+      // GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+      // GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
-      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+      // GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+      // GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
   
-      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+      // GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
   
-      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
-      GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
-      GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+      // GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      // GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+      // GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
   
-      GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+      // GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
   
       /*================================================================= */
       /*=========================== DRAW ROBOT ========================== */
