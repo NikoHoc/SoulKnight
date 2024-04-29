@@ -30,5 +30,5 @@ C14220293 - Nikolas Henrik Owen Chan
   2. Memodifikasi Map Enviroment dengan menambahkan dinding / tembok dan pillar pada map
 
 C14220304 - Nicholas Anthony Prasetyo
-  1. Membuat Character ...
+  1. Membuat Character Knight dengan referensi karakter Caballero dari game Soul Knight (Folder Caballero)
 
