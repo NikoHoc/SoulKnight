@@ -989,7 +989,7 @@ function main() {
     var MAG_MATRIX = LIBS.get_I4();
     
 
-    LIBS.translateZ(KNIGHT_VIEW_MATRIX, -7);
+    LIBS.translateZ(KNIGHT_VIEW_MATRIX, -10);
   
     var prevTime = 0;
     var then = 0;

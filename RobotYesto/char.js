@@ -482,7 +482,7 @@ function main() {
   // gun eye
   var SABER_MATRIX = LIBS.get_I4();
 
-  LIBS.translateZ(VIEW_MATRIX, -20);
+  LIBS.translateZ(VIEW_MATRIX, -30);
 
   /*========================= DRAWING ========================= */
   GL.clearColor(0.0, 0.0, 0.0, 0.0);

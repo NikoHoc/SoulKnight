@@ -363,7 +363,7 @@ function main() {
   var LASER_MATRIX = LIBS.get_I4();
 
   LIBS.translateZ(VIEW_MATRIX, -30);
-  LIBS.rotateY(VIEW_MATRIX, 20)
+  LIBS.rotateY(VIEW_MATRIX, 5)
 
 
   /*========================= DRAWING ========================= */
@@ -468,8 +468,13 @@ function main() {
     //LIBS.translateY(LASER_MATRIX, KF_Laser);
     LIBS.translateZ(LASER_MATRIX, KF_Laser);
     
-    //LIBS.rotateY(LASER_MATRIX, theta);
+    LIBS.rotateY(LASER_MATRIX, theta);
     //LIBS.rotateX(LASER_MATRIX, alpha);
+
+    if (time = 1) {
+        LIBS.translateZ(BODY_MATRIX, 4)
+        LIBS.rotateY(VIEW_MATRIX, 0.06)
+    }
 
 
     MODEL_MATRIX = LIBS.get_I4();

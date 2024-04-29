@@ -577,7 +577,7 @@ function createVertexBuffer(GL, data) {
     var BOX2_COLORS = createColorBuffer(GL, box2.colors);
     var BOX2_FACES = createFacesBuffer(GL, box2.faces);
   
-    var box3 = generateCube(-4, 2, 1, 4, 5, 4, [0.58, 0.42, 0.27]);
+    var box3 = generateCube(-4, 2, 3, 4, 5, 4, [0.58, 0.42, 0.27]);
   
     var BOX3_VERTEX = createVertexBuffer(GL, box3.vertices);
     var BOX3_COLORS = createColorBuffer(GL, box3.colors);
@@ -687,8 +687,8 @@ function createVertexBuffer(GL, data) {
     var flyingUFO7 = 0;
     var flyingUFO8 = 0;
     var flyingUFO9 = 0;
-    var flyingUFO10 = 0;
-    var flyingUFO11 = 0;
+    
+    var isFinishedMoving = false;
   
     // FOR ROBOT
     var then = 0;
@@ -711,8 +711,7 @@ function createVertexBuffer(GL, data) {
     var runningRobot6 = 0;
     var runningRobot7 = 0;
     var runningRobot8 = 0;
-    var runningRobot9 = 0;
-    var runningRobot10 = 0;
+
   
     /*=========================================================== */
     /*========================= ANIMATE ========================= */
@@ -1173,6 +1172,8 @@ function createVertexBuffer(GL, data) {
         flyingUFO1 += deltaTime * 0.2;
         LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
         LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+
+        isFinishedMoving = false;
       
       } else if (time > 3 && time < 3.83) {
         flyingUFO2 += deltaTime * 0.2;
@@ -1182,6 +1183,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
         LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+
+        isFinishedMoving = false;
   
       } else if (time > 3.83 && time < 4.7) {
         flyingUFO3 += deltaTime * 0.2;
@@ -1194,6 +1197,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
         LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+
+        isFinishedMoving = false;
   
       } else if (time > 4.7 && time < 5.5) {
         flyingUFO4 += deltaTime * 0.2;
@@ -1212,6 +1217,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
         LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+
+        isFinishedMoving = false;
       } else if (time > 5.5 && time < 7) {
         flyingUFO5 += deltaTime * 0.2;
   
@@ -1232,6 +1239,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
         LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+
+        isFinishedMoving = false;
       } else if (time > 7 && time < 8.5) {
         flyingUFO6 += deltaTime * 0.2;
   
@@ -1255,6 +1264,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
         LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+
+        isFinishedMoving = false;
       } else if (time > 8.5 && time < 10) {
         flyingUFO7 += deltaTime * 0.2;
   
@@ -1281,6 +1292,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
         LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
+
+        isFinishedMoving = false;
       } else if (time > 10 && time < 11.7) {
         flyingUFO8 += deltaTime * 0.2;
   
@@ -1310,6 +1323,8 @@ function createVertexBuffer(GL, data) {
   
         LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO8);
         LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO8);
+
+        isFinishedMoving = false;
       } else if (time > 11.7) {
         flyingUFO9 += deltaTime * 0.025;
   
@@ -1373,12 +1388,9 @@ function createVertexBuffer(GL, data) {
         GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
     
         GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
-      }
 
-      // if (time = 1) {
-      //   LIBS.translateZ(BODY_UFO_MATRIX, 0.002)
-      //   LIBS.rotateY(UFO_VIEW_MATRIX, 0.002)
-      // }
+      } 
+      
   
       //UFO POV
       if (time > 0.8 && time < 3) {
