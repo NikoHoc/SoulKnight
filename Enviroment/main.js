@@ -412,6 +412,828 @@ function createVertexBuffer(GL, data) {
     /*========================================================= */
     /*======================== END ROBOT ====================== */
     /*========================================================= */
+
+    /*========================================================= */
+    /*========================= KNIGHT ========================= */
+    /*========================================================= */
+
+    var cube = [
+      //badan
+      //belakang
+      -0.6, -0.6, -0.6, 0.3, 0.3, 0.3,
+       0.6, -0.6, -0.6, 0.5, 0.5, 0.5,
+        0.6, 0.4, -0.6, 0.3, 0.3, 0.3, 
+        -0.6, 0.4, -0.6, 0.3, 0.3,0.3,
+  
+      //depan
+      -0.6, -0.6, 0.6, 0.3, 0.3, 0.3,
+       0.6, -0.6, 0.6, 0.3, 0.3, 0.3,
+        0.6, 0.4, 0.6, 0.3, 0.3, 0.3,
+         -0.6, 0.4, 0.6, 0.3, 0.3, 0.3,
+  
+      //kiri
+      -0.6, -0.6, -0.6, 0.3, 0.3, 0.3,
+       -0.6, 0.4, -0.6, 0.3, 0.3, 0.3,
+        -0.6, 0.4, 0.6, 0.3, 0.3, 0.3,
+         -0.6, -0.6, 0.6, 0.3, 0.3, 0.3,
+  
+      //kanan
+      0.6, -0.6, -0.6, 0.5, 0.5, 0.5,
+       0.6, 0.4, -0.6, 0.3, 0.3, 0.3,
+        0.6, 0.4, 0.6, 0.3, 0.3, 0.3,
+         0.6, -0.6, 0.6, 0.3, 0.3, 0.3,
+  
+      //bawah
+      -0.6, -0.6, -0.6, 0.3, 0.3, 0.3,
+       -0.6, -0.6, 0.6, 0.3, 0.3, 0.3,
+        0.6, -0.6, 0.6, 0.3, 0.3, 0.3, 
+        0.6, -0.6, -0.6, 0.3, 0.3, 0.3,
+  
+      //atas
+      -0.6, 0.4, -0.6, 0.5, 0.5, 0.5,
+       -0.6, 0.4, 0.6, 0.5, 0.5, 0.5,
+        0.6, 0.4, 0.6, 0.5, 0.5, 0.5,
+         0.6, 0.4, -0.6, 1, 1, 1,
+
+      //kepala
+      //belakang
+      -0.7, 0.4, -0.8, 0.3, 0.3, 0.3,
+       0.7, 0.4, -0.8, 0.3, 0.3, 0.3,
+        0.7, 1.6, -0.8, 0.3, 0.3, 0.3, 
+        -0.7, 1.6, -0.8, 0.3, 0.3,0.3,
+  
+      //depan
+      -0.7, 0.4, 0.8, 1 ,0.992 ,0.815,
+      0.7, 0.4, 0.8, 1 ,0.992 ,0.815,
+      0.7, 1.6, 0.8, 1 ,0.992 ,0.815,
+      -0.7, 1.6, 0.8, 1 ,0.992 ,0.815,
+  
+      //kiri
+      -0.7, 0.4, -0.8, 0.3, 0.3, 0.3,
+       -0.7, 1.6, -0.8, 0.3, 0.3, 0.3,
+        -0.7, 1.6, 0.8, 0.3, 0.3, 0.3,
+         -0.7, 0.4, 0.8, 0.3, 0.3, 0.3,
+  
+      //kanan
+      0.7, 0.4, -0.8, 0.3, 0.3, 0.3,
+       0.7, 1.6, -0.8, 0.3, 0.3, 0.3,
+        0.7, 1.6, 0.8, 0.3, 0.3, 0.3,
+         0.7, 0.4, 0.8, 0.3, 0.3, 0.3,
+  
+      //bawah
+      -0.7, 0.4, -0.8, 1 ,0.992 ,0.815,
+       -0.7, 0.4, 0.8, 1 ,0.992 ,0.815,
+        0.7, 0.4, 0.8, 1 ,0.992 ,0.815, 
+        0.7, 0.4, -0.8, 1 ,0.992 ,0.815,
+  
+      //atas
+      -0.7, 1.6, -0.8, 0.3, 0.3, 0.3,
+       -0.7, 1.6, 0.8, 0.3, 0.3, 0.3,
+        0.7, 1.6, 0.8, 0.3, 0.3, 0.3,
+         0.7, 1.6, -0.8, 0.5, 0.5, 0.5,
+
+
+      //face
+      //mata kiri
+      -0.4, 0.9, 0.81, 0, 0, 0,
+      -0.25, 0.9, 0.81, 0, 0, 0,
+      -0.25, 1.1, 0.81, 0, 0, 0,
+      -0.4, 1.1, 0.81, 0, 0, 0,
+
+      //mata kanan
+      0.4, 0.9, 0.81, 0, 0, 0,
+      0.25, 0.9, 0.81, 0, 0, 0,
+      0.25, 1.1, 0.81, 0, 0, 0,
+      0.4, 1.1, 0.81, 0, 0, 0,
+
+
+      //mulut
+      -0.2, 0.6, 0.81, 0.913, 0.588, 0.472,
+      0.2, 0.6, 0.81, 0.913, 0.588, 0.472,
+      0.2, 0.7, 0.81, 0.913, 0.588, 0.472,
+      -0.2, 0.7, 0.81, 0.913, 0.588, 0.472,
+
+
+      //face armor
+      //atas
+      -0.7, 1.1, 0.8005, 0.3 ,0.3 ,0.3,
+      0.7, 1.1, 0.8005, 0.3 ,0.3 ,0.3,
+      0.7, 1.6, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.7, 1.6, 0.8005, 0.3 ,0.3 ,0.3,
+
+      //bagian kiri
+      -0.7, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.5, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.5, 1.6, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.7, 1.6, 0.8005, 0.3 ,0.3 ,0.3,
+
+      //bagian kanan
+      0.7, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      0.5, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      0.5, 1.6, 0.8005, 0.3 ,0.3 ,0.3,
+      0.7, 1.6, 0.8005, 0.3 ,0.3 ,0.3,
+
+      //bagian kiri bawah
+      -0.7, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.4, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.4, 0.8, 0.8005, 0.3 ,0.3 ,0.3,
+      -0.7, 0.8, 0.8005, 0.3 ,0.3 ,0.3,
+
+      //bagian kanan bawah
+      0.7, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      0.4, 0.4, 0.8005, 0.3 ,0.3 ,0.3,
+      0.4, 0.8, 0.8005, 0.3 ,0.3 ,0.3,
+      0.7, 0.8, 0.8005, 0.3 ,0.3 ,0.3,
+
+      //atas kuning
+      //depan
+      -0.6, 1.1, 0.9, 1 ,1 ,0,
+      0.6, 1.1, 0.9, 1 ,1 ,0,
+      0.6, 1.2, 0.9, 1,1 ,0,
+      -0.6, 1.2, 0.9, 1,1 ,0,
+      
+      //kiri
+      -0.6, 1.1, 0.8006, 1 ,1 ,0,
+      -0.6, 1.1, 0.9, 1 ,1 ,0,
+      -0.6, 1.2, 0.9, 1,1 ,0,
+      -0.6, 1.2, 0.8006, 1,1 ,0,
+
+      //kanan
+      0.6, 1.1, 0.8006, 1 ,1 ,0,
+      0.6, 1.1, 0.9, 1 ,1 ,0,
+      0.6, 1.2, 0.9, 1,1 ,0,
+      0.6, 1.2, 0.8006, 1,1 ,0,
+
+      //bawah
+      -0.6, 1.1, 0.8006, 1, 1, 0,
+      -0.6, 1.1, 0.9, 1, 1, 0,
+      0.6, 1.1, 0.9, 1, 1, 0, 
+      0.6, 1.1, 0.8006, 1, 1,0,
+
+      //atas
+      -0.6, 1.2, 0.8006, 1, 1, 0,
+      -0.6, 1.2, 0.9, 1, 1, 0,
+      0.6, 1.2, 0.9, 1, 1, 0, 
+      0.6, 1.2, 0.8006, 1, 1,0,
+
+      //samping kuning kiri
+
+      //bagian atas
+      //depan atas
+      -0.6, 0.8, 0.9, 1 ,1 ,0,
+      -0.5, 0.8, 0.9, 1 ,1 ,0,
+      -0.5, 1.2, 0.9, 1,1 ,0,
+      -0.6, 1.2, 0.9, 1,1 ,0,
+
+      //kiri atas
+      -0.6, 0.8, 0.8006, 1 ,1 ,0,
+      -0.6, 0.8, 0.9, 1 ,1 ,0,
+      -0.6, 1.2, 0.9, 1,1 ,0,
+      -0.6, 1.2, 0.8006, 1,1 ,0,
+
+      //kanan atas
+      -0.5, 0.8, 0.8006, 1 ,1 ,0,
+      -0.5, 0.8, 0.9, 1 ,1 ,0,
+      -0.5, 1.2, 0.9, 1,1 ,0,
+      -0.5, 1.2, 0.8006, 1,1 ,0,
+
+      //bagian tengah
+      //depan bawah
+      -0.6, 0.7, 0.9, 1 ,1 ,0,
+      -0.4, 0.7, 0.9, 1 ,1 ,0,
+      -0.4, 0.8, 0.9, 1,1 ,0,
+      -0.6, 0.8, 0.9, 1,1 ,0,
+
+      //kiri bawah
+      -0.6, 0.7, 0.8006, 1 ,1 ,0,
+      -0.6, 0.7, 0.9, 1 ,1 ,0,
+      -0.6, 0.8, 0.9, 1,1 ,0,
+      -0.6, 0.8, 0.8006, 1,1 ,0,
+
+      //kanan bawah
+      -0.4, 0.7, 0.8006, 1 ,1 ,0,
+      -0.4, 0.7, 0.9, 1 ,1 ,0,
+      -0.4, 0.8, 0.9, 1,1 ,0,
+      -0.4, 0.8, 0.8006, 1,1 ,0,
+
+      //atas bawah
+      -0.6, 0.7, 0.8006, 1 ,1 ,0,
+      -0.6, 0.7, 0.9, 1 ,1 ,0,
+      -0.4, 0.7, 0.9, 1,1 ,0,
+      -0.4, 0.7, 0.8006, 1,1 ,0,
+
+      //atas atas
+      -0.6, 0.8, 0.8006, 1 ,1 ,0,
+      -0.6, 0.8, 0.9, 1 ,1 ,0,
+      -0.4, 0.8, 0.9, 1,1 ,0,
+      -0.4, 0.8, 0.8006, 1,1 ,0,
+
+      //bagian bawah
+      //depan bawah2
+      -0.5, 0.8, 0.9, 1 ,1 ,0,
+      -0.4, 0.8, 0.9, 1 ,1 ,0,
+      -0.4, 0.4, 0.9, 1,1 ,0,
+      -0.5, 0.4, 0.9, 1,1 ,0,
+
+      //kiri bawah2
+      -0.5, 0.8, 0.8006, 1 ,1 ,0,
+      -0.5, 0.8, 0.9, 1 ,1 ,0,
+      -0.5, 0.4, 0.9, 1,1 ,0,
+      -0.5, 0.4, 0.8006, 1,1 ,0,
+
+      //kanan bawah2
+      -0.4, 0.8, 0.8006, 1 ,1 ,0,
+      -0.4, 0.8, 0.9, 1 ,1 ,0,
+      -0.4, 0.4, 0.9, 1,1 ,0,
+      -0.4, 0.4, 0.8006, 1,1 ,0,
+
+      //bawah bawah2
+      -0.5, 0.4, 0.8006, 1 ,1 ,0,
+      -0.5, 0.4, 0.9, 1 ,1 ,0,
+      -0.4, 0.4, 0.9, 1,1 ,0,
+      -0.4, 0.4, 0.8006, 1,1 ,0,
+
+      //samping kuning kanan
+
+      //bagian atas
+      //depan atas
+      0.6, 0.8, 0.9, 1 ,1 ,0,
+      0.5, 0.8, 0.9, 1 ,1 ,0,
+      0.5, 1.2, 0.9, 1,1 ,0,
+      0.6, 1.2, 0.9, 1,1 ,0,
+
+      //kiri atas
+      0.6, 0.8, 0.8006, 1 ,1 ,0,
+      0.6, 0.8, 0.9, 1 ,1 ,0,
+      0.6, 1.2, 0.9, 1,1 ,0,
+      0.6, 1.2, 0.8006, 1,1 ,0,
+
+      //kanan atas
+      0.5, 0.8, 0.8006, 1 ,1 ,0,
+      0.5, 0.8, 0.9, 1 ,1 ,0,
+      0.5, 1.2, 0.9, 1,1 ,0,
+      0.5, 1.2, 0.8006, 1,1 ,0,
+
+      //bagian tengah
+      //depan bawah
+      0.6, 0.7, 0.9, 1 ,1 ,0,
+      0.4, 0.7, 0.9, 1 ,1 ,0,
+      0.4, 0.8, 0.9, 1,1 ,0,
+      0.6, 0.8, 0.9, 1,1 ,0,
+
+      //kiri bawah
+      0.6, 0.7, 0.8006, 1 ,1 ,0,
+      0.6, 0.7, 0.9, 1 ,1 ,0,
+      0.6, 0.8, 0.9, 1,1 ,0,
+      0.6, 0.8, 0.8006, 1,1 ,0,
+
+      //kanan bawah
+      0.4, 0.7, 0.8006, 1 ,1 ,0,
+      0.4, 0.7, 0.9, 1 ,1 ,0,
+      0.4, 0.8, 0.9, 1,1 ,0,
+      0.4, 0.8, 0.8006, 1,1 ,0,
+
+      //atas bawah
+      0.6, 0.7, 0.8006, 1 ,1 ,0,
+      0.6, 0.7, 0.9, 1 ,1 ,0,
+      0.4, 0.7, 0.9, 1,1 ,0,
+      0.4, 0.7, 0.8006, 1,1 ,0,
+
+      //atas atas
+      0.6, 0.8, 0.8006, 1 ,1 ,0,
+      0.6, 0.8, 0.9, 1 ,1 ,0,
+      0.4, 0.8, 0.9, 1,1 ,0,
+      0.4, 0.8, 0.8006, 1,1 ,0,
+
+      //bagian bawah
+      //depan bawah2
+      0.5, 0.8, 0.9, 1 ,1 ,0,
+      0.4, 0.8, 0.9, 1 ,1 ,0,
+      0.4, 0.4, 0.9, 1,1 ,0,
+      0.5, 0.4, 0.9, 1,1 ,0,
+
+      //kiri bawah2
+      0.5, 0.8, 0.8006, 1 ,1 ,0,
+      0.5, 0.8, 0.9, 1 ,1 ,0,
+      0.5, 0.4, 0.9, 1,1 ,0,
+      0.5, 0.4, 0.8006, 1,1 ,0,
+
+      //kanan bawah2
+      0.4, 0.8, 0.8006, 1 ,1 ,0,
+      0.4, 0.8, 0.9, 1 ,1 ,0,
+      0.4, 0.4, 0.9, 1,1 ,0,
+      0.4, 0.4, 0.8006, 1,1 ,0,
+
+      //bawah bawah2
+      0.5, 0.4, 0.8006, 1 ,1 ,0,
+      0.5, 0.4, 0.9, 1 ,1 ,0,
+      0.4, 0.4, 0.9, 1,1 ,0,
+      0.4, 0.4, 0.8006, 1,1 ,0,
+
+
+      //syal
+      //belakang
+      -0.65, -0.1, -0.61, 1, 0, 0,
+       0.65, -0.1, -0.61, 1, 0, 0,
+        0.65, 0.4, -0.61, 1, 0, 0, 
+        -0.65, 0.4, -0.61, 1, 0, 0,
+  
+      //depan
+      -0.65, -0.1, 0.61, 1, 0, 0,
+       0.65, -0.1, 0.61, 1, 0, 0,
+        0.65, 0.4, 0.61, 1, 0, 0,
+         -0.65, 0.4, 0.61, 1, 0, 0,
+  
+      //kiri
+      -0.65, -0.1, -0.61, 1, 0, 0,
+       -0.65, 0.4, -0.61, 1, 0, 0,
+        -0.65, 0.4, 0.61, 1, 0, 0,
+         -0.65, -0.1, 0.61, 1, 0, 0,
+  
+      //kanan
+      0.65, -0.1, -0.61, 1, 0, 0,
+       0.65, 0.4, -0.61, 1, 0, 0,
+        0.65, 0.4, 0.61, 1, 0, 0,
+         0.65, -0.1, 0.61, 1, 0, 0,
+  
+      //bawah
+      -0.65, -0.1, -0.61, 1, 0, 0,
+       -0.65, -0.1, 0.61, 1, 0, 0,
+        0.65, -0.1, 0.61, 1, 0, 0, 
+        0.65, -0.1, -0.61, 1, 0, 0,
+  
+      //atas
+      -0.65, 0.4, -0.61, 1, 0, 0,
+      -0.65, 0.4, 0.61, 1, 0, 0,
+      0.65, 0.4, 0.61, 1, 0, 0,
+      0.65, 0.4, -0.61, 1, 0, 0,
+
+      //scarf 1
+      -0.86, -0.1, -0.9, 1, 0, 0,
+      -0.86, 0.4, -0.9, 1, 0, 0,
+      -0.65, 0.4, -0.61, 1, 0, 0,
+      -0.65, -0.1, -0.61, 1, 0, 0,
+
+      //scarf 2
+      -1.1, -0.3, -1.2, 1, 0, 0,
+      -1.1, -0.09, -1.2, 1, 0, 0,
+      -0.71, -0.09, -0.7, 1, 0, 0,
+      -0.71, -0.3, -0.7, 1, 0, 0,
+
+      //scarf 3
+      -1.1, -0.5, -1.2, 1, 0, 0,
+      -1.1, -0.1, -1.2, 1, 0, 0,
+      -0.95, -0.1, -1, 1, 0, 0,
+      -0.95, -0.5, -1, 1, 0, 0,
+
+
+      
+      //pistol kiri
+      //belakang
+      -1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+        -0.8, -0.2, -0.4, 0.5, 0.5, 0.5, 
+        -1, -0.2, -0.4, 0.5, 0.5,0.5,
+  
+      //depan
+      -1, -0.4, -0.4, 0.5, 0.5, 0.5,
+       -0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+        -0.8, -0.2, -0.2, 0.5, 0.5, 0.5, 
+        -1, -0.2, -0.2, 0.5, 0.5,0.5,
+  
+      //kiri
+      -1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -1, -0.2, -0.4, 0.5, 0.5, 0.5,
+        -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+         -1, -0.4, -0.4, 0.5, 0.5, 0.5,
+  
+      //kanan
+      -0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+        -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+         -0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+      //bawah
+      -1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       -1, -0.4, -0.4, 0.5, 0.5, 0.5,
+        -0.8, -0.4, -0.4, 0.5, 0.5, 0.5, 
+        -0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+  
+      //atas
+      -1, -0.2, -0.4, 0.5, 0.5, 0.5,
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+      -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+      -0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+
+      //pistol kiri bagian tengahnya
+      //belakang
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+        -0.8, -0, -0.2, 0.5, 0.5, 0.5, 
+        -1, -0, -0.2, 0.5, 0.5,0.5,
+  
+      //depan
+      -1, -0.2, 0.8, 0.5, 0.5, 0.5,
+       -0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+        -0.8, -0, 1, 0.5, 0.5, 0.5, 
+        -1, -0, 1, 0.5, 0.5,0.5,
+  
+      //kiri
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -1, -0, -0.2, 0.5, 0.5, 0.5,
+        -1, -0, 1, 0.5, 0.5, 0.5,
+         -1, -0.2, 0.8, 0.5, 0.5, 0.5,
+  
+      //kanan
+      -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -0.8, -0, -0.2, 0.5, 0.5, 0.5,
+        -0.8, -0, 1, 0.5, 0.5, 0.5,
+         -0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+      //bawah
+      -1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       -1, -0.2, 0.8, 0.5, 0.5, 0.5,
+        -0.8, -0.2, 0.8, 0.5, 0.5, 0.5, 
+        -0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+  
+      //atas
+      -1, -0, -0.2, 0.5, 0.5, 0.5,
+      -1, -0, 1, 0.5, 0.5, 0.5,
+      -0.8, -0, 1, 0.5, 0.5, 0.5,
+      -0.8, -0, -0.2, 0.5, 0.5, 0.5,
+      
+
+
+      //pistol kanan
+      //belakang
+      1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+        0.8, -0.2, -0.4, 0.5, 0.5, 0.5, 
+        1, -0.2, -0.4, 0.5, 0.5,0.5,
+  
+      //depan
+      1, -0.4, -0.4, 0.5, 0.5, 0.5,
+       0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+        0.8, -0.2, -0.2, 0.5, 0.5, 0.5, 
+        1, -0.2, -0.2, 0.5, 0.5,0.5,
+  
+      //kiri
+      1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       1, -0.2, -0.4, 0.5, 0.5, 0.5,
+        1, -0.2, -0.2, 0.5, 0.5, 0.5,
+         1, -0.4, -0.4, 0.5, 0.5, 0.5,
+  
+      //kanan
+      0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+       0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+        0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+         0.8, -0.4, -0.4, 0.5, 0.5, 0.5,
+      //bawah
+      1, -0.4, -0.6, 0.5, 0.5, 0.5,
+       1, -0.4, -0.4, 0.5, 0.5, 0.5,
+        0.8, -0.4, -0.4, 0.5, 0.5, 0.5, 
+        0.8, -0.4, -0.6, 0.5, 0.5, 0.5,
+  
+      //atas
+      1, -0.2, -0.4, 0.5, 0.5, 0.5,
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+      0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+      0.8, -0.2, -0.4, 0.5, 0.5, 0.5,
+
+      //pistol kanan bagian tengahnya
+      //belakang
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+        0.8, -0, -0.2, 0.5, 0.5, 0.5, 
+        1, -0, -0.2, 0.5, 0.5,0.5,
+  
+      //depan
+      1, -0.2, 0.8, 0.5, 0.5, 0.5,
+       0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+        0.8, -0, 1, 0.5, 0.5, 0.5, 
+        1, -0, 1, 0.5, 0.5,0.5,
+  
+      //kiri
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       1, -0, -0.2, 0.5, 0.5, 0.5,
+        1, -0, 1, 0.5, 0.5, 0.5,
+         1, -0.2, 0.8, 0.5, 0.5, 0.5,
+  
+      //kanan
+      0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+       0.8, -0, -0.2, 0.5, 0.5, 0.5,
+        0.8, -0, 1, 0.5, 0.5, 0.5,
+         0.8, -0.2, 0.8, 0.5, 0.5, 0.5,
+      //bawah
+      1, -0.2, -0.2, 0.5, 0.5, 0.5,
+       1, -0.2, 0.8, 0.5, 0.5, 0.5,
+        0.8, -0.2, 0.8, 0.5, 0.5, 0.5, 
+        0.8, -0.2, -0.2, 0.5, 0.5, 0.5,
+  
+      //atas
+      1, -0, -0.2, 0.5, 0.5, 0.5,
+      1, -0, 1, 0.5, 0.5, 0.5,
+      0.8, -0, 1, 0.5, 0.5, 0.5,
+      0.8, -0, -0.2, 0.5, 0.5, 0.5,
+      
+    ];
+
+  
+    var cube_faces = [
+      
+      0, 1, 2, 0, 2, 3,
+  
+      4, 5, 6, 4, 6, 7,
+  
+      8, 9, 10, 8, 10, 11,
+  
+      12, 13, 14, 12, 14, 15,
+  
+      16, 17, 18, 16, 18, 19,
+  
+      20, 21, 22, 20, 22, 23,
+
+      
+      24, 25, 26, 24, 26, 27,
+
+      28, 29, 30, 28, 30, 31,
+
+      32, 33, 34, 32,  34, 35,
+
+      36, 37, 38, 36, 38, 39,
+
+      40, 41, 42, 40, 42, 43,
+
+      44, 45, 46, 44, 46, 47,
+
+      
+
+      48, 49, 50, 48, 50, 51,
+
+      52, 53, 54, 52, 54, 55,
+
+      56, 57, 58, 56, 58, 59,
+
+      60, 61, 62,  60, 62, 63,
+
+      64, 65, 66, 64, 66, 67,
+      
+      68, 69, 70, 68, 70, 71,
+
+      
+
+      72, 73, 74,  72, 74, 75,
+
+      76, 77, 78, 76, 78, 79,
+
+      80, 81, 82, 80, 82, 83,
+
+      84, 85, 86, 84, 86, 87,
+
+      88, 89, 90, 88, 90, 91,
+
+      92, 93, 94, 92, 94, 95,
+
+      
+      96, 97, 98,  96, 98, 99,
+
+      100, 101, 102, 100, 102, 103,
+
+      
+      104, 105, 106, 104, 106, 107,
+
+      108, 109, 110, 108, 110, 111,
+
+      112, 113, 114, 112, 114, 115,
+
+      116, 117, 118, 116, 118, 119,
+
+      120, 121, 122, 120, 122, 123,
+
+    
+      124, 125, 126, 124, 126, 127,
+
+      128, 129, 130, 128, 130, 131,
+
+      132, 133, 134, 132, 134, 135,
+
+      136, 137, 138, 136, 138, 139,
+
+      140, 141, 142, 140, 142, 143,
+
+      
+      144, 145, 146, 144, 146, 147,
+
+      148, 149, 150, 148, 150, 151,
+
+      152, 153, 154, 152, 154, 155,
+
+      
+      156, 157, 158, 156, 158, 159,
+
+      160, 161, 162, 160, 162, 163,
+
+      164, 165, 166, 164, 166, 167,
+
+      168, 169, 170, 168, 170, 171,
+
+      172, 173, 174, 172, 174, 175,
+
+      
+      176, 177, 178, 176, 178, 179,
+
+      180, 181, 182, 180, 182, 183,
+
+      184, 185, 186, 184, 186, 187,
+
+      188, 189, 190, 188, 190, 191,
+
+      
+      192,  193, 194, 192, 194, 195,
+
+      196, 197, 198, 196, 198, 199,
+
+      200, 201, 202, 200, 202, 203,
+
+      204, 205, 206, 204, 206, 207,
+
+      208, 209, 210, 208, 210, 211,
+
+      212, 213, 214, 212, 214, 215,
+
+      216, 217, 218, 216, 218, 219,
+
+      220, 221, 222, 220, 222, 223,
+
+    
+      224, 225, 226, 224, 226, 227,
+
+      228, 229, 230, 228, 230, 231,
+
+      232, 233, 234, 232, 234, 235,
+
+      236, 237, 238, 236, 238, 239,
+
+      240, 241, 242, 240, 242, 243,
+
+      244, 245, 246, 244, 246, 247,
+
+      248, 249, 250, 248, 250, 251,
+
+      252, 253, 254, 252, 254, 255,
+
+      256, 257, 258, 256, 258, 259,
+
+      260, 261, 262, 260, 262, 263,
+
+      264, 265, 266, 264, 266, 267,
+
+    
+      268, 269, 270, 268, 270, 271,
+
+      272, 273, 274, 272, 274, 275,
+
+      276, 277, 278, 276, 278, 279,
+
+      
+      280, 281, 282, 280, 282, 283,
+
+      284, 285, 286, 284, 286, 287,
+
+      288, 289, 290, 288, 290, 291,
+
+      292, 293, 294, 292, 294, 295,
+
+      296, 297, 298, 296, 298, 299,
+
+      300, 301, 302, 300, 302, 303,
+
+    
+
+      304, 305, 306, 304, 306, 307,
+
+      308, 309, 310, 308, 310, 311,
+
+      312, 313, 314, 312, 314, 315,
+
+      316, 317, 318, 316, 318, 319,
+
+      320, 321, 322, 320, 322, 323,
+
+      324, 325, 326, 324, 326, 327,
+
+    ];
+
+    var triangle_vbo = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, triangle_vbo);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cube), GL.STATIC_DRAW);
+  
+    var triangle_ebo = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, triangle_ebo);
+    GL.bufferData(
+      GL.ELEMENT_ARRAY_BUFFER,
+      new Uint16Array(cube_faces),
+      GL.STATIC_DRAW
+    );
+
+    //kaki kanan
+    var LEGG_RIGHT = generateCube(0.4, -0.8, 0, 0.21, 0.4, 0.21, [0.3, 0.3, 0.3]);
+  
+    // Create buffers for the cube
+    var LEGG_RIGHT_VERTEX = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_VERTEX);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_RIGHT.vertices), GL.STATIC_DRAW);
+  
+    var LEGG_RIGHT_COLORS = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_COLORS);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_RIGHT.colors), GL.STATIC_DRAW);
+  
+    var LEGG_RIGHT_FACES = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_RIGHT_FACES);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(LEGG_RIGHT.faces), GL.STATIC_DRAW);
+
+    //kaki kiri
+    var LEGG_LEFT = generateCube(-0.4, -0.8, 0, 0.21, 0.4, 0.21, [0.3, 0.3, 0.3]);
+  
+    // Create buffers for the cube
+    var LEGG_LEFT_VERTEX = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_VERTEX);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_LEFT.vertices), GL.STATIC_DRAW);
+  
+    var LEGG_LEFT_COLORS = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_COLORS);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(LEGG_LEFT.colors), GL.STATIC_DRAW);
+  
+    var LEGG_LEFT_FACES = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_LEFT_FACES);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(LEGG_LEFT.faces), GL.STATIC_DRAW);
+
+    //pistol kiri
+    // Magazine
+    var magLeft = generateSolidTube(
+      -0.91,
+      -0.3,
+      0.2,
+      0.1,
+      0.1,
+      0.5,
+      30,
+      [0.588, 0.294, 0]
+    );
+    // Create buffers
+    var mag_vertex_left = createVertexBuffer(GL, magLeft.vertices);
+    var mag_colors_left = createColorBuffer(GL, magLeft.colors);
+    var mag_faces_left = createFacesBuffer(GL, magLeft.faces);
+
+    //pelatuk
+    var Left = generateCurvePistol(-0.9, -0.2, -0.2, 0.2, 0.1, 0.2, 30, true, [0.6, 0.6, 0.6]);
+  
+    var VERTEX_LEFT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_LEFT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Left.vertices), GL.STATIC_DRAW);
+  
+    var COLORS_LEFT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_LEFT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Left.colors), GL.STATIC_DRAW);
+  
+    var FACES_LEFT = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_LEFT);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(Left.faces), GL.STATIC_DRAW);
+    
+    //pistol kanan
+    // Magazine
+    var magRight = generateSolidTube(
+      0.91,
+      -0.3,
+      0.2,
+      0.1,
+      0.1,
+      0.5,
+      30,
+      [0.588, 0.294, 0]
+    );
+    // Create buffers
+    var mag_vertex_right = createVertexBuffer(GL, magRight.vertices);
+    var mag_colors_right = createColorBuffer(GL, magRight.colors);
+    var mag_faces_right = createFacesBuffer(GL, magRight.faces);
+
+    //pelatuk
+    var Right = generateCurvePistol(0.9, -0.2, -0.2, 0.2, 0.1, 0.2, 30, true, [0.6, 0.6, 0.6]);
+  
+    var VERTEX_RIGHT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_RIGHT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Right.vertices), GL.STATIC_DRAW);
+  
+    var COLORS_RIGHT = GL.createBuffer();
+    GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_RIGHT);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(Right.colors), GL.STATIC_DRAW);
+
+    var FACES_RIGHT = GL.createBuffer();
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_RIGHT);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(Right.faces), GL.STATIC_DRAW);
+
+  /*========================================================= */
+  /*====================== END KNIGHT ======================= */
+  /*========================================================= */
+
   
     /*========================================================= */
     /*====================== ENVIROMENT ======================= */
@@ -652,6 +1474,28 @@ function createVertexBuffer(GL, data) {
   
     LIBS.rotateY(ROBOT_VIEW_MATRIX, 0);
     /*========================= MATRIX ROBOT ========================= */
+
+    /*========================= MATRIX KNIGHT ========================= */
+
+
+    var KNIGHT_MODEL_MATRIX = LIBS.get_I4();
+    var KNIGHT_VIEW_MATRIX = LIBS.get_I4();
+
+    //kaki kanan
+    var LEGG_KANAN_MATRIX = LIBS.get_I4();
+
+    //kaki kiri
+    var LEGG_KIRI_MATRIX = LIBS.get_I4();
+
+    //magazine
+    var MAG_MATRIX = LIBS.get_I4();
+
+    LIBS.translateX(KNIGHT_VIEW_MATRIX, -11);
+    LIBS.translateY(KNIGHT_VIEW_MATRIX, -4.5);
+    LIBS.translateZ(KNIGHT_VIEW_MATRIX, 10);
+    
+    LIBS.rotateY(KNIGHT_VIEW_MATRIX, 0);
+    /*========================= MATRIX KNIGHT ========================= */
   
     /*=========================================================== */
     /*========================= DRAWING ========================= */
@@ -687,6 +1531,9 @@ function createVertexBuffer(GL, data) {
     var flyingUFO7 = 0;
     var flyingUFO8 = 0;
     var flyingUFO9 = 0;
+    var flyingUFO10 = 0;
+    var flyingUFO11 = 0;
+    var flyingUFO12 = 0;
     
     var isFinishedMoving = false;
   
@@ -712,6 +1559,34 @@ function createVertexBuffer(GL, data) {
     var runningRobot7 = 0;
     var runningRobot8 = 0;
 
+
+    //FOR KNIGHT
+    var LEGGKananTime = 0;
+    var LEGGKananReverse = false;
+  
+    var LEGGKiriTime = 0;
+    var LEGGKiriReverse = false;
+
+    var MagTime = 0;
+    var MagReverse = false;
+
+    var runningKnight0 = 0;
+    var runningKnight1 = 0;
+    var runningKnight2 = 0;
+    var runningKnight3 = 0;
+    var runningKnight4 = 0;
+    var runningKnight5 = 0;
+    var runningKnight6 = 0;
+    var runningKnight7 = 0;
+    var runningKnight8 = 0;
+    var runningKnight9 = 0;
+    var runningKnight10 = 0;
+    var runningKnight11 = 0;
+    var runningKnight12 = 0;
+    var runningKnight13 = 0;
+    var runningKnight14 = 0;
+    var runningKnight15 = 0;
+    var runningKnight16 = 0;
   
     /*=========================================================== */
     /*========================= ANIMATE ========================= */
@@ -721,7 +1596,6 @@ function createVertexBuffer(GL, data) {
       GL.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
   
       time *= 0.0004;
-      // runningRobot1 = prevRunTime;
   
       var deltaTime = (time - time_prev) * 100;
       time_prev = time;
@@ -877,6 +1751,88 @@ function createVertexBuffer(GL, data) {
       LIBS.rotateX(SABER_MATRIX, alpha);
       /*========================= ROBOT TIME AND ANIMATION  ========================= */
   
+      /*========================= KNIGHT TIME AND ANIMATION  ========================= */
+      KNIGHT_MODEL_MATRIX = LIBS.get_I4();
+      // Kaki Kanan
+      LEGG_KANAN_MATRIX = LIBS.get_I4();
+      var KF_LEGGKanan = 0;
+  
+      
+        if (LEGGKananTime <= -10) {
+          LEGGKananReverse = true;
+        } else if (LEGGKananTime >= 10) {
+          LEGGKananReverse = false;
+        }
+  
+        if (LEGGKananReverse) {
+          LEGGKananTime += deltaTime;
+        } else {
+          LEGGKananTime -= deltaTime;
+        }
+  
+        KF_LEGGKanan = LIBS.degToRad(LEGGKananTime);
+      
+  
+      // Kaki Kiri
+      LEGG_KIRI_MATRIX = LIBS.get_I4();
+      var KF_LEGGKiri = 0;
+  
+      
+        if (LEGGKiriTime <= -10) {
+          LEGGKiriReverse = false;
+        } else if (LEGGKiriTime >= 10) {
+          LEGGKiriReverse = true;
+        }
+  
+        if (LEGGKiriReverse) {
+          LEGGKiriTime -= deltaTime;
+        } else {
+          LEGGKiriTime += deltaTime;
+        }
+  
+        KF_LEGGKiri = LIBS.degToRad(LEGGKiriTime);
+
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, theta);
+        LIBS.rotateX(KNIGHT_MODEL_MATRIX, alpha);
+
+      // Magazine
+      MAG_MATRIX = LIBS.get_I4();
+  
+      var KF_Mag = 0;
+  
+      if (time < 10) {
+        if (MagTime <= -10) {
+          MagReverse = true;
+        } else if (MagTime >= 10) {
+          MagReverse = false;
+        }
+  
+        if (MagReverse) {
+          MagTime += deltaTime;
+        } else {
+          MagTime -= deltaTime;
+        }
+  
+        KF_Mag = LIBS.degToRad(MagTime);
+        KF_Mag *= 0.3;
+      }
+      /*========================= ANIMATION  ========================= */
+      // KAKI KANAN
+      LIBS.rotateX(LEGG_KANAN_MATRIX, KF_LEGGKanan);
+      LIBS.rotateY(LEGG_KANAN_MATRIX, theta);
+      LIBS.rotateX(LEGG_KANAN_MATRIX, alpha);
+  
+      // KAKI KIRI
+      LIBS.rotateX(LEGG_KIRI_MATRIX, KF_LEGGKiri);
+      LIBS.rotateY(LEGG_KIRI_MATRIX, theta);
+      LIBS.rotateX(LEGG_KIRI_MATRIX, alpha);
+
+      //MAGAZINE
+      LIBS.translateY(MAG_MATRIX, KF_Mag);
+      LIBS.rotateY(MAG_MATRIX, theta);
+
+      /*========================= KNIGHT TIME AND ANIMATION  ========================= */
+
       /*========================= WORLD ANIMATION ========================= */
       WORLD_MATRIX = LIBS.get_I4();
       //LIBS.rotateY(WORLD_MATRIX, theta);
@@ -1240,7 +2196,6 @@ function createVertexBuffer(GL, data) {
         LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
         LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
 
-        isFinishedMoving = false;
       } else if (time > 7 && time < 8.5) {
         flyingUFO6 += deltaTime * 0.2;
   
@@ -1265,7 +2220,6 @@ function createVertexBuffer(GL, data) {
         LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
         LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
 
-        isFinishedMoving = false;
       } else if (time > 8.5 && time < 10) {
         flyingUFO7 += deltaTime * 0.2;
   
@@ -1293,7 +2247,7 @@ function createVertexBuffer(GL, data) {
         LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
         LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
 
-        isFinishedMoving = false;
+      
       } else if (time > 10 && time < 11.7) {
         flyingUFO8 += deltaTime * 0.2;
   
@@ -1324,8 +2278,7 @@ function createVertexBuffer(GL, data) {
         LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO8);
         LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO8);
 
-        isFinishedMoving = false;
-      } else if (time > 11.7) {
+      } else if (time > 11.7 && time < 13) {
         flyingUFO9 += deltaTime * 0.025;
   
         LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
@@ -1389,6 +2342,143 @@ function createVertexBuffer(GL, data) {
     
         GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
 
+      } else if (time > 13 && time < 16) {
+        flyingUFO10 += deltaTime * 0.025;
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+        LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+        LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
+        LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
+        LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO8);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO8);
+  
+        LIBS.rotateY(BODY_UFO_MATRIX, flyingUFO9);
+        LIBS.rotateY(LASER_UFO_MATRIX, flyingUFO9);
+
+        LIBS.rotateY(BODY_UFO_MATRIX, -flyingUFO10);
+        LIBS.rotateY(LASER_UFO_MATRIX, -flyingUFO10);
+ 
+        //Laser untuk menembak
+        // Gambar left laser
+        GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+        GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+        GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+    
+        GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+        GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+        GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+    
+        GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+    
+        // Gambar right laser
+        GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+        GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+        GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+    
+        GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+        GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+        GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+    
+        GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      } else if (time > 16) {
+        flyingUFO11 += deltaTime * 0.025;
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO1);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO1);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO2);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO2);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO3);
+        LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO3);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, flyingUFO4);
+        LIBS.translateX(LASER_UFO_MATRIX, flyingUFO4);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO4);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO4);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, -flyingUFO5);
+        LIBS.translateX(LASER_UFO_MATRIX, -flyingUFO5);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, -flyingUFO6);
+        LIBS.translateZ(LASER_UFO_MATRIX, -flyingUFO6);
+  
+        LIBS.translateX(BODY_UFO_MATRIX, flyingUFO7);
+        LIBS.translateX(LASER_UFO_MATRIX, flyingUFO7);
+  
+        LIBS.translateZ(BODY_UFO_MATRIX, flyingUFO8);
+        LIBS.translateZ(LASER_UFO_MATRIX, flyingUFO8);
+  
+        LIBS.rotateY(BODY_UFO_MATRIX, flyingUFO9);
+        LIBS.rotateY(LASER_UFO_MATRIX, flyingUFO9);
+
+        LIBS.rotateY(BODY_UFO_MATRIX, -flyingUFO10);
+        LIBS.rotateY(LASER_UFO_MATRIX, -flyingUFO10);
+
+        LIBS.rotateY(BODY_UFO_MATRIX, flyingUFO11);
+        LIBS.rotateY(LASER_UFO_MATRIX, flyingUFO11);
+ 
+        //Laser untuk menembak
+        // Gambar left laser
+        GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_vertex);
+        GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ARRAY_BUFFER, leftLaserShoot_colors);
+        GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, leftLaserShoot_faces);
+    
+        GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+        GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+        GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+    
+        GL.drawElements(GL.TRIANGLE_STRIP, leftLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+    
+        // Gambar right laser
+        GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_vertex);
+        GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ARRAY_BUFFER, rightLaserShoot_colors);
+        GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+    
+        GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, rightLaserShoot_faces);
+    
+        GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+        GL.uniformMatrix4fv(_VMatrix, false, UFO_VIEW_MATRIX);
+        GL.uniformMatrix4fv(_MMatrix, false, LASER_UFO_MATRIX);
+    
+        GL.drawElements(GL.TRIANGLE_STRIP, rightLaserShoot.faces.length, GL.UNSIGNED_SHORT, 0);
+
       } 
       
   
@@ -1419,7 +2509,1140 @@ function createVertexBuffer(GL, data) {
         LIBS.rotateAroundY(LASER_UFO_MATRIX, 89.5, 0, 0, 0)
       }
       // End UFO animation
+
+      //Start Knight Animation
+      if (time > 0.8 && time < 2.5) {
+        runningKnight0 += deltaTime * 0.2;
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+      
+      } else if (time > 2.5 && time < 2.7) {
+        runningKnight1 += deltaTime * 0.2;
+        
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
   
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+  
+  
+      } else if (time > 2.7 && time < 3.4) {
+        runningKnight2 += deltaTime * 0.2;
+  
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+  
+  
+      } else if (time > 3.4 && time < 4.2) {
+        runningKnight3 += deltaTime * 0.2;
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+        
+      } else if (time > 4.2 && time < 4.7) {
+        runningKnight4+= deltaTime * 0.2;
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+        
+      } else if (time > 4.7 && time < 5.1) {
+        runningKnight5 += deltaTime * 0.2;
+  
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        
+        
+        
+      } else if (time > 5.1 && time < 5.5) {
+        runningKnight6 += deltaTime * 0.2
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+      }
+
+      else if (time > 5.5 && time < 6) {
+        runningKnight7 += deltaTime * 0.2
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+
+
+
+      }else if (time > 6 && time < 6.6) {
+        runningKnight8 += deltaTime * 0.2
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+
+      }else if (time > 6.6 && time < 8.3) {
+        runningKnight9 += deltaTime * 0.1
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+   
+      }
+
+      else if (time > 8.3 && time < 9) {
+        runningKnight10 += deltaTime * 0.1
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+
+   
+      }else if (time > 9 && time < 9.5) {
+        runningKnight11 += deltaTime * 0.1
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight11);
+        LIBS.translateZ(MAG_MATRIX, runningKnight11);
+
+      }else if (time > 9.5 && time < 9.9) {
+        runningKnight12 += deltaTime * 0.1
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight11);
+        LIBS.translateZ(MAG_MATRIX, runningKnight11);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateX(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateZ(MAG_MATRIX, runningKnight12);
+
+      }else if (time > 9.9 && time < 10.4) {
+        runningKnight13 += deltaTime * 0.1
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight11);
+        LIBS.translateZ(MAG_MATRIX, runningKnight11);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateX(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateZ(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight13);
+        LIBS.translateZ(MAG_MATRIX, runningKnight13);
+
+
+      }else if (time > 10.4 && time < 13) {
+        runningKnight14 += deltaTime * 0.04
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight11);
+        LIBS.translateZ(MAG_MATRIX, runningKnight11);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateX(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateZ(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight13);
+        LIBS.translateZ(MAG_MATRIX, runningKnight13);
+
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, runningKnight14);
+        LIBS.rotateY(LEGG_KANAN_MATRIX, runningKnight14);
+        LIBS.rotateY(LEGG_KIRI_MATRIX, runningKnight14);
+        LIBS.rotateY(MAG_MATRIX, runningKnight14);
+      } if (time > 13 && time < 16) {
+        runningKnight15 += deltaTime * 0.04
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight11);
+        LIBS.translateZ(MAG_MATRIX, runningKnight11);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateX(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateZ(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight13);
+        LIBS.translateZ(MAG_MATRIX, runningKnight13);
+
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, runningKnight14);
+        LIBS.rotateY(LEGG_KANAN_MATRIX, runningKnight14);
+        LIBS.rotateY(LEGG_KIRI_MATRIX, runningKnight14);
+        LIBS.rotateY(MAG_MATRIX, runningKnight14);
+
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, -runningKnight15);
+        LIBS.rotateY(LEGG_KANAN_MATRIX, -runningKnight15);
+        LIBS.rotateY(LEGG_KIRI_MATRIX, -runningKnight15);
+        LIBS.rotateY(MAG_MATRIX, -runningKnight15);
+      } if (time > 16) {
+        runningKnight16 += deltaTime * 0.04
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight0);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight0);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight0);
+  
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateX(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight1);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight1);
+        LIBS.translateZ(MAG_MATRIX, runningKnight1);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight2);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight2);
+        LIBS.translateX(MAG_MATRIX, runningKnight2);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateX(LEGG_KIRI_MATRIX,-runningKnight3);
+        LIBS.translateX(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight3);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight3);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight3);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight4);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight4);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight4);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight5);
+        LIBS.translateZ(LEGG_KIRI_MATRIX,runningKnight5);
+        LIBS.translateZ(MAG_MATRIX, runningKnight5);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateX(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight6);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight6);
+        LIBS.translateZ(MAG_MATRIX, runningKnight6);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight7);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight7);
+        LIBS.translateZ(MAG_MATRIX, runningKnight7);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KANAN_MATRIX, -runningKnight8);
+        LIBS.translateX(LEGG_KIRI_MATRIX, -runningKnight8);
+        LIBS.translateX(MAG_MATRIX, -runningKnight8);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, -runningKnight9);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, -runningKnight9);
+        LIBS.translateZ(MAG_MATRIX, -runningKnight9);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight10);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight10);
+        LIBS.translateX(MAG_MATRIX, runningKnight10);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight11);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight11);
+        LIBS.translateZ(MAG_MATRIX, runningKnight11);
+
+        LIBS.translateX(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateX(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateX(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight12);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight12);
+        LIBS.translateZ(MAG_MATRIX, runningKnight12);
+
+        LIBS.translateZ(KNIGHT_MODEL_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KANAN_MATRIX, runningKnight13);
+        LIBS.translateZ(LEGG_KIRI_MATRIX, runningKnight13);
+        LIBS.translateZ(MAG_MATRIX, runningKnight13);
+
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, runningKnight14);
+        LIBS.rotateY(LEGG_KANAN_MATRIX, runningKnight14);
+        LIBS.rotateY(LEGG_KIRI_MATRIX, runningKnight14);
+        LIBS.rotateY(MAG_MATRIX, runningKnight14);
+
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, -runningKnight15);
+        LIBS.rotateY(LEGG_KANAN_MATRIX, -runningKnight15);
+        LIBS.rotateY(LEGG_KIRI_MATRIX, -runningKnight15);
+        LIBS.rotateY(MAG_MATRIX, -runningKnight15);
+      
+        LIBS.rotateY(KNIGHT_MODEL_MATRIX, runningKnight16);
+        LIBS.rotateY(LEGG_KANAN_MATRIX, runningKnight16);
+        LIBS.rotateY(LEGG_KIRI_MATRIX, runningKnight16);
+        LIBS.rotateY(MAG_MATRIX, runningKnight16);
+      }
+
+
+  
+      //Knight POV
+      if (time > 0.8 && time < 2.5) {
+        //normal
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -60, 0, 0, 0);
+      } else if (time > 2.5 && time < 2.7) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -60, 0, 0, 0);
+  
+      } else if (time > 2.7 && time < 3.4) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -80, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -80, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -80, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -80, 0, 0, 0);
+  
+      } else if (time > 3.4 && time < 4.2) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -65, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -65, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -65, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -65, 0, 0, 0);
+      } else if (time > 4.2 && time < 4.7) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -60, 0, 0, 0);
+  
+      } else if (time > 4.7 && time < 5.1) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, 0, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, 0, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, 0, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, 0, 0, 0, 0);
+  
+      } else if (time > 5.1 && time < 5.5) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, 20, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, 20, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, 20, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, 20, 0, 0, 0);
+      } else if (time > 6 && time < 6.6) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -90, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -90, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -90, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -90, 0, 0, 0);
+      } else if (time > 6.6 && time < 8.3) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -60, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -60, 0, 0, 0);
+      } else if (time > 8.3 && time < 9) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, -80, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, -80, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, -80, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, -80, 0, 0, 0);
+      } else if (time > 9 && time < 9.5) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, 0, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, 0, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, 0, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, 0, 0, 0, 0);
+      }else if (time > 9.5 && time < 9.9) {
+        LIBS.rotateAroundY(KNIGHT_MODEL_MATRIX, 20, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KANAN_MATRIX, 20, 0, 0, 0);
+        LIBS.rotateAroundY(LEGG_KIRI_MATRIX, 20, 0, 0, 0);
+        LIBS.rotateAroundY(MAG_MATRIX, 20, 0, 0, 0);
+      }
+      //End Knight Animation
+
       /*========================= SCENE ANIMATION ========================= */
   
       /*================================================================= */
@@ -2391,6 +4614,128 @@ function createVertexBuffer(GL, data) {
   
       GL.drawElements(GL.TRIANGLES, gun.faces.length, GL.UNSIGNED_SHORT, 0);
       /*========================= WEAPONS ========================= */
+
+
+      /*================================================================= */
+      /*=========================== DRAW KNIGHT ========================== */
+      /*================================================================= */
+      //Badan
+      GL.bindBuffer(GL.ARRAY_BUFFER, triangle_vbo);
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, triangle_ebo);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 6 * 4, 0);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 6 * 4, 3 * 4);
+
+      
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, KNIGHT_MODEL_MATRIX);
+      
+      
+      GL.drawElements(GL.TRIANGLES, cube_faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //kaki kanan
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_RIGHT_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_RIGHT_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, LEGG_KANAN_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, LEGG_RIGHT.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //kaki kiri
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_VERTEX);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, LEGG_LEFT_COLORS);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, LEGG_LEFT_FACES);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, LEGG_KIRI_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, LEGG_LEFT.faces.length, GL.UNSIGNED_SHORT, 0);
+      
+      // Pistol kiri
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_vertex_left);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_colors_left);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, mag_faces_left);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, MAG_MATRIX);
+  
+      GL.drawElements(
+        GL.TRIANGLE_STRIP,
+        magLeft.faces.length,
+        GL.UNSIGNED_SHORT,
+        0
+      );
+
+      //pelatuk
+      // Draw Left
+      GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_LEFT);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_LEFT);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_LEFT);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, LEGG_KIRI_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, Left.faces.length, GL.UNSIGNED_SHORT, 0);
+
+      //Pistol Kanan
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_vertex_right);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, mag_colors_right);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, mag_faces_right);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, MAG_MATRIX);
+  
+      GL.drawElements(
+        GL.TRIANGLE_STRIP,
+        magLeft.faces.length,
+        GL.UNSIGNED_SHORT,
+        0
+      );
+
+      //pelatuk
+      // Draw Right
+      GL.bindBuffer(GL.ARRAY_BUFFER, VERTEX_RIGHT);
+      GL.vertexAttribPointer(_position, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ARRAY_BUFFER, COLORS_RIGHT);
+      GL.vertexAttribPointer(_color, 3, GL.FLOAT, false, 0, 0);
+  
+      GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, FACES_RIGHT);
+  
+      GL.uniformMatrix4fv(_PMatrix, false, PROJECTION_MATRIX);
+      GL.uniformMatrix4fv(_VMatrix, false, KNIGHT_VIEW_MATRIX);
+      GL.uniformMatrix4fv(_MMatrix, false, LEGG_KANAN_MATRIX);
+  
+      GL.drawElements(GL.TRIANGLES, Left.faces.length, GL.UNSIGNED_SHORT, 0);
+      /*========================= END ========================= */
   
       GL.flush();
   
